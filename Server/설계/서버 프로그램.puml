@@ -1,0 +1,26 @@
+@startuml
+object Main
+object ServerController
+ServerController : Controller
+
+object ServerUI
+object Server
+Server : Thread
+
+object ServerHandler
+object ServerListener
+object LoginListener
+object EventBus
+object DataBase
+DataBase : 그림을 제외한 모든 데이터가 보관됨.
+
+Main --> ServerController : 실행
+ServerController <--> ServerUI : View
+ServerController <--> Server : Model
+Server --> ServerHandler : 로직 처리
+Server --> EventBus : register()
+ServerHandler --> EventBus : post()
+EventBus --> ServerListener : handle() by post()
+ServerListener --> DataBase : 로직에 따라서 데이터 사용함
+ServerListener <|-- LoginListener
+@enduml
