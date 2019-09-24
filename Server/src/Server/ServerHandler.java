@@ -14,6 +14,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<GamePacket>
         this.bus = bus;
     }
 
+    // GamePacketDecoder를 사용하여 수신한 UDP 패킷을 자동으로 GamePacket으로 바꿔준다.
     protected void channelRead0(ChannelHandlerContext ctx, GamePacket msg) throws Exception
     {
         msg.setSender(ctx);

@@ -16,4 +16,9 @@ public class GamePacket
     {
         this.sender = sender;
     }
+
+    public String getID()
+    {
+        return ID;
+    }
 }

@@ -1,7 +1,6 @@
 package Response;
 
 import Request.GamePacket;
-import Request.LoginRequest;
 
 public class LoginResponse extends GamePacket
 {
