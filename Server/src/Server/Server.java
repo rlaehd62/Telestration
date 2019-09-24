@@ -1,8 +1,12 @@
 package Server;
 
 import Listener.LoginListener;
+import Request.LoginRequest;
 import Swing.ServerController;
+import Util.DataController;
 import Util.GamePacketDecoder;
+import Util.GamePacketEncoder;
+import Util.ServerDB;
 import com.google.common.eventbus.EventBus;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -23,6 +27,7 @@ public class Server extends Thread
     private EventBus eventBus;
     private EventLoopGroup boss;
     private EventLoopGroup work;
+
     private ServerController controller;
 
     private Server()
@@ -57,9 +62,11 @@ public class Server extends Thread
 
         } catch (InterruptedException e)
         {
+            ServerDB.getInstance().close();
             stopServer();
         } finally
         {
+            ServerDB.getInstance().close();
             stopServer();
         }
 
@@ -67,12 +74,14 @@ public class Server extends Thread
 
     private ChannelInitializer<SocketChannel> initializer()
     {
+        ServerDB.getInstance().open();
         return new ChannelInitializer<SocketChannel>()
         {
             protected void initChannel(SocketChannel ch) throws Exception
             {
                 ChannelPipeline cp = ch.pipeline();
-                cp.addLast(new GamePacketDecoder());
+                cp.addLast("Decoder", new GamePacketDecoder());
+                cp.addLast("Encoder", new GamePacketEncoder());
                 cp.addLast(new ServerHandler(eventBus));
             }
         };
@@ -100,6 +109,7 @@ public class Server extends Thread
             running = false;
             controller.log("중요", "서버가 종료되었습니다!");
             controller.log("경고", "서버를 재시작 하려면, 프로그램을 다시 시작해주세요.");
+            ServerDB.getInstance().close();
             work.shutdownGracefully();
             boss.shutdownGracefully();
         }
