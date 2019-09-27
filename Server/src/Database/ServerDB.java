@@ -1,14 +1,15 @@
-package Util;
+package Database;
+
+import MVP.DataPresenter;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ServerDB
+public class ServerDB implements DataPresenter.DataModel
 {
     private static ServerDB ins = null;
-    private Connection conn = null;
 
     private ServerDB() { }
     public static ServerDB getInstance()
@@ -20,12 +21,12 @@ public class ServerDB
     {
         try
         {
-            Statement state = conn.createStatement();
+            Statement state = getConnection().createStatement();
 
             String ACCOUNT =
                     "CREATE TABLE IF NOT EXISTS ACCOUNT" +
                             "(" +
-                            "ID INT PRIMARY KEY NOT NULL," +
+                            "ID VARCHAR (45) PRIMARY KEY NOT NULL," +
                             "PW VARCHAR (45) NOT NULL" +
                             ")";
 
@@ -34,7 +35,7 @@ public class ServerDB
                             "(" +
                             "ID INT PRIMARY KEY NOT NULL," +
                             "TITLE VARCHAR (45) NOT NULL," +
-                            "OWNER INT NOT NULL," +
+                            "OWNER VARCHAR(45) NOT NULL," +
                             "LMT INT NOT NULL," +
                             "AMOUNT INT NOT NULL," +
                             "FOREIGN KEY (OWNER) REFERENCES ACCOUNT(ID)" +
@@ -44,11 +45,12 @@ public class ServerDB
                     "CREATE TABLE IF NOT EXISTS USERS" +
                             "(" +
                             "ID INT PRIMARY KEY NOT NULL," +
-                            "STATE INT NOT NULL," +
+                            "STATE INT NULLABLE," +
                             "LV INT NOT NULL," +
                             "EXP INT NOT NULL," +
                             "MAX_EXP INT NOT NULL," +
-                            "ROOM_ID INT NOT NULL," +
+                            "ROOM_ID INT NULLABLE," +
+                            "FOREIGN KEY (ID) REFERENCES ACCOUNT(ID)" +
                             "FOREIGN KEY (ROOM_ID) REFERENCES ROOM(ID)" +
                             ")";
 
@@ -64,45 +66,18 @@ public class ServerDB
         }
     }
 
-    public synchronized boolean open()
-    {
-        try
-        {
-            Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("jdbc:sqlite:GAME.db");
-            initDB();
-            return true;
-        }
-
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public synchronized boolean close()
-    {
-        try
-        {
-            if(!conn.isClosed())
-            {
-                conn.close();
-                return true;
-            }
-        }
-
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return false;
-        }
-
-        return false;
-    }
-
     public synchronized Connection getConnection()
     {
-        return conn;
+        try
+        {
+            return DriverManager.getConnection("jdbc:sqlite:GAME.db");
+        }
+
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

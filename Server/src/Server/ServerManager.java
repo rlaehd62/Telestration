@@ -1,19 +1,19 @@
-package Swing;
+package Server;
 
-import Server.Server;
+import MVP.ServerPresenter;
 
-public class ServerController
+public class ServerManager implements ServerPresenter
 {
-    private ServerUI view;
+    private ServerView view;
     private Server server;
 
-    public ServerController()
+    public ServerManager()
     {
         view = new ServerUI();
         server = Server.getInstance();
 
-        view.setController(this);
-        server.setController(this);
+        view.setPresenter(this);
+        server.setPresenter(this);
         log("알림", "프로그램이 시작되었습니다.");
     }
 

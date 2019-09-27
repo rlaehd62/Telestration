@@ -1,0 +1,45 @@
+@startuml
+
+object Main
+object ServerPresenter
+object ServerModel
+object ServerView
+object Server
+object ServerHandler
+object EventBus
+object ServerListener
+
+object DataPresenter
+object DataModel
+object ConnectionPool
+
+Main : 최초 시작
+EventBus : 객체의 타입에 따라서 이벤트 처리
+ServerPresenter : 인터페이스 (Interface)
+ServerView : 인터페이스 (Interface)
+ServerModel : 인터페이스 (Interface)
+DataPresenter : 인터페이스 (Interface)
+DataModel : 인터페이스 (Interface) + 실질적인 DB
+ServerListener : 추상 클래스 (Abstract Class)
+Server : 서버 쓰레드
+ConnectionPool : 사용자에 대한 연결을 담고 있음
+
+
+Server --|> ServerModel
+
+Main --> ServerView : ▼ 입력 이벤트 발생
+Main --> DataPresenter : ▼ DB 초기화
+
+ServerView <-- ServerPresenter : ▲ I에 로그 기록
+ServerView --> ServerPresenter : ▼ 시작/종료 명령
+ServerModel <--> ServerPresenter : ▲ 서버 실행 및 종료
+ServerModel --> ServerHandler : ▼ 핸들러 생성 및 등록
+
+DataPresenter <--> DataModel : ▼ DB에 연결
+DataPresenter --> ServerPresenter : ▼ 로그 기능 이용
+
+ServerHandler --> EventBus : ▼ post()
+EventBus --> ServerListener : ◀ 타입에 따라 호출
+DataPresenter <-- ServerListener : ▲ DB에 대한 기능을 사용
+ConnectionPool <-- ServerListener : ▲ 연결을 관리 및 사용
+@enduml

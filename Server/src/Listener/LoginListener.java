@@ -1,23 +1,21 @@
 package Listener;
 
+import MVP.DataPresenter;
 import Request.LoginRequest;
-import Util.AccountFetcher;
-import Util.DataController;
-import Util.ServerDB;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import Database.DataManager;
 
 public class LoginListener extends ServerListener<LoginRequest>
 {
-    private DataController controller = DataController.getInstance();
+    private DataPresenter presenter = DataManager.getInstance();
 
     public void handle(LoginRequest message)
     {
-        if(message.isSignUp()) controller.signup(message);
-        else
+        String ID = message.getID();
+        if(message.isSignUp() && !presenter.isRegistered(ID)) presenter.register(message);
+        if(presenter.isRegistered(ID) && presenter.isOnline(ID))
         {
-            // 로그인 상태로 바꾼다 (오프라인 to 온라인)
+            presenter.setOnline(ID);
+            // 커넥션 풀에 등록한다.
         }
     }
 
