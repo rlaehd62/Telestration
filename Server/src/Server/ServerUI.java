@@ -1,13 +1,15 @@
-package Swing;
+package Server;
+
+import MVP.ServerPresenter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ServerUI extends JFrame
+public class ServerUI extends JFrame implements ServerPresenter.ServerView
 {
-    private ServerController controller;
+    private ServerPresenter presenter;
     private JButton button;
     private JTextArea area;
 
@@ -35,7 +37,7 @@ public class ServerUI extends JFrame
         setResizable(false);
     }
 
-    private void init()
+    public void init()
     {
         button = new JButton(START);
         button.addActionListener(new ClickEvent());
@@ -46,7 +48,7 @@ public class ServerUI extends JFrame
 
     public void updateText()
     {
-        if(controller.isRunning()) button.setText(START);
+        if(presenter.isRunning()) button.setText(START);
         else button.setText(STOP);
     }
 
@@ -56,9 +58,9 @@ public class ServerUI extends JFrame
         area.setCaretPosition(area.getText().length() - 1);
     }
 
-    public void setController(ServerController controller)
+    public void setPresenter(ServerPresenter presenter)
     {
-        this.controller = controller;
+        this.presenter = presenter;
     }
 
     private class ClickEvent implements ActionListener
@@ -66,10 +68,10 @@ public class ServerUI extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             updateText();
-            if(!controller.isRunning())  controller.startServer();
+            if(!presenter.isRunning()) presenter.startServer();
             else
             {
-                controller.stopServer();
+                presenter.stopServer();
                 button.setEnabled(false);
             }
         }
