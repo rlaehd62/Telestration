@@ -12,12 +12,13 @@ public interface DataPresenter
     void register(LoginRequest request);
     boolean isRegistered(String ID);
 
-    void setOffline(String ID);
-    void setOnline(String ID);
+    void setOnline(String ID, boolean isOnline);
     boolean isOnline(String ID);
 
     boolean hasRoom(int ID);
     void setRoomID(String ID, int RoomID);
+    void createRoom(String OWNER, String TITLE, int LIMIT);
+    boolean isOwner(String ID);
 
     void setPresenter(ServerPresenter presenter);
 

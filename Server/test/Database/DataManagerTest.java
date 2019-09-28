@@ -15,7 +15,7 @@ class DataManagerTest
     void isRegistered()
     {
         ServerDB.getInstance().initDB();
-        DM.register(new LoginRequest(ID, "1234"));
+        DM.register(new LoginRequest(ID, "#12%31fd#!@"));
         assertEquals(DM.isRegistered(ID), true);
     }
 
@@ -23,7 +23,15 @@ class DataManagerTest
     void setOnline()
     {
         assertEquals(DM.isOnline(ID), false);
-        DM.setOnline(ID);
+        DM.setOnline(ID, true);
         assertEquals(DM.isOnline(ID), true);
+    }
+
+    @Test
+    void createRoom()
+    {
+        DM.createRoom("rlaehd62", "테스트", 1);
+        assertEquals(DM.isOwner(ID), true);
+        assertEquals(DM.hasRoom(1), true);
     }
 }

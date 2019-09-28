@@ -21,4 +21,9 @@ public class GamePacket
     {
         return ID;
     }
+
+    public ChannelHandlerContext getSender()
+    {
+        return sender;
+    }
 }
