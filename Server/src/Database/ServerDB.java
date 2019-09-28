@@ -2,6 +2,7 @@ package Database;
 
 import MVP.DataPresenter;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -33,23 +34,23 @@ public class ServerDB implements DataPresenter.DataModel
             String ROOM =
                     "CREATE TABLE IF NOT EXISTS ROOM" +
                             "(" +
-                            "ID INT PRIMARY KEY NOT NULL," +
+                            "ID INTEGER PRIMARY KEY NOT NULL," +
                             "TITLE VARCHAR (45) NOT NULL," +
                             "OWNER VARCHAR(45) NOT NULL," +
-                            "LMT INT NOT NULL," +
-                            "AMOUNT INT NOT NULL," +
+                            "LMT INTEGER NOT NULL," +
+                            "AMOUNT INTEGER NOT NULL," +
                             "FOREIGN KEY (OWNER) REFERENCES ACCOUNT(ID)" +
                             ")";
 
             String USERS =
                     "CREATE TABLE IF NOT EXISTS USERS" +
                             "(" +
-                            "ID INT PRIMARY KEY NOT NULL," +
+                            "ID VARCHAR(45) PRIMARY KEY NOT NULL," +
                             "STATE INT NULLABLE," +
-                            "LV INT NOT NULL," +
-                            "EXP INT NOT NULL," +
-                            "MAX_EXP INT NOT NULL," +
-                            "ROOM_ID INT NULLABLE," +
+                            "LV INTEGER NOT NULL," +
+                            "EXP INTEGER NOT NULL," +
+                            "MAX_EXP INTEGER NOT NULL," +
+                            "ROOM_ID INTEGER NULLABLE," +
                             "FOREIGN KEY (ID) REFERENCES ACCOUNT(ID)" +
                             "FOREIGN KEY (ROOM_ID) REFERENCES ROOM(ID)" +
                             ")";
@@ -70,7 +71,11 @@ public class ServerDB implements DataPresenter.DataModel
     {
         try
         {
-            return DriverManager.getConnection("jdbc:sqlite:GAME.db");
+            String path = System.getProperty("user.home") + "/Telestration";
+            File file = new File(path);
+            if(!file.exists()) file.mkdirs();
+
+            return DriverManager.getConnection("jdbc:sqlite:" + path + "/GAME.db");
         }
 
         catch (SQLException e)
