@@ -3,6 +3,7 @@ package Database;
 import MVP.DataPresenter;
 import MVP.ServerPresenter;
 import Request.LoginRequest;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
 import java.sql.*;
 
@@ -25,15 +26,17 @@ public class DataManager implements DataPresenter
     {
         if(!isRegistered(request.getID()))
         {
-            try (Connection conn = model.getConnection())
+            Connection conn = model.getConnection();
+            try
             {
+                conn.setAutoCommit(false);
+
                 String QUERY1 = "INSERT INTO ACCOUNT(ID, PW) VALUES(?, ?)";
                 PreparedStatement INSERT1 = conn.prepareStatement(QUERY1);
 
                 INSERT1.setString(1, request.getID());
                 INSERT1.setString(2, request.getPW());
                 INSERT1.executeUpdate();
-                INSERT1.close();
 
                 String QUERY2 = "INSERT INTO USERS (ID, STATE, LV, EXP, MAX_EXP, ROOM_ID) VALUES (?, ?, ?, ?, ?, ?)";
                 PreparedStatement INSERT2 = conn.prepareStatement(QUERY2);
@@ -45,12 +48,21 @@ public class DataManager implements DataPresenter
                 INSERT2.setInt(5, 100);
                 INSERT2.setNull(6, Types.INTEGER);
                 INSERT2.executeUpdate();
-                INSERT2.close();
 
-                // presenter.log("중요", request.getID() + " 계정이 추가되었습니다.");
+                conn.commit();
+                INSERT1.close();
+                INSERT2.close();
+                conn.close();
+                presenter.log("중요", request.getID() + " 계정이 추가되었습니다.");
             }
             catch (SQLException e)
             {
+                try
+                {
+                    conn.rollback();
+                    presenter.log("오류", "사용자의 계정을 추가하는 과정에서 오류가 발생했습니다.");
+                    presenter.log("복구", "데이터를 입력하기 이전으로 롤백합니다.");
+                } catch (SQLException ex) { ex.printStackTrace(); }
                 e.printStackTrace();
             }
         }
@@ -99,8 +111,11 @@ public class DataManager implements DataPresenter
     {
         if(isRegistered(OWNER) && isOnline(OWNER) && !isOwner(OWNER))
         {
-            try (Connection conn = model.getConnection())
+            Connection conn = model.getConnection();
+            try
             {
+                conn.setAutoCommit(false);
+
                 String QUERY = "INSERT INTO ROOM(ID, TITLE, OWNER, LMT, AMOUNT) VALUES(NULL, ?, ?, ?, ?)";
                 PreparedStatement ps = conn.prepareStatement(QUERY);
                 ps.setString(1, TITLE);
@@ -108,9 +123,18 @@ public class DataManager implements DataPresenter
                 ps.setInt(3, LIMIT);
                 ps.setInt(4, 0);
                 ps.executeUpdate();
+
+                conn.commit();
                 ps.close();
+                conn.close();
             } catch (Exception e)
             {
+                try
+                {
+                    conn.rollback();
+                    presenter.log("오류", "사용자의 계정을 추가하는 과정에서 오류가 발생했습니다.");
+                    presenter.log("복구", "데이터를 입력하기 이전으로 롤백합니다.");
+                } catch (SQLException ex) { ex.printStackTrace(); }
                 e.printStackTrace();
             }
         }
