@@ -13,6 +13,21 @@ object DataPresenter
 object DataModel
 object ChannelManager
 
+object RoomModel
+object AccountModel
+object UserModel
+
+object RoomManager
+object AccountManager
+object UserManager
+object ServerDB
+
+
+ServerDB : DataModel의 실제 구현체
+RoomModel : Room 테이블을 관리하는 기능
+AccountModel : Account 테이블을 관리하는 기능
+UserModel : Users 테이블을 관리하는 기능
+
 Main : 최초 시작
 EventBus : 객체의 타입에 따라서 이벤트 처리
 ServerPresenter : 인터페이스 (Interface)
@@ -32,11 +47,20 @@ Main --> DataPresenter : ▼ DB 초기화
 
 ServerView <-- ServerPresenter : ▲ 작업 로그를 기록한다.
 ServerView --> ServerPresenter : ▼ 시작/종료 명령
-ServerModel <--> ServerPresenter : ▲ 서버 실행 및 종료
+ServerModel <--> ServerPresenter : ◀ 서버 실행 및 종료
 ServerModel --> ServerHandler : ▼ 핸들러 생성 및 등록
 
+
 DataPresenter <--> DataModel : ▼ DB에 연결
-DataPresenter --> ServerPresenter : ▼ 로그 기능 이용
+DataPresenter <--> RoomModel
+DataPresenter <--> AccountModel
+DataPresenter <--> UserModel
+DataPresenter --> ServerPresenter : ◀ 로그 기능 이용
+
+ServerDB --|> DataModel
+RoomManager --|> RoomModel
+AccountManager --|> AccountModel
+UserManager --|> UserModel
 
 ServerHandler --> EventBus : ▼ post()
 EventBus --> ServerListener : ◀ 타입에 따라 호출

@@ -17,7 +17,7 @@ public class LoginListener extends ServerListener<LoginRequest>
         if(message.isSignUp() && !presenter.isRegistered(ID)) presenter.register(message);
         if(presenter.isRegistered(ID) && !presenter.isOnline(ID))
         {
-            presenter.setOnline(ID, true);
+            presenter.setState(ID, true);
             ChannelManager.getChannels().put(ID, message.getSender());
             accepted = true;    // 접속 허가
         }
