@@ -24,13 +24,12 @@ public class RoomManager implements DataPresenter.RoomModel
         {
             conn.setAutoCommit(false);
 
-            String Q = "INSERT INTO ROOM(TITLE, OWNER, LMT, AMOUNT, TIMEOUT) VALUES (?, ?, ?, ?, ?)";
+            String Q = "INSERT INTO ROOM(TITLE, OWNER, LMT, TIMEOUT) VALUES (?, ?, ?, ?)";
             PreparedStatement st = conn.prepareStatement(Q);
             st.setString(1, title);
             st.setString(2, owner);
             st.setInt(3, limit);
-            st.setInt(4, 1);
-            st.setInt(5, timeout);
+            st.setInt(4, timeout);
             st.executeUpdate();
 
             final int RoomID = searchRoom(owner);
@@ -56,13 +55,12 @@ public class RoomManager implements DataPresenter.RoomModel
         {
             conn.setAutoCommit(false);
 
-            if(!presenter.removeRoomID(getOwner(RoomID))) return false;
-            String R = "SELECT ID FROM USERS WHERE ROOM_ID=?";
+            // if(!presenter.removeRoomID(getOwner(RoomID))) return false;
+            // String temp = "SELECT ID FROM USERS WHERE ROOM_ID=?";
+            String R = "UPDATE USERS SET ROOM_ID=NULL WHERE ROOM_ID=?";
             PreparedStatement rs = conn.prepareStatement(R);
             rs.setInt(1, RoomID);
-
-            ResultSet result = rs.executeQuery();
-            for(int i = 1; result.next(); i++) presenter.removeRoomID(result.getString(i));
+            rs.executeUpdate();
 
             String Q = "DELETE FROM ROOM WHERE ID=?";
             PreparedStatement st = conn.prepareStatement(Q);
@@ -70,7 +68,6 @@ public class RoomManager implements DataPresenter.RoomModel
             st.executeUpdate();
 
             conn.commit();
-            result.close();
             rs.close();
             st.close();
             conn.close();

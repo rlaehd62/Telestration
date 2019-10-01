@@ -39,7 +39,6 @@ public class ServerDB implements DataPresenter.DataModel
                             "TITLE VARCHAR (45) NOT NULL," +
                             "OWNER VARCHAR(45) NOT NULL," +
                             "LMT INTEGER NOT NULL," +
-                            "AMOUNT INTEGER NOT NULL," +
                             "TIMEOUT INTEGER NOT NULL," +
                             "FOREIGN KEY (OWNER) REFERENCES ACCOUNT(ID)" +
                             ")";
