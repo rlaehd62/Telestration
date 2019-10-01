@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 public class ServerDB implements DataPresenter.DataModel
 {
@@ -39,6 +40,7 @@ public class ServerDB implements DataPresenter.DataModel
                             "OWNER VARCHAR(45) NOT NULL," +
                             "LMT INTEGER NOT NULL," +
                             "AMOUNT INTEGER NOT NULL," +
+                            "TIMEOUT INTEGER NOT NULL," +
                             "FOREIGN KEY (OWNER) REFERENCES ACCOUNT(ID)" +
                             ")";
 
@@ -51,8 +53,7 @@ public class ServerDB implements DataPresenter.DataModel
                             "EXP INTEGER NOT NULL," +
                             "MAX_EXP INTEGER NOT NULL," +
                             "ROOM_ID INTEGER NULLABLE," +
-                            "FOREIGN KEY (ID) REFERENCES ACCOUNT(ID)" +
-                            "FOREIGN KEY (ROOM_ID) REFERENCES ROOM(ID)" +
+                            "FOREIGN KEY (ID) REFERENCES ACCOUNT(ID) ON DELETE CASCADE" +
                             ")";
 
             state.execute(ACCOUNT);
@@ -73,9 +74,14 @@ public class ServerDB implements DataPresenter.DataModel
         {
             String path = System.getProperty("user.home") + "/Telestration";
             File file = new File(path);
-            if(!file.exists()) file.mkdirs();
+            if(!file.exists())
+            {
+                file.mkdirs();
+            }
 
-            return DriverManager.getConnection("jdbc:sqlite:" + path + "/GAME.db");
+            Properties properties = new Properties();
+            properties.setProperty("foreign_keys", "ON");
+            return DriverManager.getConnection("jdbc:sqlite:" + path + "/GAME.db", properties);
         }
 
         catch (SQLException e)

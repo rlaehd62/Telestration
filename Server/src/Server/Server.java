@@ -65,7 +65,6 @@ public class Server extends Thread implements ServerPresenter.ServerModel
 
     private ChannelInitializer<SocketChannel> initializer()
     {
-        ServerDB.getInstance().initDB();
         return new ChannelInitializer<SocketChannel>()
         {
             protected void initChannel(SocketChannel ch) throws Exception
