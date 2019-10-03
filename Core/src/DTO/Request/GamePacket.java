@@ -1,4 +1,4 @@
-package Request;
+package DTO.Request;
 
 import io.netty.channel.ChannelHandlerContext;
 

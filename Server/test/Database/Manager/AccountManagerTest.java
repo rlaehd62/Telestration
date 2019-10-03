@@ -1,0 +1,38 @@
+package Database.Manager;
+
+import DTO.Request.Account.LoginRequest;
+import DTO.Response.AccountResponse;
+import Database.DataManager;
+import Database.ServerDB;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class AccountManagerTest
+{
+    private DataManager manager = DataManager.getInstance();
+    private String ID = "rlaehd62";
+    private String PW = "#5pt3$%f31";
+    private String NEW_PW = "%421412%";
+
+    @Test
+    void insertAccount()
+    {
+        ServerDB.getInstance().initDB();
+        manager.InsertAccount(new LoginRequest(ID, PW));
+        AccountResponse response = manager.getAccount(ID);
+        assertNotNull(response);
+        assertEquals(response.getID(), ID);
+        assertEquals(response.getPassword(), PW);
+    }
+
+    @Test
+    void updateAccount()
+    {
+        manager.UpdateAccount(new LoginRequest(ID, NEW_PW));
+        AccountResponse response = manager.getAccount(ID);
+        assertNotNull(response);
+        assertEquals(response.getID(), ID);
+        assertEquals(response.getPassword(), NEW_PW);
+    }
+}

@@ -1,6 +1,6 @@
 package Util;
 
-import Request.GamePacket;
+import DTO.Request.GamePacket;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.socket.DatagramPacket;

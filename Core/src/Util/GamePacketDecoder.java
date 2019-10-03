@@ -1,6 +1,6 @@
 package Util;
 
-import Request.GamePacket;
+import DTO.Request.GamePacket;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.handler.codec.MessageToMessageDecoder;

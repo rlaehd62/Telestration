@@ -39,7 +39,6 @@ public class ServerDB implements DataPresenter.DataModel
                             "TITLE VARCHAR (45) NOT NULL," +
                             "OWNER VARCHAR(45) NOT NULL," +
                             "LMT INTEGER NOT NULL," +
-                            "AMOUNT INTEGER NOT NULL," +
                             "TIMEOUT INTEGER NOT NULL," +
                             "FOREIGN KEY (OWNER) REFERENCES ACCOUNT(ID)" +
                             ")";
@@ -48,11 +47,11 @@ public class ServerDB implements DataPresenter.DataModel
                     "CREATE TABLE IF NOT EXISTS USERS" +
                             "(" +
                             "ID VARCHAR(45) PRIMARY KEY NOT NULL," +
-                            "STATE INT NULLABLE," +
+                            "STATE INT NOT NULL," +
                             "LV INTEGER NOT NULL," +
                             "EXP INTEGER NOT NULL," +
                             "MAX_EXP INTEGER NOT NULL," +
-                            "ROOM_ID INTEGER NULLABLE," +
+                            "ROOM_ID INTEGER NOT NULL," +
                             "FOREIGN KEY (ID) REFERENCES ACCOUNT(ID) ON DELETE CASCADE" +
                             ")";
 

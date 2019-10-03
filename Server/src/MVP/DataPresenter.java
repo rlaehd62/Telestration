@@ -1,35 +1,27 @@
 package MVP;
 
-import Database.DataManager;
-import Request.LoginRequest;
+import DTO.Request.Users.AddUserRequest;
+import DTO.Request.Room.CreateRoomRequest;
+import DTO.Request.Account.LoginRequest;
+import DTO.Response.AccountResponse;
+import DTO.Response.RoomResponse;
+import DTO.Response.UserResponse;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public interface DataPresenter
 {
-
     void log(String tag, String text);
-
-    boolean register(LoginRequest request);
-    boolean setState(String ID, boolean online);
-    boolean setRoomID(String ID, int RoomID);
-    boolean removeRoomID(String ID);
-    int getRoomID(String ID);
-
-    boolean isRegistered(String ID);
-    boolean isOnline(String ID);
-    boolean isOwner(String owner);
-    boolean hasRoom(int RoomID);
     void setPresenter(ServerPresenter presenter);
 
-    boolean createRoom(String title, String owner, int limit, int timeout);
-    boolean removeRoom(int RoomID);
-    String getOwner(int RoomID);
-    int searchRoom(String owner);
-    String[] getMembers(int RoomID);
+    void UpdateUser(AddUserRequest request);
+    UserResponse getUser(String ID);
+
+    void InsertAccount(LoginRequest request);
+    void UpdateAccount(LoginRequest request);
+    AccountResponse getAccount(String ID);
+    boolean hasAccount(String ID);
+
 
     interface DataModel
     {
@@ -39,31 +31,27 @@ public interface DataPresenter
 
     interface AccountModel
     {
-        boolean register(LoginRequest request);
-        boolean unregister(String ID);
-        boolean isRegistered(String ID);
-        void setPresenter(DataPresenter presenter);
-    }
-
-    interface UserModel
-    {
-        boolean setState(String ID, boolean online);
-        boolean setRoomID(String ID, int RoomID);
-        boolean removeRoomID(String ID);
-        int getRoomID(String ID);
-        boolean isOnline(String ID);
+        void InsertAccount(LoginRequest request);
+        void UpdateAccount(LoginRequest request);
+        AccountResponse getAccount(String ID);
+        boolean hasAccount(String ID);
         void setPresenter(DataPresenter presenter);
     }
 
     interface RoomModel
     {
-        boolean createRoom(String title, String owner, int limit, int timeout);
-        boolean removeRoom(int RoomID);
-        boolean hasRoom(int RoomID);
-        String[] getMembers(int RoomID);
-        String getOwner(int RoomID);
-        boolean isOwner(String owner);
-        int searchRoom(String owner);
+        void InsertRoom(CreateRoomRequest request);
+        void UpdateRoom(CreateRoomRequest request);
+        RoomResponse selectRoom(final int RoomID);
+        boolean hasRoom(final int RoomID);
         void setPresenter(DataPresenter presenter);
+    }
+
+    interface UserModel
+    {
+        void UpdateUser(AddUserRequest request);
+        UserResponse getUser(String ID);
+        void setPresenter(DataPresenter presenter);
+
     }
 }
