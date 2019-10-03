@@ -1,6 +1,6 @@
 package Server;
 
-import Request.GamePacket;
+import DTO.Request.GamePacket;
 import com.google.common.eventbus.EventBus;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

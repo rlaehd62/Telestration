@@ -1,11 +1,14 @@
 package Database;
 
+import DTO.Request.Users.AddUserRequest;
+import DTO.Response.AccountResponse;
+import DTO.Response.UserResponse;
 import Database.Manager.AccountManager;
 import Database.Manager.RoomManager;
 import Database.Manager.UserManager;
 import MVP.DataPresenter;
 import MVP.ServerPresenter;
-import Request.LoginRequest;
+import DTO.Request.Account.LoginRequest;
 
 public class DataManager implements DataPresenter
 {
@@ -25,12 +28,11 @@ public class DataManager implements DataPresenter
         account = new AccountManager();
         account.setPresenter(this);
 
-        room = new RoomManager();
-        room.setPresenter(this);
-
         user = new UserManager();
         user.setPresenter(this);
 
+        room = new RoomManager();
+        room.setPresenter(this);
     }
 
     public void log(String tag, String text)
@@ -38,80 +40,38 @@ public class DataManager implements DataPresenter
         presenter.log(tag, text);
     }
 
-    public boolean register(LoginRequest request)
-    {
-        return account.register(request);
-    }
-
-    public boolean isRegistered(String ID)
-    {
-        return account.isRegistered(ID);
-    }
-
-
-    public boolean setState(String ID, boolean online)
-    {
-        return user.setState(ID, online);
-    }
-
-    public boolean isOnline(String ID)
-    {
-        return user.isOnline(ID);
-    }
-
-    public boolean setRoomID(String ID, int RoomID)
-    {
-        return user.setRoomID(ID, RoomID);
-    }
-
-    public boolean removeRoomID(String ID)
-    {
-        return user.removeRoomID(ID);
-    }
-
-    public int getRoomID(String ID)
-    {
-        return user.getRoomID(ID);
-    }
-
-
-    public boolean createRoom(String title, String owner, int limit, int timeout)
-    {
-        return room.createRoom(title, owner, limit, timeout);
-    }
-
-    public boolean hasRoom(int RoomID)
-    {
-        return room.hasRoom(RoomID);
-    }
-
-    public boolean removeRoom(int RoomID)
-    {
-        return room.removeRoom(RoomID);
-    }
-
-    public boolean isOwner(String owner)
-    {
-        return room.isOwner(owner);
-    }
-
-    public String getOwner(int RoomID)
-    {
-        return room.getOwner(RoomID);
-    }
-
-    public int searchRoom(String owner)
-    {
-        return searchRoom(owner);
-    }
-
-    public String[] getMembers(int RoomID)
-    {
-        return room.getMembers(RoomID);
-    }
-
     public void setPresenter(ServerPresenter presenter)
     {
         this.presenter = presenter;
+    }
+
+    public void UpdateUser(AddUserRequest request)
+    {
+        user.UpdateUser(request);
+    }
+
+    public UserResponse getUser(String ID)
+    {
+        return user.getUser(ID);
+    }
+
+    public void InsertAccount(LoginRequest request)
+    {
+        account.InsertAccount(request);
+    }
+
+    public void UpdateAccount(LoginRequest request)
+    {
+        account.UpdateAccount(request);
+    }
+
+    public AccountResponse getAccount(String ID)
+    {
+        return account.getAccount(ID);
+    }
+
+    public boolean hasAccount(String ID)
+    {
+        return account.hasAccount(ID);
     }
 }

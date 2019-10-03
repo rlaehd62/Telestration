@@ -1,5 +1,7 @@
 package Database.Manager;
 
+import DTO.Request.Users.AddUserRequest;
+import DTO.Response.UserResponse;
 import Database.ServerDB;
 import MVP.DataPresenter;
 
@@ -11,118 +13,84 @@ public class UserManager implements DataPresenter.UserModel
     private DataPresenter presenter;
 
     public UserManager() { DB = ServerDB.getInstance(); }
-    public boolean setState(String ID, boolean online)
+
+//    public void InsertUser(AddUserRequest request)
+//    {
+//        Connection conn = DB.getConnection();
+//        try
+//        {
+//            conn.setAutoCommit(false);
+//
+//            String query = "INSERT INTO USERS (ID, STATE, LV, EXP, MAX_EXP, ROOM_ID)  " +
+//                    "SELECT ?, 0, 1, 0, 100, 0 WHERE NOT EXISTS (SELECT * FROM USERS WHERE ID = ?)";
+//            PreparedStatement ps = conn.prepareStatement(query);
+//            ps.setString(1, request.getID());
+//            ps.setString(2, request.getID());
+//            ps.executeUpdate();
+//
+//            conn.commit();
+//            conn.close();
+//        } catch (SQLException e)
+//        {
+//            try { conn.rollback(); }
+//            catch (SQLException ex) { e.printStackTrace(); }
+//        }
+//    }
+
+    public void UpdateUser(AddUserRequest request)
     {
         Connection conn = DB.getConnection();
-
         try
         {
-            final int state = (online) ? 1 : 0;
+            conn.setAutoCommit(false);
 
-            String Q = "UPDATE USERS SET STATE=? WHERE ID=?";
-            PreparedStatement st = conn.prepareStatement(Q);
-            st.setInt(1, state);
-            st.setString(2, ID);
-            st.executeUpdate();
+            String query = "UPDATE USERS SET STATE = ?, LV = ?, EXP = ?, MAX_EXP = ?, ROOM_ID = ? WHERE ID = ? AND EXISTS (SELECT * FROM USERS WHERE ID = ?)";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, request.getState());
+            ps.setInt(2, request.getLevel());
+            ps.setInt(3, request.getExp());
+            ps.setInt(4, request.getMaxExp());
+            ps.setInt(5, request.getRoomID());
 
-            st.close();
+            ps.setString(6, request.getID());
+            ps.setString(7, request.getID());
+            ps.executeUpdate();
+
+            conn.commit();
             conn.close();
-            presenter.log("DB", "상태를 변경했음.");
-            return true;
+            presenter.log("유저 정보", request.getID() + " 유저의 정보가 User Table 내에서 수정됨.");
         } catch (SQLException e)
         {
             try { conn.rollback(); }
             catch (SQLException ex) { e.printStackTrace(); }
-            presenter.log("DB", "상태 변경 실패");
-            return false;
         }
     }
 
-    public boolean isOnline(String ID)
+    public UserResponse getUser(String ID)
     {
         try (Connection conn = DB.getConnection())
         {
-            String Q = "SELECT * FROM USERS WHERE ID=? AND STATE=1";
-            PreparedStatement st = conn.prepareStatement(Q);
-            st.setString(1, ID);
+            String query = "SELECT STATE, LV, EXP, MAX_EXP, ROOM_ID FROM USERS WHERE EXISTS (SELECT * FROM USERS WHERE ID = ?)";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, ID);
 
-            ResultSet result = st.executeQuery();
-            boolean RETURN = result.isBeforeFirst();
-
-            result.close();
-            return RETURN;
+            ResultSet result = ps.executeQuery();
+            if(result.isBeforeFirst())
+            {
+                UserResponse response = new UserResponse(ID);
+                response.setState(result.getInt("STATE"));
+                response.setLevel(result.getInt("LV"));
+                response.setExp(result.getInt("EXP"));
+                response.setMaxExp(result.getInt("MAX_EXP"));
+                response.setRoomID(result.getInt("ROOM_ID"));
+                return response;
+            }
         } catch (SQLException e)
         {
             e.printStackTrace();
-            return false;
         }
-    }
 
-    public boolean setRoomID(String ID, int RoomID)
-    {
-        Connection conn = DB.getConnection();
-
-        try
-        {
-            String Q = "UPDATE USERS SET ROOM_ID=? WHERE ID=? AND EXISTS (SELECT * FROM ROOM WHERE ID=?)";
-            PreparedStatement st = conn.prepareStatement(Q);
-            st.setInt(1, RoomID);
-            st.setString(2, ID);
-            st.setInt(3, RoomID);
-            st.executeUpdate();
-
-            st.close();
-            conn.close();
-            return true;
-        } catch (SQLException e)
-        {
-            try { conn.rollback(); }
-            catch (SQLException ex) { e.printStackTrace(); }
-            return false;
-        }
-    }
-
-    public boolean removeRoomID(String ID)
-    {
-        Connection conn = DB.getConnection();
-
-        try
-        {
-            String Q = "UPDATE USERS SET ROOM_ID=? WHERE ID=?";
-            PreparedStatement st = conn.prepareStatement(Q);
-            st.setNull(1, Types.INTEGER);
-            st.setString(2, ID);
-            st.executeUpdate();
-
-            st.close();
-            conn.close();
-            return true;
-        } catch (SQLException e)
-        {
-            try { conn.rollback(); }
-            catch (SQLException ex) { e.printStackTrace(); }
-            return false;
-        }
-    }
-
-    public int getRoomID(String ID)
-    {
-        try (Connection conn = DB.getConnection())
-        {
-            String Q = "select ROOM_ID from USERS where ID=?";
-            PreparedStatement st = conn.prepareStatement(Q);
-            st.setString(1, ID);
-
-            ResultSet result = st.executeQuery();
-            int index = result.getInt(1);
-
-            result.close();
-            st.close();
-            return index;
-        } catch (SQLException e)
-        {
-            return 0;
-        }
+        return null;
     }
 
     public void setPresenter(DataPresenter presenter)
