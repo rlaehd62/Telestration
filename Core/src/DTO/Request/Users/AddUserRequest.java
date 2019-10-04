@@ -1,6 +1,7 @@
 package DTO.Request.Users;
 
 import DTO.Request.GamePacket;
+import DTO.Response.UserResponse;
 import Util.State;
 
 public class AddUserRequest extends GamePacket
@@ -11,6 +12,13 @@ public class AddUserRequest extends GamePacket
     private int max_exp;
     private int RoomID;
     private boolean isModifiable;
+
+    public AddUserRequest(UserResponse response)
+    {
+        this(response.getState(), response.getLevel(), response.getExp(), response.getMaxExp(), response.getRoomID());
+        setID(response.getID());
+        setModifiable(false);
+    }
 
     public AddUserRequest(String ID)
     {

@@ -1,10 +1,19 @@
 package DTO.Response;
 
+import DTO.Request.Account.LoginRequest;
+
 public class AccountResponse
 {
     private String ID;
     private String password;
     private boolean accepted;
+
+    public AccountResponse(LoginRequest request, boolean isAccepted)
+    {
+        setID(request.getID());
+        setPassword(request.getPassword());
+        setAccepted(accepted);
+    }
 
     public AccountResponse(String ID, String password, boolean accepted)
     {
@@ -31,6 +40,11 @@ public class AccountResponse
     public String getPassword()
     {
         return password;
+    }
+
+    public void setAccepted(boolean accepted)
+    {
+        this.accepted = accepted;
     }
 
     public boolean isAccepted()
