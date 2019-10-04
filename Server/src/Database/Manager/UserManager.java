@@ -39,6 +39,7 @@ public class UserManager implements DataPresenter.UserModel
 
     public void UpdateUser(AddUserRequest request)
     {
+        if(request == null) return;
         Connection conn = DB.getConnection();
         try
         {
