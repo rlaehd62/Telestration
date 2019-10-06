@@ -1,0 +1,27 @@
+@startuml
+object LoginScreen
+
+object LoginPresenter
+object LoginManager
+
+object LoginModel
+LoginModel : Screen의 그래픽을 관리한다
+object LoginProcessor
+
+object LoginView
+LoginView : Screen의 레이아웃을 구성한다.
+object LoginLayout
+
+object Main
+
+Main --> LoginScreen : setScreen()
+LoginScreen --> LoginPresenter : setupView()\nupdateActors()
+LoginPresenter <|-- LoginManager
+
+LoginPresenter <--> LoginView : addActor() [to Presenter]\ninitLayout() [to View]
+LoginView <|-- LoginLayout
+
+LoginPresenter --> LoginModel : addActor()
+LoginModel <|-- LoginProcessor
+
+@enduml
