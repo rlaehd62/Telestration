@@ -2,8 +2,12 @@ package DTO.Request;
 
 import io.netty.channel.ChannelHandlerContext;
 
-public class GamePacket
+import java.io.Serializable;
+
+public class GamePacket implements Serializable
 {
+    private static final long serialVersionUID = 6136204657514831377L;
+
     private String ID;
     private ChannelHandlerContext sender;
 
