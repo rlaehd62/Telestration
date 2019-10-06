@@ -18,7 +18,8 @@ Main --> LoginScreen : setScreen()
 LoginScreen --> LoginPresenter : setupView()\nupdateActors()
 LoginPresenter <|-- LoginManager
 
-LoginPresenter <--> LoginView : addActor() [to Presenter]\ninitLayout() [to View]
+LoginPresenter --> LoginView : initLayout()
+LoginPresenter <-- LoginView : addActor()
 LoginView <|-- LoginLayout
 
 LoginPresenter --> LoginModel : addActor()
