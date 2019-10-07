@@ -1,10 +1,13 @@
 package tele.client.Login;
 
+import DTO.Request.GamePacket;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import tele.client.Login.Interface.LoginPresenter;
+import tele.client.Network.Client;
+import tele.client.Network.GameClient;
 
 public class LoginManager implements LoginPresenter
 {
@@ -45,5 +48,11 @@ public class LoginManager implements LoginPresenter
     public void setupView()
     {
         view.initLayout();
+    }
+
+    public void send(GamePacket packet)
+    {
+        GameClient client = Client.getInstance();
+        if(client.isRunning()) client.send(packet);
     }
 }

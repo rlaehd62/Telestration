@@ -16,7 +16,7 @@ public class SerializationUtil
         {
             oos.writeObject(packet);
             byte[] bytes = bos.toByteArray();
-            return Unpooled.copiedBuffer(bytes);
+            return Unpooled.directBuffer();
         }
 
         catch (IOException e)
@@ -27,14 +27,14 @@ public class SerializationUtil
         return null;
     }
 
-    public static GamePacket deserialize(DatagramPacket packet) throws IOException, ClassNotFoundException
+    public static GamePacket deserialize(ByteBuf buf) throws IOException, ClassNotFoundException
     {
-        ByteBuf buf = packet.content();
         byte[] data = new byte[buf.readableBytes()];
-        buf.readBytes(data);
+        for(int i = 0; i < data.length; i++) data[i] = buf.getByte(i);
 
         ByteArrayInputStream in = new ByteArrayInputStream(data);
         ObjectInputStream is = new ObjectInputStream(in);
-        return (GamePacket) is.readObject();
+        GamePacket packet = (GamePacket) is.readObject();
+        return packet;
     }
 }

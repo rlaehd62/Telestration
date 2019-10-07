@@ -13,15 +13,22 @@ LoginView : Screen의 레이아웃을 구성한다.
 object LoginLayout
 
 object Main
+object Client
+object GameClient
+GameClient : 클라이언트 클래스 인터페이스
 
+Main --> GameClient : startServer()
+LoginPresenter --> GameClient : send()
+GameClient <|-- Client
 Main --> LoginScreen : setScreen()
 LoginScreen --> LoginPresenter : setupView()\nupdateActors()
 LoginPresenter <|-- LoginManager
 
-LoginPresenter <--> LoginView : addActor() [to Presenter]\ninitLayout() [to View]
+LoginPresenter --> LoginView : initLayout()
+LoginPresenter <-- LoginView : addActor()\nsend()
 LoginView <|-- LoginLayout
 
-LoginPresenter --> LoginModel : addActor()
+LoginPresenter --> LoginModel : addActor()\ngetStage()
 LoginModel <|-- LoginProcessor
 
 @enduml

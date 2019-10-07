@@ -1,5 +1,6 @@
 package tele.client.Login;
 
+import DTO.Request.Account.LoginRequest;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -76,8 +77,8 @@ public class LoginLayout implements LoginPresenter.LoginView
 
     public void loadListener()
     {
-        loginButton.addListener(new TestClickEvent());
-        registerButton.addListener(new TestClickEvent());
+        loginButton.addListener(new LoginEvent());
+        registerButton.addListener(new RegisterEvent());
     }
 
     public void setSkin(String url)
@@ -90,18 +91,36 @@ public class LoginLayout implements LoginPresenter.LoginView
         this.presenter = presenter;
     }
 
-    private class TestClickEvent extends ClickListener
+    private class LoginEvent extends ClickListener
     {
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
         {
-//            LoginRequest request = new LoginRequest(nameText.getText(), passwordText.getText());
-//            request.setSubscribable(true);
-//            // 이제 서버에 전송하면 핸들러에 의해서 의사가 결정됨.
+            LoginRequest request = new LoginRequest(nameText.getText(), passwordText.getText());
+            request.setSubscribable(false);
 
             System.out.println("ID : " + nameText.getText());
             System.out.println("PW : " + passwordText.getText() + "\n");
             nameText.setText("");
             passwordText.setText("");
+
+            presenter.send(request);
+            return true;
+        }
+    }
+
+    private class RegisterEvent extends ClickListener
+    {
+        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+        {
+            LoginRequest request = new LoginRequest(nameText.getText(), passwordText.getText());
+            request.setSubscribable(true);
+
+            System.out.println("ID : " + nameText.getText());
+            System.out.println("PW : " + passwordText.getText() + "\n");
+            nameText.setText("");
+            passwordText.setText("");
+
+            presenter.send(request);
             return true;
         }
     }
