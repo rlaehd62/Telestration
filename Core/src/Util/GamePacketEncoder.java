@@ -19,8 +19,7 @@ public class GamePacketEncoder extends MessageToMessageEncoder<GamePacket>
         {
             InetSocketAddress address = new InetSocketAddress(InetAddress.getLocalHost().getHostAddress(), 9999);
             ByteBuf byteBuf = SerializationUtil.serialize(msg);
-            DatagramPacket packet = new DatagramPacket(byteBuf, address);
-            out.add(packet);
+            if(byteBuf != null) out.add(byteBuf);
         }
     }
 }

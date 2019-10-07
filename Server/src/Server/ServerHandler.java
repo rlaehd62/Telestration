@@ -1,6 +1,7 @@
 package Server;
 
 import DTO.Request.GamePacket;
+import DTO.Response.AccountResponse;
 import com.google.common.eventbus.EventBus;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -14,10 +15,20 @@ public class ServerHandler extends SimpleChannelInboundHandler<GamePacket>
         this.bus = bus;
     }
 
-    // GamePacketDecoder를 사용하여 수신한 UDP 패킷을 자동으로 GamePacket으로 바꿔준다.
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception
+    {
+        System.out.println("뭐가 접속함");
+    }
+
     protected void channelRead0(ChannelHandlerContext ctx, GamePacket msg) throws Exception
     {
+        System.out.println("뭐가 들어옴");
         msg.setSender(ctx);
         bus.post(msg);
+    }
+
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception
+    {
+        cause.printStackTrace();
     }
 }

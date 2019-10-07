@@ -11,6 +11,10 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.serialization.ClassResolver;
+import io.netty.handler.codec.serialization.ClassResolvers;
+import io.netty.handler.codec.serialization.ObjectDecoder;
+import io.netty.handler.codec.serialization.ObjectEncoder;
 
 public class Server extends Thread implements ServerPresenter.ServerModel
 {
@@ -70,8 +74,10 @@ public class Server extends Thread implements ServerPresenter.ServerModel
             protected void initChannel(SocketChannel ch) throws Exception
             {
                 ChannelPipeline cp = ch.pipeline();
-                cp.addLast("Decoder", new GamePacketDecoder());
-                cp.addLast("Encoder", new GamePacketEncoder());
+                cp.addLast(new ObjectEncoder());
+                cp.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
+//                cp.addLast("Decoder", new GamePacketDecoder());
+//                cp.addLast("Encoder", new GamePacketEncoder());
                 cp.addLast(new ServerHandler(eventBus));
             }
         };

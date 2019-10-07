@@ -1,5 +1,6 @@
 package tele.client.Login.Interface;
 
+import DTO.Request.GamePacket;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,6 +16,7 @@ public interface LoginPresenter
     void addListener(String name, ClickListener listener);
     void updateActors();
     void setupView();
+    void send(GamePacket packet);
 
     interface LoginModel
     {
