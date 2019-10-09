@@ -2,7 +2,9 @@ package DTO.Response;
 
 import DTO.Request.Account.LoginRequest;
 
-public class AccountResponse
+import java.io.Serializable;
+
+public class AccountResponse implements GamePacketResponse
 {
     private String ID;
     private String password;

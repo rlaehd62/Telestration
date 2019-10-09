@@ -1,6 +1,6 @@
 package DTO.Response;
 
-public class RoomResponse
+public class RoomResponse implements GamePacketResponse
 {
     private String owner;
     private String title;
