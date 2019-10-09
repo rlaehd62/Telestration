@@ -1,8 +1,7 @@
 package tele.client.Network;
 
 import DTO.Request.GamePacket;
-import Util.GamePacketDecoder;
-import Util.GamePacketEncoder;
+import com.google.common.eventbus.EventBus;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -10,6 +9,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
+import tele.client.Login.Listener.LoginResponseListener;
 import tele.client.Main;
 
 import java.net.InetSocketAddress;
@@ -23,11 +23,17 @@ public class Client extends Thread implements GameClient
     private Channel channel;
     private InetSocketAddress remoteAddress;
 
+    private EventBus eventBus;
+
     private Client()
     {
         running = false;
         this.remoteAddress = new InetSocketAddress(Main.IP, Integer.parseInt(Main.PORT));
+
+        eventBus = new EventBus();
+        eventBus.register(new LoginResponseListener());
     }
+
     public static Client getInstance()
     {
         return (ins != null) ? ins : (ins = new Client());
@@ -49,6 +55,7 @@ public class Client extends Thread implements GameClient
         } catch (Exception e)
         {
             worker.shutdownGracefully();
+            System.exit(-1);
         } finally
         {
             worker.shutdownGracefully();
@@ -95,7 +102,7 @@ public class Client extends Thread implements GameClient
                 ChannelPipeline pipeline = nioSocketChannel.pipeline();
                 pipeline.addLast(new ObjectEncoder());
                 pipeline.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
-                pipeline.addLast(new ClientHandler());
+                pipeline.addLast(new ClientHandler(eventBus));
             }
         };
     }

@@ -1,6 +1,6 @@
 package DTO.Response;
 
-public class UserResponse
+public class UserResponse implements GamePacketResponse
 {
     private String ID;
     private int state;
