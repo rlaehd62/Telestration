@@ -1,23 +1,20 @@
 package tele.client.Login.Screen;
 
 import com.badlogic.gdx.ScreenAdapter;
-import tele.client.Login.Interface.LoginPresenter;
-import tele.client.Login.LoginManager;
+import tele.client.Login.Interface.LoginMVP;
+import tele.client.Login.LoginPresenter;
 import tele.client.Network.Client;
 import tele.client.Network.GameClient;
 
 public class LoginScreen extends ScreenAdapter
 {
-    private LoginPresenter presenter;
-    private GameClient client;
+    private LoginMVP.Presenter presenter;
 
     public LoginScreen()
     {
-        presenter = new LoginManager();
+        presenter = new LoginPresenter();
+        presenter.setupNetwork();
         presenter.setupView();
-
-        client = Client.getInstance();
-        client.startServer();
     }
 
     public void render(float delta)

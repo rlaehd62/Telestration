@@ -1,17 +1,20 @@
 package tele.client.Login;
 
-import DTO.Request.Account.LoginRequest;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import tele.client.Login.Interface.LoginPresenter;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import tele.client.Login.Interface.LoginMVP;
 
-public class LoginLayout implements LoginPresenter.LoginView
+public class LoginView implements LoginMVP.View
 {
-    private LoginPresenter presenter;
+    private LoginMVP.Presenter presenter;
+
+    private Stage stage;
     private Skin skin;
 
     private final int W = 300;
@@ -27,9 +30,23 @@ public class LoginLayout implements LoginPresenter.LoginView
     private TextButton loginButton;
     private TextButton registerButton;
 
-    public LoginLayout()
+    private Label description;
+
+    public LoginView()
     {
-        setSkin("Skin/Particle Park UI.json");
+        stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+        skin = new Skin(Gdx.files.internal("Skin/Particle Park UI.json"));
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    public void updateActors()
+    {
+        stage.act(Gdx.graphics.getDeltaTime());
+    }
+
+    public void drawActors()
+    {
+        stage.draw();
     }
 
     public void initLayout()
@@ -45,14 +62,14 @@ public class LoginLayout implements LoginPresenter.LoginView
         loginButton = new TextButton("Login", skin);
         registerButton = new TextButton("Register", skin);
 
+        description = new Label("Enter Your Account", skin);
+        description.setAlignment(Align.center);
+
         root = new Window("Login / Register", skin);
         root.setMovable(false);
         root.setWidth(W);
         root.setHeight(H);
         root.getTitleLabel().setAlignment(Align.center);
-
-        loadListener();
-        loadLayout();
     }
 
     public void loadLayout()
@@ -68,11 +85,12 @@ public class LoginLayout implements LoginPresenter.LoginView
         root.row().pad(7, 0, 7, 0);
         root.add(loginButton).width(120).height(60).padRight(10);
         root.add(registerButton).width(120).height(60);
+        root.row();
+        root.add(description).expandX();
 
         Vector2 vector2 = new Vector2(Gdx.graphics.getWidth()/2f-(W/2f), Gdx.graphics.getHeight()/2f-(H/2f));
         root.setPosition(vector2.x, vector2.y);
-
-        presenter.addActor(root);
+        stage.addActor(root);
     }
 
     public void loadListener()
@@ -81,12 +99,41 @@ public class LoginLayout implements LoginPresenter.LoginView
         registerButton.addListener(new RegisterEvent());
     }
 
-    public void setSkin(String url)
+    public void showLoading(boolean editable)
     {
-        skin = new Skin(Gdx.files.internal(url));
+        nameText.setDisabled(!editable);
+        passwordText.setDisabled(!editable);
+        setDescription("Trying to Login ..");
     }
 
-    public void setPresenter(LoginPresenter presenter)
+    public void showLogin()
+    {
+        nameText.setDisabled(false);
+        nameText.setText("");
+
+        passwordText.setDisabled(false);
+        passwordText.setText("");
+
+        setDescription("Failed to Login");
+
+    }
+
+    public String getID()
+    {
+        return nameText.getText();
+    }
+
+    public String getPW()
+    {
+        return passwordText.getText();
+    }
+
+    public void setDescription(String text)
+    {
+        this.description.setText(text);
+    }
+
+    public void setPresenter(LoginMVP.Presenter presenter)
     {
         this.presenter = presenter;
     }
@@ -95,15 +142,7 @@ public class LoginLayout implements LoginPresenter.LoginView
     {
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
         {
-            LoginRequest request = new LoginRequest(nameText.getText(), passwordText.getText());
-            request.setSubscribable(false);
-
-            System.out.println("ID : " + nameText.getText());
-            System.out.println("PW : " + passwordText.getText() + "\n");
-            nameText.setText("");
-            passwordText.setText("");
-
-            presenter.send(request);
+            presenter.login(false);
             return true;
         }
     }
@@ -112,15 +151,7 @@ public class LoginLayout implements LoginPresenter.LoginView
     {
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
         {
-            LoginRequest request = new LoginRequest(nameText.getText(), passwordText.getText());
-            request.setSubscribable(true);
-
-            System.out.println("ID : " + nameText.getText());
-            System.out.println("PW : " + passwordText.getText() + "\n");
-            nameText.setText("");
-            passwordText.setText("");
-
-            presenter.send(request);
+            presenter.login(true);
             return true;
         }
     }
