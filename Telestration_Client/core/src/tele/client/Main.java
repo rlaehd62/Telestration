@@ -1,11 +1,8 @@
 package tele.client;
 
-import DTO.Request.GamePacket;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import tele.client.Login.Screen.LoginScreen;
-import tele.client.Network.Client;
-import tele.client.Network.GameClient;
 
 import java.io.File;
 import java.io.FileInputStream;

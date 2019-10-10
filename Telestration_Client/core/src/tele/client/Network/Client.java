@@ -1,6 +1,7 @@
 package tele.client.Network;
 
 import DTO.Request.GamePacket;
+import com.badlogic.gdx.Gdx;
 import com.google.common.eventbus.EventBus;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -14,22 +15,18 @@ import tele.client.Main;
 
 import java.net.InetSocketAddress;
 
-public class Client extends Thread implements GameClient
+public class Client implements GameClient
 {
     private static Client ins = null;
     private boolean running;
 
     private EventLoopGroup worker;
     private Channel channel;
-    private InetSocketAddress remoteAddress;
-
     private EventBus eventBus;
 
     private Client()
     {
         running = false;
-        this.remoteAddress = new InetSocketAddress(Main.IP, Integer.parseInt(Main.PORT));
-
         eventBus = new EventBus();
         eventBus.register(new LoginResponseListener());
     }
@@ -51,14 +48,10 @@ public class Client extends Thread implements GameClient
 
             ChannelFuture f = boot.connect(Main.IP, Integer.parseInt(Main.PORT)).sync();
             channel = f.channel();
-            f.channel().closeFuture().sync();
         } catch (Exception e)
         {
             worker.shutdownGracefully();
-            System.exit(-1);
-        } finally
-        {
-            worker.shutdownGracefully();
+            Gdx.app.exit();
         }
     }
 
@@ -66,7 +59,7 @@ public class Client extends Thread implements GameClient
     {
         if(!isRunning())
         {
-            this.start();
+            run();
             running = true;
         }
     }
@@ -89,7 +82,10 @@ public class Client extends Thread implements GameClient
     {
         if(isRunning())
         {
-            channel.writeAndFlush(packet);
+            try
+            { channel.writeAndFlush(packet); }
+            catch (Exception e)
+            { stopServer(); }
         }
     }
 
