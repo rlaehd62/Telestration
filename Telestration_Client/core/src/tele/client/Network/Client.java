@@ -1,6 +1,7 @@
 package tele.client.Network;
 
 import DTO.Request.GamePacket;
+import com.badlogic.gdx.Gdx;
 import com.google.common.eventbus.EventBus;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -55,7 +56,7 @@ public class Client extends Thread implements GameClient
         } catch (Exception e)
         {
             worker.shutdownGracefully();
-            System.exit(-1);
+            Gdx.app.exit();
         } finally
         {
             worker.shutdownGracefully();
