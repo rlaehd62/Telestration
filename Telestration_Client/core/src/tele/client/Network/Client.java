@@ -52,6 +52,7 @@ public class Client extends Thread implements GameClient
 
             ChannelFuture f = boot.connect(Main.IP, Integer.parseInt(Main.PORT)).sync();
             channel = f.channel();
+            System.out.println("테스트: " + channel.toString());
             f.channel().closeFuture().sync();
         } catch (Exception e)
         {
@@ -90,7 +91,10 @@ public class Client extends Thread implements GameClient
     {
         if(isRunning())
         {
-            channel.writeAndFlush(packet);
+            try
+            { channel.writeAndFlush(packet); }
+            catch (Exception e)
+            { stopServer(); }
         }
     }
 
