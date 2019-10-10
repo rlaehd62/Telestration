@@ -1,0 +1,38 @@
+@startuml
+object LoginScreen
+
+object LoginPresenter
+
+object LoginModel
+LoginModel : Screen의 그래픽을 관리한다
+
+object LoginView
+LoginView : Screen의 레이아웃을 구성한다.
+
+object LoginResponseListener
+object RoomResponseListener
+
+object RoomScreen
+
+object Main
+object GameClient
+
+
+GameClient : 클라이언트 클래스 인터페이스
+
+Main --> LoginScreen : setScreen()
+LoginModel --> GameClient : send()\n startServer()
+LoginScreen --> LoginPresenter : setupView()\n setupNetwork()\n updateActors()
+
+LoginPresenter <--> LoginModel : send()\n init()
+LoginPresenter <--> LoginView : login()\n load()\n showLogin()\n showLoading()\n updateView()\n drawView()
+
+GameClient --> NettyHandler : 등록
+NettyHandler --> EventBus : post()
+
+EventBus --> LoginResponseListener : handle()
+EventBus -->RoomResponseListener : handle()
+
+LoginResponseListener --> RoomScreen : Main.setScreen()
+
+@enduml
