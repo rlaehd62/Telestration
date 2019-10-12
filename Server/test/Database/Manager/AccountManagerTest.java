@@ -24,13 +24,9 @@ class AccountManagerTest
         assertNotNull(response);
         assertEquals(response.getID(), ID);
         assertEquals(response.getPassword(), PW);
-    }
 
-    @Test
-    void updateAccount()
-    {
         manager.UpdateAccount(new LoginRequest(ID, NEW_PW));
-        AccountResponse response = manager.getAccount(ID);
+        response = manager.getAccount(ID);
         assertNotNull(response);
         assertEquals(response.getID(), ID);
         assertEquals(response.getPassword(), NEW_PW);

@@ -16,12 +16,20 @@ public interface DataPresenter
 
     void UpdateUser(AddUserRequest request);
     UserResponse getUser(String ID);
+    String[] getUsers(int RoomID);
+    boolean isOnline(String ID);
 
     void InsertAccount(LoginRequest request);
     void UpdateAccount(LoginRequest request);
     AccountResponse getAccount(String ID);
     boolean hasAccount(String ID);
 
+    void InsertRoom(CreateRoomRequest request);
+    void RemoveRoom(int RoomID);
+    void UpdateRoom(CreateRoomRequest request);
+    RoomResponse selectRoom(String owner);
+    RoomResponse selectRoom(final int RoomID);
+    boolean hasRoom(final int RoomID);
 
     interface DataModel
     {
@@ -41,7 +49,9 @@ public interface DataPresenter
     interface RoomModel
     {
         void InsertRoom(CreateRoomRequest request);
+        void RemoveRoom(int RoomID);
         void UpdateRoom(CreateRoomRequest request);
+        RoomResponse selectRoom(String owner);
         RoomResponse selectRoom(final int RoomID);
         boolean hasRoom(final int RoomID);
         void setPresenter(DataPresenter presenter);
@@ -51,6 +61,7 @@ public interface DataPresenter
     {
         void UpdateUser(AddUserRequest request);
         UserResponse getUser(String ID);
+        String[] getUsers(int RoomID);
         void setPresenter(DataPresenter presenter);
 
     }
