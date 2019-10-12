@@ -6,6 +6,8 @@ import Database.ServerDB;
 import MVP.DataPresenter;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserManager implements DataPresenter.UserModel
 {
@@ -13,29 +15,6 @@ public class UserManager implements DataPresenter.UserModel
     private DataPresenter presenter;
 
     public UserManager() { DB = ServerDB.getInstance(); }
-
-//    public void InsertUser(AddUserRequest request)
-//    {
-//        Connection conn = DB.getConnection();
-//        try
-//        {
-//            conn.setAutoCommit(false);
-//
-//            String query = "INSERT INTO USERS (ID, STATE, LV, EXP, MAX_EXP, ROOM_ID)  " +
-//                    "SELECT ?, 0, 1, 0, 100, 0 WHERE NOT EXISTS (SELECT * FROM USERS WHERE ID = ?)";
-//            PreparedStatement ps = conn.prepareStatement(query);
-//            ps.setString(1, request.getID());
-//            ps.setString(2, request.getID());
-//            ps.executeUpdate();
-//
-//            conn.commit();
-//            conn.close();
-//        } catch (SQLException e)
-//        {
-//            try { conn.rollback(); }
-//            catch (SQLException ex) { e.printStackTrace(); }
-//        }
-//    }
 
     public void UpdateUser(AddUserRequest request)
     {
@@ -92,6 +71,28 @@ public class UserManager implements DataPresenter.UserModel
         }
 
         return null;
+    }
+
+    public String[] getUsers(int RoomID)
+    {
+        List<String> list = new ArrayList<>();
+        try (Connection conn = DB.getConnection())
+        {
+            String query = "SELECT ID FROM USERS WHERE EXISTS (SELECT * FROM USERS WHERE ROOM_ID = ?)";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, RoomID);
+
+            ResultSet result = ps.executeQuery();
+            while(result.next())
+                list.add(result.getString(1));
+
+            return list.toArray(new String[1]);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return list.toArray(new String[1]);
     }
 
     public void setPresenter(DataPresenter presenter)

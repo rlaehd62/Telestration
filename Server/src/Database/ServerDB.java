@@ -36,6 +36,7 @@ public class ServerDB implements DataPresenter.DataModel
                     "CREATE TABLE IF NOT EXISTS ROOM" +
                             "(" +
                             "ID INTEGER PRIMARY KEY NOT NULL," +
+                            "STATE INTEGER NOT NULL DEFAULT 0," +
                             "TITLE VARCHAR (45) NOT NULL," +
                             "OWNER VARCHAR(45) NOT NULL," +
                             "LMT INTEGER NOT NULL," +

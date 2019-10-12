@@ -1,13 +1,24 @@
 package DTO.Request.Room;
 
 import DTO.Request.GamePacket;
+import DTO.Response.RoomResponse;
 
 public class CreateRoomRequest extends GamePacket
 {
     private String title;
     private int limit;
     private int timeout;
+    private int state;
     private boolean isModifiable;
+
+    public CreateRoomRequest(RoomResponse response)
+    {
+        setID(response.getOwner());
+        this.title = response.getTitle();
+        this.limit = response.getLimit();
+        this.timeout = response.getTimeout();
+        this.state = response.getTimeout();
+    }
 
     public CreateRoomRequest(String ID, String title)
     {
@@ -15,6 +26,16 @@ public class CreateRoomRequest extends GamePacket
         this.title = title;
         this.limit = 0;
         this.timeout = 300;
+    }
+
+    public void setState(int state)
+    {
+        this.state = state;
+    }
+
+    public int getState()
+    {
+        return state;
     }
 
     public void setTitle(String title)
