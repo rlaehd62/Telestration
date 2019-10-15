@@ -3,6 +3,7 @@ package Database;
 import DTO.Request.Room.CreateRoomRequest;
 import DTO.Request.Users.AddUserRequest;
 import DTO.Response.AccountResponse;
+import DTO.Response.CreateRoomResponse;
 import DTO.Response.RoomResponse;
 import DTO.Response.UserResponse;
 import Database.Manager.AccountManager;
@@ -11,22 +12,26 @@ import Database.Manager.UserManager;
 import MVP.DataPresenter;
 import MVP.ServerPresenter;
 import DTO.Request.Account.LoginRequest;
+import Server.ChannelManager;
 import Util.State;
 
-public class DataManager implements DataPresenter
+import java.util.ArrayList;
+import java.util.List;
+
+public class GameDB implements DataPresenter
 {
-    private static DataManager ins = null;
+    private static GameDB ins = null;
     private AccountModel account;
     private UserModel user;
     private RoomModel room;
     private ServerPresenter presenter;
 
-    public static DataManager getInstance()
+    public static GameDB getInstance()
     {
-        return ins != null ? ins : (ins = new DataManager());
+        return ins != null ? ins : (ins = new GameDB());
     }
 
-    private DataManager()
+    private GameDB()
     {
         account = new AccountManager();
         account.setPresenter(this);
@@ -40,13 +45,63 @@ public class DataManager implements DataPresenter
 
     public void log(String tag, String text)
     {
-        System.out.printf("[%s] %s\n", tag, text);
-        // presenter.log(tag, text);
+        presenter.log(tag, text);
     }
 
     public void setPresenter(ServerPresenter presenter)
     {
         this.presenter = presenter;
+    }
+
+    public void register(LoginRequest request)
+    {
+        if(account.hasAccount(request.getID())) return;
+        account.InsertAccount(request);
+        login(request);
+    }
+
+    public void login(LoginRequest request)
+    {
+        String ID = request.getID();
+        String PW = request.getPassword();
+
+        AccountResponse ac_info = account.getAccount(ID);
+        AddUserRequest update = new AddUserRequest(user.getUser(ID));
+        ac_info.setAccepted(ac_info.getPassword().equals(PW));
+
+        update.setState(ac_info.isAccepted() ? State.ONLINE : State.OFFLINE);
+        update.setSender(request.getSender());
+        user.UpdateUser(update);
+
+        if(ac_info.isAccepted()) ChannelManager.getChannels().put(ID, request.getSender());
+        request.getSender().writeAndFlush(ac_info);
+    }
+
+    public void createRoom(CreateRoomRequest request)
+    {
+        String ID = request.getID();
+        if(isOnline(ID))
+        {
+            room.CreateRoom(request);
+            boolean isAccepted = (room.getRoom(ID) != null);
+            if(!isAccepted) return;
+
+            CreateRoomResponse response = new CreateRoomResponse(room.getRoom(ID));
+            response.setAccepted(true);
+            request.getSender().writeAndFlush(response);
+        }
+    }
+
+    public RoomResponse[] getRoomList()
+    {
+        List<RoomResponse> list = new ArrayList<>();
+        for(String name : user.getUsers())
+        {
+            RoomResponse response = room.getRoom(name);
+            if(response != null) list.add(response);
+        }
+
+        return list.toArray(new RoomResponse[1]);
     }
 
     public void UpdateUser(AddUserRequest request)
@@ -97,7 +152,7 @@ public class DataManager implements DataPresenter
 
     public void InsertRoom(CreateRoomRequest request)
     {
-        room.InsertRoom(request);
+        room.CreateRoom(request);
     }
 
     public void RemoveRoom(int RoomID)
@@ -112,12 +167,12 @@ public class DataManager implements DataPresenter
 
     public RoomResponse selectRoom(String owner)
     {
-        return room.selectRoom(owner);
+        return room.getRoom(owner);
     }
 
     public RoomResponse selectRoom(int RoomID)
     {
-        return room.selectRoom(RoomID);
+        return room.getRoom(RoomID);
     }
 
     public boolean hasRoom(int RoomID)

@@ -14,6 +14,13 @@ public interface DataPresenter
     void log(String tag, String text);
     void setPresenter(ServerPresenter presenter);
 
+    void register(LoginRequest request);
+    void login(LoginRequest request);
+
+    void createRoom(CreateRoomRequest request);
+    RoomResponse[] getRoomList();
+
+
     void UpdateUser(AddUserRequest request);
     UserResponse getUser(String ID);
     String[] getUsers(int RoomID);
@@ -48,11 +55,11 @@ public interface DataPresenter
 
     interface RoomModel
     {
-        void InsertRoom(CreateRoomRequest request);
+        void CreateRoom(CreateRoomRequest request);
         void RemoveRoom(int RoomID);
         void UpdateRoom(CreateRoomRequest request);
-        RoomResponse selectRoom(String owner);
-        RoomResponse selectRoom(final int RoomID);
+        RoomResponse getRoom(String owner);
+        RoomResponse getRoom(final int RoomID);
         boolean hasRoom(final int RoomID);
         void setPresenter(DataPresenter presenter);
     }
@@ -62,6 +69,7 @@ public interface DataPresenter
         void UpdateUser(AddUserRequest request);
         UserResponse getUser(String ID);
         String[] getUsers(int RoomID);
+        String[] getUsers();
         void setPresenter(DataPresenter presenter);
 
     }

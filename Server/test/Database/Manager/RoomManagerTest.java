@@ -4,15 +4,14 @@ import DTO.Request.Account.LoginRequest;
 import DTO.Request.Room.CreateRoomRequest;
 import DTO.Request.Users.AddUserRequest;
 import DTO.Response.RoomResponse;
-import DTO.Response.UserResponse;
-import Database.DataManager;
+import Database.GameDB;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class RoomManagerTest
 {
-    private DataManager manager = DataManager.getInstance();
+    private GameDB manager = GameDB.getInstance();
 
     @Test
     void insertRoom()

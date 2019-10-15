@@ -1,6 +1,6 @@
 import Database.ServerDB;
 import Server.ServerManager;
-import Database.DataManager;
+import Database.GameDB;
 
 public class Main
 {
@@ -8,7 +8,7 @@ public class Main
     {
         ServerDB.getInstance().initDB();
         ServerManager sm  = new ServerManager();
-        DataManager dm = DataManager.getInstance();
+        GameDB dm = GameDB.getInstance();
         dm.setPresenter(sm);
     }
 }

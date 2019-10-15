@@ -95,6 +95,27 @@ public class UserManager implements DataPresenter.UserModel
         return list.toArray(new String[1]);
     }
 
+    public String[] getUsers()
+    {
+        List<String> list = new ArrayList<>();
+        try (Connection conn = DB.getConnection())
+        {
+            String query = "SELECT ID FROM USERS";
+            PreparedStatement ps = conn.prepareStatement(query);
+
+            ResultSet result = ps.executeQuery();
+            while(result.next())
+                list.add(result.getString(1));
+            return list.toArray(new String[1]);
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return list.toArray(new String[1]);
+    }
+
     public void setPresenter(DataPresenter presenter)
     {
         this.presenter = presenter;

@@ -2,7 +2,7 @@ package Database.Manager;
 
 import DTO.Request.Account.LoginRequest;
 import DTO.Response.AccountResponse;
-import Database.DataManager;
+import Database.GameDB;
 import Database.ServerDB;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountManagerTest
 {
-    private DataManager manager = DataManager.getInstance();
+    private GameDB manager = GameDB.getInstance();
     private String ID = "rlaehd62";
     private String PW = "#5pt3$%f31";
     private String NEW_PW = "%421412%";

@@ -16,10 +16,10 @@ public class RoomManager implements DataPresenter.RoomModel
     private ServerDB DB = ServerDB.getInstance();
     private DataPresenter presenter;
 
-    public void InsertRoom(CreateRoomRequest request)
+    public void CreateRoom(CreateRoomRequest request)
     {
         String ID = request.getID();
-        if(presenter.getUser(ID) == null || selectRoom(ID) != null) return;
+        if(presenter.getUser(ID) == null || getRoom(ID) != null) return;
         Connection conn = DB.getConnection();
 
         try
@@ -119,7 +119,7 @@ public class RoomManager implements DataPresenter.RoomModel
         }
     }
 
-    public RoomResponse selectRoom(String owner)
+    public RoomResponse getRoom(String owner)
     {
         if(presenter.getUser(owner) == null || !presenter.isOnline(owner)) return null;
         try (Connection conn = DB.getConnection())
@@ -155,7 +155,7 @@ public class RoomManager implements DataPresenter.RoomModel
         return null;
     }
 
-    public RoomResponse selectRoom(int RoomID)
+    public RoomResponse getRoom(int RoomID)
     {
         if(RoomID <= State.OUT_OF_ROOM) return null;
         try (Connection conn = DB.getConnection())
@@ -192,7 +192,7 @@ public class RoomManager implements DataPresenter.RoomModel
 
     public boolean hasRoom(int RoomID)
     {
-        return (selectRoom(RoomID) != null);
+        return (getRoom(RoomID) != null);
     }
 
     public void setPresenter(DataPresenter presenter)
