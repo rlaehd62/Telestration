@@ -4,7 +4,7 @@ import DTO.Response.AccountResponse;
 import com.badlogic.gdx.Gdx;
 import com.google.common.eventbus.Subscribe;
 import tele.client.Main;
-import tele.client.Room.RoomScreen;
+import tele.client.Room.Screen.RoomScreen;
 
 public class LoginResponseListener
 {

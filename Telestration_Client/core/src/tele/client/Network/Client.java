@@ -12,6 +12,7 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import tele.client.Login.Listener.LoginResponseListener;
 import tele.client.Main;
+import tele.client.Room.Listener.RoomListResponseListener;
 
 import java.net.InetSocketAddress;
 
@@ -29,6 +30,7 @@ public class Client implements GameClient
         running = false;
         eventBus = new EventBus();
         eventBus.register(new LoginResponseListener());
+        eventBus.register(new RoomListResponseListener());
     }
 
     public static Client getInstance()

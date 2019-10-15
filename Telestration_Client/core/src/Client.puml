@@ -27,7 +27,7 @@ LoginScreen --> LoginPresenter : setupView()\n setupNetwork()\n updateActors()
 LoginPresenter <--> LoginModel : send()\n init()
 LoginPresenter <--> LoginView : login()\n load()\n showLogin()\n showLoading()\n updateView()\n drawView()
 
-GameClient --> NettyHandler : 등록
+GameClient --> NettyHandler : initialize()
 NettyHandler --> EventBus : post()
 
 EventBus --> LoginResponseListener : handle()
