@@ -2,7 +2,7 @@ package Database.Manager;
 
 import DTO.Request.Users.AddUserRequest;
 import DTO.Response.UserResponse;
-import Database.DataManager;
+import Database.GameDB;
 import Util.State;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserManagerTest
 {
-    private DataManager manager = DataManager.getInstance();
+    private GameDB manager = GameDB.getInstance();
     private String ID = "rlaehd62";
 
     @Test
