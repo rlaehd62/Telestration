@@ -14,7 +14,11 @@ public class LoginResponseListener
         if(response.isAccepted())
         {
             Main main = ((Main) Gdx.app.getApplicationListener());
-            Gdx.app.postRunnable(() -> main.setScreen(new RoomScreen()));
+            Gdx.app.postRunnable(() ->
+                    {
+                        main.dispose();
+                        main.setScreen(new RoomScreen());
+                    });
         }
 
         System.out.printf("%3s\n", "ID: " + response.getID());

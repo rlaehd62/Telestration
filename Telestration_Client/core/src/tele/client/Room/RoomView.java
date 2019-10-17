@@ -4,15 +4,14 @@ import DTO.Response.RoomListResponse;
 import DTO.Response.RoomResponse;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import javafx.scene.input.KeyCode;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import tele.client.Main;
+import tele.client.Room.Components.Room;
 import tele.client.Room.Interface.RoomMVP;
 
 import java.util.ArrayList;
@@ -20,23 +19,21 @@ import java.util.ArrayList;
 public class RoomView implements RoomMVP.View
 {
     private RoomMVP.Presenter presenter;
-    public static final String SPLITOR = " | ";
     private Stage stage;
     private Skin skin;
 
-    private Table root;
-    private List<Label> rooms;
+    private Window root;
+    private List<Button> rooms;
     private ScrollPane roomList;
 
-    private VerticalGroup group;
     private Label name;
     private Label level;
     private Label exp;
 
     public RoomView()
     {
-        stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-        skin = new Skin(Gdx.files.internal("Skin/Particle Park UI.json"));
+        stage = new Stage(new ScreenViewport());
+        skin = new Skin(Gdx.files.internal(Main.SKIN));
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -52,54 +49,50 @@ public class RoomView implements RoomMVP.View
 
     public void setRoomList(RoomListResponse response)
     {
-        rooms.clear();
-        java.util.List<Label> items = new ArrayList<>();
+        rooms.clearItems();
         for(RoomResponse room : response.getRooms())
-        {
-            Label label = new Label("", skin, "subtitle");
-            label.setName
-                    (
-                            "[ " +
-                            room.getRoomID() + SPLITOR +
-                            room.getTitle() + SPLITOR +
-                            room.getOwner() + SPLITOR +
-                            room.getUsers().size() + " (Amount) " +
-                            " ]"
-                    );
-            items.add(label);
-        }
+            rooms.getItems().add(new Room(room));
 
-        rooms.setItems(items.toArray(new Label[1]));
     }
 
     public void initLayout()
     {
-        root = new Table(skin);
-        root.setFillParent(true);
-
-        group = new VerticalGroup();
+        root = new Window("Waiting Room", skin, "main");
 
         name = new Label("NOT-NAMED", skin);
         level = new Label("Lv. 0", skin);
-        exp = new Label("0 / 0", skin);
+        exp = new Label("EXP (0 / 0)", skin);
 
         rooms = new List<>(skin);
-        rooms.getStyle().font.getData().setScale(1.2f);
         roomList = new ScrollPane(rooms, skin);
         roomList.setFadeScrollBars(false);
+        roomList.setFlickScroll(false);
     }
 
     public void loadLayout()
     {
+        root.setFillParent(true);
+        root.setMovable(false);
 
-        root.add(roomList).width(800).height(500).align(Align.center).padRight(50);
-        root.add(group).width(130);
+        Table left = new Table(skin);
+        Table right = new Table(skin);
+        SplitPane splitPane = new SplitPane(left, right, false, skin);
+        root.add(splitPane).grow();
 
-        group.addActor(name);
-        group.addActor(level);
-        group.addActor(exp);
-        group.pad(0, 0, 30, 0);
+        left.add(new Label("Room List", skin, "title")).row();
+        left.add(roomList).grow().padTop(10.0f).padBottom(10.0f);
 
+        Table top = new Table(skin);
+        Table bottom = new Table(skin);
+        SplitPane sp2 = new SplitPane(top, bottom, true, skin);
+        right.add(sp2).grow();
+
+        top.add(new Label("My Profile", skin, "title")).top().row();
+        top.add(name).padBottom(10.0f).row();
+        top.add(level).padBottom(10.0f).row();
+        top.add(exp);
+
+        bottom.add(new Label("Create Room", skin, "title")).top();
         stage.addActor(root);
     }
 
@@ -117,16 +110,6 @@ public class RoomView implements RoomMVP.View
                 }
 
                 return true;
-            }
-        });
-
-        group.addListener(new ClickListener()
-        {
-            public void clicked(InputEvent event, float x, float y)
-            {
-                name.setText("KimDongDong");
-                level.setText("Lv.100");
-                exp.setText("100 / 300");
             }
         });
     }

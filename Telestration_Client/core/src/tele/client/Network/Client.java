@@ -16,7 +16,7 @@ import tele.client.Room.Listener.RoomListResponseListener;
 
 import java.net.InetSocketAddress;
 
-public class Client implements GameClient
+public class Client extends Thread implements GameClient
 {
     private static Client ins = null;
     private boolean running;
@@ -61,7 +61,7 @@ public class Client implements GameClient
     {
         if(!isRunning())
         {
-            run();
+            start();
             running = true;
         }
     }
@@ -72,6 +72,7 @@ public class Client implements GameClient
         {
             running = false;
             worker.shutdownGracefully();
+            stop();
         }
     }
 

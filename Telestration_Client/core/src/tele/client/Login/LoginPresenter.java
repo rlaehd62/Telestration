@@ -25,6 +25,11 @@ public class LoginPresenter implements LoginMVP.Presenter
         model.send(request);
     }
 
+    public void dispose()
+    {
+        view.disposeAll();
+    }
+
     public void showLogin()
     {
         view.showLogin();
