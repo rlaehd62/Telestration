@@ -3,6 +3,7 @@ package Server;
 import Listener.CreateRoomListener;
 import Listener.LoginListener;
 import Listener.RoomListListener;
+import Listener.UserInfoRequestListener;
 import MVP.ServerPresenter;
 import Util.GamePacketDecoder;
 import Util.GamePacketEncoder;
@@ -38,6 +39,7 @@ public class Server extends Thread implements ServerPresenter.ServerModel
         eventBus = new EventBus();
         eventBus.register(new LoginListener());
         eventBus.register(new RoomListListener());
+        eventBus.register(new UserInfoRequestListener());
     }
 
     public static Server getInstance()
