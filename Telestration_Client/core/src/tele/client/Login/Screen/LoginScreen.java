@@ -25,4 +25,9 @@ public class LoginScreen extends ScreenAdapter
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         presenter.updateActors();
     }
+
+    public void dispose()
+    {
+        presenter.dispose();
+    }
 }

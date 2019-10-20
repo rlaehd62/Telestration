@@ -7,7 +7,6 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 
 public interface GameClient
 {
-    void run();
     void startServer();
     void stopServer();
     boolean isRunning();

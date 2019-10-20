@@ -1,6 +1,7 @@
 package tele.client.Login;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import tele.client.Login.Interface.LoginMVP;
+import tele.client.Main;
 
 public class LoginView implements LoginMVP.View
 {
@@ -31,11 +33,12 @@ public class LoginView implements LoginMVP.View
     private TextButton registerButton;
 
     private Label description;
+    private TextureAtlas atlas;
 
     public LoginView()
     {
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-        skin = new Skin(Gdx.files.internal("Skin/Particle Park UI.json"));
+        skin = new Skin(Gdx.files.internal(Main.SKIN));
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -47,6 +50,11 @@ public class LoginView implements LoginMVP.View
     public void drawActors()
     {
         stage.draw();
+    }
+
+    public void disposeAll()
+    {
+        stage.dispose();
     }
 
     public void initLayout()

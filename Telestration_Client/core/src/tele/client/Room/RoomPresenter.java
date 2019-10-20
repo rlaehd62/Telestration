@@ -1,7 +1,10 @@
 package tele.client.Room;
 
 import DTO.Request.Room.RoomListRequest;
+import DTO.Request.Users.UserInfoRequest;
 import DTO.Response.RoomListResponse;
+import DTO.Response.UserResponse;
+import tele.client.Login.Data.Account;
 import tele.client.Room.Interface.RoomMVP;
 
 public class RoomPresenter implements RoomMVP.Presenter
@@ -35,11 +38,11 @@ public class RoomPresenter implements RoomMVP.Presenter
         view.setRoomList(response);
     }
 
-    public void showCreationUI()
+    public void updateUserInfo(UserResponse response)
     {
-
+        view.hideInfo();
+        view.showInfo(response);
     }
-
     public void updateActors()
     {
         view.updateActors();
@@ -48,7 +51,9 @@ public class RoomPresenter implements RoomMVP.Presenter
 
     public void setupView()
     {
-        view.load();
+        System.out.println(Account.getInstance().getID());
         model.init();
+        model.send(new UserInfoRequest(Account.getInstance().getID()));
+        view.load();
     }
 }

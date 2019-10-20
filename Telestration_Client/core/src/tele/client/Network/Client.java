@@ -13,10 +13,11 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 import tele.client.Login.Listener.LoginResponseListener;
 import tele.client.Main;
 import tele.client.Room.Listener.RoomListResponseListener;
+import tele.client.Room.Listener.UserResponseListener;
 
 import java.net.InetSocketAddress;
 
-public class Client implements GameClient
+public class Client extends Thread implements GameClient
 {
     private static Client ins = null;
     private boolean running;
@@ -30,6 +31,7 @@ public class Client implements GameClient
         running = false;
         eventBus = new EventBus();
         eventBus.register(new LoginResponseListener());
+        eventBus.register(new UserResponseListener());
         eventBus.register(new RoomListResponseListener());
     }
 
@@ -61,7 +63,7 @@ public class Client implements GameClient
     {
         if(!isRunning())
         {
-            run();
+            start();
             running = true;
         }
     }
@@ -72,6 +74,7 @@ public class Client implements GameClient
         {
             running = false;
             worker.shutdownGracefully();
+            stop();
         }
     }
 

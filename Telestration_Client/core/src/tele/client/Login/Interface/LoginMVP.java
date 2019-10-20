@@ -12,6 +12,7 @@ public interface LoginMVP
         void updateActors();
         void setupView();
         void setupNetwork();
+        void dispose();
     }
 
     interface Model
@@ -26,6 +27,7 @@ public interface LoginMVP
 
         void updateActors();
         void drawActors();
+        void disposeAll();
 
         default void load()
         {

@@ -2,6 +2,7 @@ package tele.client.Room.Interface;
 
 import DTO.Request.GamePacket;
 import DTO.Response.RoomListResponse;
+import DTO.Response.UserResponse;
 import tele.client.Login.Interface.LoginMVP;
 
 public interface RoomMVP
@@ -10,7 +11,7 @@ public interface RoomMVP
     {
         void updateRoomList();
         void updateRoomList(RoomListResponse response);
-        void showCreationUI();
+        void updateUserInfo(UserResponse response);
 
         void updateActors();
         void setupView();
@@ -27,6 +28,10 @@ public interface RoomMVP
     {
         void updateActors();
         void drawActors();
+
+
+        void hideInfo();
+        void showInfo(UserResponse response);
 
         default void load()
         {
