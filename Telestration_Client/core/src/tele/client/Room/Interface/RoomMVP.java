@@ -11,9 +11,12 @@ public interface RoomMVP
     {
         void updateRoomList();
         void updateRoomList(RoomListResponse response);
-        void updateUserInfo(UserResponse response);
 
+        void updateUserInfo();
+        void updateUserInfo(UserResponse response);
         void updateActors();
+
+        void createRoom(String title, int limit);
         void setupView();
     }
 
@@ -32,6 +35,7 @@ public interface RoomMVP
 
         void hideInfo();
         void showInfo(UserResponse response);
+        void setSubmit(boolean enabled);
 
         default void load()
         {

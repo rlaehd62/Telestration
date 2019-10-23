@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import tele.client.Main;
 import tele.client.Room.Components.Room;
@@ -29,6 +30,10 @@ public class RoomView implements RoomMVP.View
     private Label name;
     private Label level;
     private Label exp;
+    private TextButton button;
+
+    private TextField title;
+    private TextField limit;
 
     public RoomView()
     {
@@ -74,6 +79,21 @@ public class RoomView implements RoomMVP.View
         exp.setText("EXP (" + response.getExp() + " / " + response.getMaxExp() + ")");
     }
 
+    public void setSubmit(boolean enabled)
+    {
+        if(!enabled)
+        {
+            title.setText("");
+            limit.setText("");
+        } else
+        {
+            title.setText("Enter Room Title");
+            limit.setText("Enter Room Level Limit");
+        }
+
+        button.setDisabled(!enabled);
+    }
+
     public void initLayout()
     {
         root = new Window("Waiting Room", skin, "main");
@@ -116,20 +136,20 @@ public class RoomView implements RoomMVP.View
         top.add(level).padBottom(10.0f).row();
         top.add(exp);
 
-        TextButton button = new TextButton("Submit", skin);
+        button = new TextButton("Submit", skin);
         Label label = new Label("Title", skin);
-        TextField field = new TextArea("", skin);
+        title = new TextArea("", skin);
         Label label2 = new Label("Limit", skin);
-        TextField field2 = new TextArea("", skin);
+        limit = new TextArea("", skin);
 
 
         bottom.defaults().padLeft(1f);
         bottom.defaults().padBottom(2f);
         bottom.add(new Label("Create Room", skin, "title")).colspan(2).expandX().fillX().left().padBottom(10f).row();
         bottom.add(label).left();
-        bottom.add(field).left().row();
+        bottom.add(title).left().row();
         bottom.add(label2).left();
-        bottom.add(field2).left().row();
+        bottom.add(limit).left().row();
         bottom.add(button).colspan(2).fillX();
         stage.addActor(root);
     }
@@ -148,6 +168,14 @@ public class RoomView implements RoomMVP.View
                 }
 
                 return true;
+            }
+        });
+
+        button.addListener(new ClickListener()
+        {
+            public void clicked(InputEvent event, float x, float y)
+            {
+                presenter.createRoom(title.getText(), Integer.parseInt(limit.getText()));
             }
         });
     }

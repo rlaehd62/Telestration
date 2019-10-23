@@ -38,6 +38,7 @@ public class Server extends Thread implements ServerPresenter.ServerModel
 
         eventBus = new EventBus();
         eventBus.register(new LoginListener());
+        eventBus.register(new CreateRoomListener());
         eventBus.register(new RoomListListener());
         eventBus.register(new UserInfoRequestListener());
     }
@@ -57,7 +58,8 @@ public class Server extends Thread implements ServerPresenter.ServerModel
             ServerBootstrap sb = new ServerBootstrap();
             sb.group(boss, work)
                     .channel(NioServerSocketChannel.class)
-                    .childHandler(initializer());
+                    .childHandler(initializer())
+                    .option(ChannelOption.SO_KEEPALIVE, true);
 
             ChannelFuture channelFuture = sb.bind(PORT).sync();
             channelFuture.channel().closeFuture().sync();
@@ -81,8 +83,6 @@ public class Server extends Thread implements ServerPresenter.ServerModel
                 ChannelPipeline cp = ch.pipeline();
                 cp.addLast(new ObjectEncoder());
                 cp.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
-//                cp.addLast("Decoder", new GamePacketDecoder());
-//                cp.addLast("Encoder", new GamePacketEncoder());
                 cp.addLast(new ServerHandler(eventBus));
             }
         };

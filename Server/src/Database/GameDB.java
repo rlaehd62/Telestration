@@ -80,14 +80,16 @@ public class GameDB implements DataPresenter
     public void createRoom(CreateRoomRequest request)
     {
         String ID = request.getID();
-        if(isOnline(ID))
+        boolean NOT_OWNER = room.getRoom(ID) == null;
+
+        if(isOnline(ID) && NOT_OWNER)
         {
-            room.CreateRoom(request);
+            if(request.isModifiable()) room.UpdateRoom(request);
+            else room.CreateRoom(request);
             boolean isAccepted = (room.getRoom(ID) != null);
             if(!isAccepted) return;
 
-            CreateRoomResponse response = new CreateRoomResponse(room.getRoom(ID));
-            response.setAccepted(true);
+            RoomResponse response = room.getRoom(ID);
             request.getSender().writeAndFlush(response);
         }
     }

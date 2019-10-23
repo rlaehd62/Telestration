@@ -11,8 +11,6 @@ import com.google.common.eventbus.Subscribe;
 
 public class LoginListener extends ServerListener<LoginRequest>
 {
-    private DataPresenter presenter = GameDB.getInstance();
-
     @Subscribe
     public void handle(LoginRequest message)
     {
