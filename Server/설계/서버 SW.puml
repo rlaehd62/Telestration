@@ -1,69 +1,51 @@
 @startuml
 
 object Main
+object ServerListener
+
 object ServerPresenter
 object ServerModel
 object ServerView
-object Server
 object ServerHandler
-object EventBus
-object ServerListener
 
 object DataPresenter
-object DataModel
-object ChannelManager
-
 object RoomModel
 object AccountModel
 object UserModel
+object DataModel
 
-object RoomManager
-object AccountManager
-object UserManager
-object ServerDB
+object ChannelManager
 
-
-ServerDB : DataModel의 실제 구현체
 RoomModel : Room 테이블을 관리하는 기능
 AccountModel : Account 테이블을 관리하는 기능
 UserModel : Users 테이블을 관리하는 기능
 
 Main : 최초 시작
-EventBus : 객체의 타입에 따라서 이벤트 처리
 ServerPresenter : 인터페이스 (Interface)
 ServerView : 인터페이스 (Interface)
 ServerModel : 인터페이스 (Interface)
 DataPresenter : 인터페이스 (Interface)
 DataModel : 인터페이스 (Interface) + 실질적인 DB
-ServerListener : 추상 클래스 (Abstract Class)
-Server : 서버 쓰레드
+ServerListener : DataPresenter의 View 역할을 담당한다.
 ChannelManager : 사용자에 대한 연결을 담고 있음
 
 
 Server --|> ServerModel
 
-Main --> ServerView : ▼ 입력 이벤트 발생
-Main --> DataPresenter : ▼ DB 초기화
+Main --> ServerView : 입력 이벤트 발생
+Main --> DataPresenter : init()
 
-ServerView <-- ServerPresenter : ▲ 작업 로그를 기록한다.
-ServerView --> ServerPresenter : ▼ 시작/종료 명령
-ServerModel <--> ServerPresenter : ◀ 서버 실행 및 종료
-ServerModel --> ServerHandler : ▼ 핸들러 생성 및 등록
+ServerView <--> ServerPresenter : start()\nstop()\nlog()
+ServerModel <--> ServerPresenter : start()\nstop()
+ServerModel --> ServerHandler : register()
 
-
-DataPresenter <--> DataModel : ▼ DB에 연결
+DataPresenter <--> DataModel : getConnection()\ninit()
 DataPresenter <--> RoomModel
 DataPresenter <--> AccountModel
 DataPresenter <--> UserModel
-DataPresenter --> ServerPresenter : ◀ 로그 기능 이용
+DataPresenter --> ServerPresenter : log()
 
-ServerDB --|> DataModel
-RoomManager --|> RoomModel
-AccountManager --|> AccountModel
-UserManager --|> UserModel
-
-ServerHandler --> EventBus : ▼ post()
-EventBus --> ServerListener : ◀ 타입에 따라 호출
-DataPresenter <-- ServerListener : ▲ DB에 대한 기능을 사용
-ChannelManager <-- ServerListener : ▲ 연결을 관리 및 사용
+ServerHandler --> ServerListener : register()\npost()
+DataPresenter <-- ServerListener : Query Method
+ChannelManager <-- ServerListener : 연결을 관리 및 사용
 @enduml

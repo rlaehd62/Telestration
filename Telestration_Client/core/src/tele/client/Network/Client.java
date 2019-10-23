@@ -13,6 +13,7 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 import tele.client.Login.Listener.LoginResponseListener;
 import tele.client.Main;
 import tele.client.Room.Listener.RoomListResponseListener;
+import tele.client.Room.Listener.RoomResponseListener;
 import tele.client.Room.Listener.UserResponseListener;
 
 import java.net.InetSocketAddress;
@@ -32,6 +33,7 @@ public class Client extends Thread implements GameClient
         eventBus = new EventBus();
         eventBus.register(new LoginResponseListener());
         eventBus.register(new UserResponseListener());
+        eventBus.register(new RoomResponseListener());
         eventBus.register(new RoomListResponseListener());
     }
 
@@ -48,7 +50,8 @@ public class Client extends Thread implements GameClient
             Bootstrap boot = new Bootstrap();
             boot.group(worker)
                     .channel(NioSocketChannel.class)
-                    .handler(initializer());
+                    .handler(initializer())
+                    .option(ChannelOption.SO_KEEPALIVE, true);
 
             ChannelFuture f = boot.connect(Main.IP, Integer.parseInt(Main.PORT)).sync();
             channel = f.channel();

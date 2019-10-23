@@ -1,0 +1,151 @@
+@startuml
+title 1. Login 기능 설계
+footer Page 1 of 2
+
+object Main {
+    setScreen()
+}
+
+package Network
+{
+    object GameClient {
+        send()
+        startServer()
+    }
+
+    object ClientHandler {
+    서버로부터 데이터를 수신한다.
+    }
+}
+
+package Data
+{
+        object Account {
+        setResponse()
+        getID()
+        }
+}
+
+package Listener
+{
+    object EventBus
+    object LoginResponseListener
+}
+
+
+package Login <<Rectangle>>
+{
+
+        object LoginPresenter {
+        setupView()
+        setupNetwork()
+        updateActors()
+        }
+
+        object LoginModel
+        object LoginView
+        LoginModel : Screen의 그래픽을 관리한다
+        LoginView : Screen의 레이아웃을 구성한다.
+
+    object LoginScreen
+}
+
+Main ..> LoginScreen
+ClientHandler .> EventBus
+
+LoginPresenter <..> LoginModel
+LoginPresenter <..> LoginView
+LoginModel ..> GameClient
+LoginScreen ..> LoginPresenter
+LoginResponseListener ..> Account
+EventBus ..> LoginResponseListener
+
+newpage
+
+title 2. Waiting Room 기능 설계
+footer Page 2 of 2
+
+package Data <<Rectangle>>
+{
+        object RoomInfo {
+        setResponse()
+        }
+
+        object User {
+        setResponse()
+        getID()
+        getLevel()
+        getExp()
+        getMaxExp()
+        }
+}
+
+package Network <<Rectangle>>
+{
+    object GameClient {
+        startServer()
+        send()
+    }
+
+    object ClientHandler {
+    서버로부터 데이터를 수신한다.
+    }
+}
+
+package Listener <<Rectangle>>
+{
+    object EventBus
+    object LoginResponseListener
+    object RoomListResponseListener
+    object UserRespondListener
+    object RoomResponseListener
+}
+
+package Room <<Rectangle>>
+{
+    object RoomScreen
+
+        object RoomModel {
+        send()
+        init()
+        }
+
+        object RoomView {
+        setSubmit()
+        showLogin()
+        showLoading()
+        showInfo()
+        hideInfo()
+        updateView()
+        drawView()
+        }
+
+        object RoomPresenter {
+        updateRoomList()
+        updateRoomList(..)
+        updateUserInfo()
+        updateUserInfo(..)
+        login()
+        load()
+        }
+}
+
+ClientHandler .> EventBus
+
+EventBus ..> LoginResponseListener
+EventBus ..> RoomResponseListener
+EventBus ..> RoomListResponseListener
+EventBus ..> UserRespondListener
+
+UserRespondListener ..> User
+RoomResponseListener ..> RoomInfo
+RoomListResponseListener ..> RoomPresenter
+
+LoginResponseListener ..> RoomScreen
+RoomScreen ..> RoomPresenter
+RoomPresenter <..> RoomModel
+RoomPresenter <..> RoomView
+
+RoomModel ..> GameClient
+RoomView ..> User
+@enduml

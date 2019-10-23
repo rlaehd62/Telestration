@@ -10,8 +10,6 @@ import java.util.Arrays;
 
 public class RoomListListener extends ServerListener<RoomListRequest>
 {
-    private DataPresenter presenter = GameDB.getInstance();
-
     @Subscribe
     public void handle(RoomListRequest message)
     {

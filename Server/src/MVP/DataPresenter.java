@@ -20,7 +20,6 @@ public interface DataPresenter
     void createRoom(CreateRoomRequest request);
     RoomResponse[] getRoomList();
 
-
     void UpdateUser(AddUserRequest request);
     UserResponse getUser(String ID);
     String[] getUsers(int RoomID);
@@ -32,7 +31,6 @@ public interface DataPresenter
     boolean hasAccount(String ID);
 
     void InsertRoom(CreateRoomRequest request);
-    void RemoveRoom(int RoomID);
     void UpdateRoom(CreateRoomRequest request);
     RoomResponse selectRoom(String owner);
     RoomResponse selectRoom(final int RoomID);

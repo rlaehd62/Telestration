@@ -1,41 +1,28 @@
 @startuml
-object NettyListener
-NettyListener : 각종 로직을 처리함.
+object Main
 
-object NettyResponseListener
-NettyResponseListener : ChatResponseListener
-NettyResponseListener : ConnectResponseListener
-NettyResponseListener : ETC ...
+object ServerPresenter
+object ServerModel
+object ServerView
 
-object ChatListener
-object ConnectListener
-object DisconnectListener
-object LoginListener
-object LogoutListener
-object PictureListener
-object GuessingListener
-object Client
+object DataPresenter
+object UserModel
+object AccountModel
+object RoomModel
+object DataModel
+object ServerListener
 
-Client --> ServerHandler : 요청 (Datagram)
-NettyResponseListener --> Client : 응답 (Datagram)
+Main --> ServerPresenter
+Main --> DataPresenter
 
-NettyListener <|-- LoginListener
-NettyListener <|-- LogoutListener
-NettyListener <|-- ChatListener
-NettyListener <|-- ConnectListener
-NettyListener <|-- DisconnectListener
-NettyListener <|-- PictureListener
-NettyListener <|-- GuessingListener
-NettyListener --> ClientHandler
+ServerPresenter <--> ServerView
+ServerPresenter <--> ServerModel
+ServerModel --> ServerListener : 등록
 
-ClientHandler --> ClientEventBus : post()
-ClientEventBus --> NettyResponseListener : handle()
+DataPresenter <--> DataModel
+DataPresenter <--> AccountModel
+DataPresenter <--> UserModel
+DataPresenter <--> RoomModel
+DataPresenter <-- ServerListener
 
-ServerHandler --> ServerEventBus : post()
-ServerEventBus --> NettyListener : handle()
-
-'Object01 <|-- Object02 (상속)
-'Object03 *-- Object04
-'Object05 o-- "4" Object06 (집합)
-'Object07 .. Object08 : some labels (연관)
 @enduml
