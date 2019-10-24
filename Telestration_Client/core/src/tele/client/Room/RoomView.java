@@ -122,7 +122,11 @@ public class RoomView implements RoomMVP.View
         SplitPane splitPane = new SplitPane(left, right, false, skin);
         root.add(splitPane).grow();
 
-        left.add(new Label("[ Room List ]\nRoom No\t\tTitle\t\t\tOwner", skin, "title")).row();
+        left.add(new Label("[ Room List ]          RoomNo          " +
+                "|          Title          " +
+                "|          Level Limit          " +
+                "|          Owner          ",
+                skin, "title")).row();
         left.add(roomList).grow().fill().padTop(10f);
 
         Table top = new Table(skin);
