@@ -12,7 +12,7 @@ import java.util.Properties;
 
 public class Main extends Game
 {
-	public static String SKIN = "UI/skin-composer-ui.json";
+	public static String SKIN = "UI/Telestration.json";
 	public static String IP;
 	public static String PORT;
 

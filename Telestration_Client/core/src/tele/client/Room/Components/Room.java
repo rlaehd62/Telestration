@@ -1,15 +1,12 @@
 package tele.client.Room.Components;
 
 import DTO.Response.RoomResponse;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
-public class Room extends TextButton
+public class Room extends TextButton implements Comparable<Room>
 {
     private RoomResponse response;
 
@@ -17,9 +14,10 @@ public class Room extends TextButton
     {
         super
                 (
-                        String.format("[%d]\t\t\t\t\t\t\t\t%s\t\t\t\t\t\t\t\t(%s)",
+                        String.format("[%d]          |          %30s          |          Lv.%2d ~          |          %10s",
                         response.getRoomID(),
                         response.getTitle(),
+                        response.getLimit(),
                         response.getOwner()),
                         skin
                 );
@@ -33,6 +31,15 @@ public class Room extends TextButton
     public int getID()
     {
         return response.getRoomID();
+    }
+
+    public int compareTo(Room o)
+    {
+        int roomID0 = response.getRoomID();
+        int roomID1 = o.response.getRoomID();
+
+        if(roomID0 > roomID1) return 1;
+        else return -1;
     }
 
     private class ClickedEvent extends ClickListener

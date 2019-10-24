@@ -33,7 +33,6 @@ public class LoginView implements LoginMVP.View
     private TextButton registerButton;
 
     private Label description;
-    private TextureAtlas atlas;
 
     public LoginView()
     {
@@ -82,13 +81,10 @@ public class LoginView implements LoginMVP.View
 
     public void loadLayout()
     {
-        int W = 300;
-        int H = 250;
-
-        root.add(nameLabel).pad(10);
+        root.add(nameLabel).pad(1f);
         root.add(nameText);
         root.row().pad(7, 0, 7, 0);
-        root.add(passwordLabel).pad(10);
+        root.add(passwordLabel).pad(1f);
         root.add(passwordText);
         root.row().pad(7, 0, 7, 0);
         root.add(loginButton).width(120).height(60).padRight(10);

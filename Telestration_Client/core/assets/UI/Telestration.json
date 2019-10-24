@@ -3,6 +3,9 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	font: {
 		file: font-export.fnt
 	}
+	Maple: {
+		file: Maple.fnt
+	}
 	title: {
 		file: font-title-export.fnt
 	}
@@ -143,14 +146,14 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 		checkboxOn: checkbox-on
 		checkboxOff: checkbox-off
 		checkboxOver: checkbox-off-over
-		font: font
+		font: Maple
 		fontColor: white
 	}
 	switch: {
 		checkboxOn: toggle-on
 		checkboxOff: toggle-off
 		checkboxOver: toggle-off-over
-		font: font
+		font: Maple
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
@@ -183,7 +186,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
-		font: font
+		font: Maple
 		fontColor: white
 		up: button
 		down: button-pressed
@@ -195,7 +198,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 		imageOver: checkbox-off-over
 		imageChecked: checkbox-on
 		imageCheckedOver: checkbox-on-over
-		font: font
+		font: Maple
 	}
 	switch: {
 		imageUp: toggle-off
@@ -203,17 +206,17 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 		imageOver: toggle-off-over
 		imageChecked: toggle-on
 		imageCheckedOver: toggle-on-over
-		font: font
+		font: Maple
 		fontColor: white
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
-		font: font
+		font: Maple
 		fontColor: button
 	}
 	title: {
-		font: title
+		font: Maple
 		fontColor: button
 		background: class-bar
 	}
@@ -226,13 +229,13 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		fontColor: white
 	}
 	required: {
-		font: font
+		font: Maple
 		fontColor: black
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {
-		font: font
+		font: Maple
 		fontColorSelected: white
 		fontColorUnselected: white
 		selection: pressed
@@ -249,7 +252,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 	default: {
-		font: font
+		font: Maple
 		fontColor: button
 		background: selectbox
 		scrollStyle: default
@@ -282,30 +285,16 @@ com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
-		font: font
+		font: Maple
 		fontColor: white
 		up: button
 		down: button-pressed
 		over: button-over
 	}
-	new: {
-		font: font
-		fontColor: white
-		up: button-plus
-		down: button-plus-pressed
-		over: button-plus-over
-	}
-	file: {
-		font: font
-		up: button-file
-		down: button-file-pressed
-		over: button-file-over
-		checked: button-file-pressed
-	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: {
-		font: font
+		font: Maple
 		fontColor: pressed
 		background: textfield
 		cursor: black
@@ -320,17 +309,17 @@ com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	default: {
 		background: window
-		titleFont: font
+		titleFont: Maple
 		titleFontColor: white
 	}
 	dialog: {
 		background: window2
-		titleFont: font
+		titleFont: Maple
 		titleFontColor: white
 	}
 	main: {
 		background: window-main
-		titleFont: font
+		titleFont: Maple
 		titleFontColor: white
 	}
 }
