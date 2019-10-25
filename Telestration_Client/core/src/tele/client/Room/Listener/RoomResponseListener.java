@@ -14,6 +14,5 @@ public class RoomResponseListener
 
         System.out.println("Title: " + room.getTitle());
         System.out.println("Owner: " + room.getOwner());
-        System.out.println("RoomNo: " + room.getRoomID());
     }
 }

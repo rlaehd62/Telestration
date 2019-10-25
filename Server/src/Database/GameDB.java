@@ -1,13 +1,13 @@
 package Database;
 
 import DTO.Request.Room.CreateRoomRequest;
+import DTO.Request.Room.GameRoom;
 import DTO.Request.Users.AddUserRequest;
 import DTO.Response.AccountResponse;
-import DTO.Response.CreateRoomResponse;
 import DTO.Response.RoomResponse;
 import DTO.Response.UserResponse;
 import Database.Manager.AccountManager;
-import Database.Manager.RoomManager;
+import Database.Manager.GameRoomManager;
 import Database.Manager.UserManager;
 import MVP.DataPresenter;
 import MVP.ServerPresenter;
@@ -23,7 +23,7 @@ public class GameDB implements DataPresenter
     private static GameDB ins = null;
     private AccountModel account;
     private UserModel user;
-    private RoomModel room;
+    private GameRoomManager roomManager;
     private ServerPresenter presenter;
 
     public static GameDB getInstance()
@@ -39,8 +39,7 @@ public class GameDB implements DataPresenter
         user = new UserManager();
         user.setPresenter(this);
 
-        room = new RoomManager();
-        room.setPresenter(this);
+        roomManager = GameRoomManager.getInstance();
     }
 
     public void log(String tag, String text)
@@ -80,16 +79,15 @@ public class GameDB implements DataPresenter
     public void createRoom(CreateRoomRequest request)
     {
         String ID = request.getID();
-        boolean NOT_OWNER = room.getRoom(ID) == null;
+        boolean NOT_OWNER = !roomManager.containsRoom(ID);
 
         if(isOnline(ID) && NOT_OWNER)
         {
-            if(request.isModifiable()) room.UpdateRoom(request);
-            else room.CreateRoom(request);
-            boolean isAccepted = (room.getRoom(ID) != null);
-            if(!isAccepted) return;
+            GameRoom r = roomManager.CreateRoom(ID, request.getTitle());
+            r.setLevelLimit(request.getLimit());
+            r.changeTimeout(request.getTimeout() / 60, request.getTimeout() % 60);
 
-            RoomResponse response = room.getRoom(ID);
+            RoomResponse response = new RoomResponse(r);
             request.getSender().writeAndFlush(response);
         }
     }
@@ -97,10 +95,10 @@ public class GameDB implements DataPresenter
     public RoomResponse[] getRoomList()
     {
         List<RoomResponse> list = new ArrayList<>();
-        for(String name : user.getUsers())
+        for(GameRoom gr : GameRoomManager.getInstance().getRoomList())
         {
-            RoomResponse response = room.getRoom(name);
-            if(response != null) list.add(response);
+            RoomResponse response = new RoomResponse(gr);
+            list.add(response);
         }
 
         return list.toArray(new RoomResponse[1]);
@@ -150,35 +148,5 @@ public class GameDB implements DataPresenter
     public boolean hasAccount(String ID)
     {
         return account.hasAccount(ID);
-    }
-
-    public void InsertRoom(CreateRoomRequest request)
-    {
-        room.CreateRoom(request);
-    }
-
-    public void RemoveRoom(int RoomID)
-    {
-        room.RemoveRoom(RoomID);
-    }
-
-    public void UpdateRoom(CreateRoomRequest request)
-    {
-        room.UpdateRoom(request);
-    }
-
-    public RoomResponse selectRoom(String owner)
-    {
-        return room.getRoom(owner);
-    }
-
-    public RoomResponse selectRoom(int RoomID)
-    {
-        return room.getRoom(RoomID);
-    }
-
-    public boolean hasRoom(int RoomID)
-    {
-        return room.hasRoom(RoomID);
     }
 }

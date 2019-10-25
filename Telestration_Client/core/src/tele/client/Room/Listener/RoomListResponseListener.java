@@ -9,7 +9,6 @@ import tele.client.Room.Screen.RoomScreen;
 
 public class RoomListResponseListener
 {
-
     @Subscribe
     public void handle(RoomListResponse response)
     {

@@ -1,12 +1,14 @@
 package tele.client.Room.Components;
 
+import DTO.Request.Room.GameRoom;
 import DTO.Response.RoomResponse;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
-public class Room extends TextButton implements Comparable<Room>
+public class Room extends TextButton
 {
     private RoomResponse response;
 
@@ -14,11 +16,10 @@ public class Room extends TextButton implements Comparable<Room>
     {
         super
                 (
-                        String.format("[%d]          |          %30s          |          Lv.%2d ~          |          %10s",
-                        response.getRoomID(),
-                        response.getTitle(),
-                        response.getLimit(),
-                        response.getOwner()),
+                        String.format("[%s]          |          %30s          |          Lv.%2d ~ ",
+                        response.getRoom().getOwner(),
+                        response.getRoom().getTitle(),
+                        response.getRoom().getLevelLimit()),
                         skin
                 );
 
@@ -28,25 +29,17 @@ public class Room extends TextButton implements Comparable<Room>
         System.out.println();
     }
 
-    public int getID()
+    public String getID()
     {
-        return response.getRoomID();
-    }
-
-    public int compareTo(Room o)
-    {
-        int roomID0 = response.getRoomID();
-        int roomID1 = o.response.getRoomID();
-
-        if(roomID0 > roomID1) return 1;
-        else return -1;
+        GameRoom room = response.getRoom();
+        return room.getOwner();
     }
 
     private class ClickedEvent extends ClickListener
     {
         public void clicked(InputEvent event, float x, float y)
         {
-            System.out.printf("Connect to Room No.%2d..\n", getID());
+            System.out.printf("Connect to %s's Room\n", getID());
         }
     }
 }

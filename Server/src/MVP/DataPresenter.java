@@ -30,12 +30,6 @@ public interface DataPresenter
     AccountResponse getAccount(String ID);
     boolean hasAccount(String ID);
 
-    void InsertRoom(CreateRoomRequest request);
-    void UpdateRoom(CreateRoomRequest request);
-    RoomResponse selectRoom(String owner);
-    RoomResponse selectRoom(final int RoomID);
-    boolean hasRoom(final int RoomID);
-
     interface DataModel
     {
         void initDB();
@@ -48,17 +42,6 @@ public interface DataPresenter
         void UpdateAccount(LoginRequest request);
         AccountResponse getAccount(String ID);
         boolean hasAccount(String ID);
-        void setPresenter(DataPresenter presenter);
-    }
-
-    interface RoomModel
-    {
-        void CreateRoom(CreateRoomRequest request);
-        void RemoveRoom(int RoomID);
-        void UpdateRoom(CreateRoomRequest request);
-        RoomResponse getRoom(String owner);
-        RoomResponse getRoom(final int RoomID);
-        boolean hasRoom(final int RoomID);
         void setPresenter(DataPresenter presenter);
     }
 
