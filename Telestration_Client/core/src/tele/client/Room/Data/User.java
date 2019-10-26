@@ -1,6 +1,6 @@
 package tele.client.Room.Data;
 
-import DTO.Response.UserResponse;
+import DTO.Response.User.UserResponse;
 
 public class User
 {

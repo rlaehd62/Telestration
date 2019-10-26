@@ -1,6 +1,6 @@
 package tele.client.Login.Data;
 
-import DTO.Response.AccountResponse;
+import DTO.Response.Account.AccountResponse;
 
 public class Account
 {

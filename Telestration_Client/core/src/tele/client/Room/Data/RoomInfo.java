@@ -1,7 +1,7 @@
 package tele.client.Room.Data;
 
 import DTO.Request.Room.GameRoom;
-import DTO.Response.RoomResponse;
+import DTO.Response.Room.RoomResponse;
 
 public class RoomInfo
 {
@@ -19,6 +19,11 @@ public class RoomInfo
     {
         this.response = response;
         this.room = response.getRoom();
+    }
+
+    public void setRoom(GameRoom room)
+    {
+        this.room = room;
     }
 
     public String getTitle()

@@ -1,6 +1,6 @@
 package Database.Manager;
 
-import DTO.Response.AccountResponse;
+import DTO.Response.Account.AccountResponse;
 import Database.ServerDB;
 import MVP.DataPresenter;
 import DTO.Request.Account.LoginRequest;

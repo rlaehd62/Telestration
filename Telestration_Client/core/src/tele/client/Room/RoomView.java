@@ -1,8 +1,8 @@
 package tele.client.Room;
 
-import DTO.Response.RoomListResponse;
-import DTO.Response.RoomResponse;
-import DTO.Response.UserResponse;
+import DTO.Response.Room.RoomListResponse;
+import DTO.Response.Room.RoomResponse;
+import DTO.Response.User.UserResponse;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;

@@ -5,6 +5,7 @@ import DTO.Request.Room.GameRoom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameRoomManager
 {
@@ -44,6 +45,20 @@ public class GameRoomManager
     public boolean containsRoom(String owner)
     {
         return rooms.containsKey(owner);
+    }
+
+    public boolean containsUser(String ID)
+    {
+        AtomicBoolean RESULT = new AtomicBoolean(false);
+        for(GameRoom room : getRoomList())
+        {
+            room.getUsers().forEach(username ->
+            {
+                if(!RESULT.get()) RESULT.set(username.equals(ID));
+            });
+        }
+
+        return RESULT.get();
     }
 
     public List<GameRoom> getRoomList()

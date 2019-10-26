@@ -1,7 +1,7 @@
 package DTO.Request.Users;
 
 import DTO.Request.GamePacket;
-import DTO.Response.UserResponse;
+import DTO.Response.User.UserResponse;
 import Util.State;
 
 public class AddUserRequest extends GamePacket

@@ -1,8 +1,8 @@
 package tele.client.Room.Interface;
 
 import DTO.Request.GamePacket;
-import DTO.Response.RoomListResponse;
-import DTO.Response.UserResponse;
+import DTO.Response.Room.RoomListResponse;
+import DTO.Response.User.UserResponse;
 import tele.client.Login.Interface.LoginMVP;
 
 public interface RoomMVP
@@ -31,11 +31,9 @@ public interface RoomMVP
     {
         void updateActors();
         void drawActors();
-
-
-        void hideInfo();
-        void showInfo(UserResponse response);
-        void setSubmit(boolean enabled);
+        void initLayout();
+        void loadLayout();
+        void loadListener();
 
         default void load()
         {
@@ -43,12 +41,11 @@ public interface RoomMVP
             loadLayout();
             loadListener();
         }
+        void hideInfo();
+        void showInfo(UserResponse response);
 
+        void setSubmit(boolean enabled);
         void setRoomList(RoomListResponse response);
-        void initLayout();
-        void loadLayout();
-        void loadListener();
-
         void setPresenter(Presenter presenter);
     }
 }

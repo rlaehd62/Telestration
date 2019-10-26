@@ -1,9 +1,4 @@
-import DTO.Request.Account.LoginRequest;
-import DTO.Request.Room.CreateRoomRequest;
 import DTO.Request.Room.GameRoom;
-import DTO.Request.Users.AddUserRequest;
-import DTO.Response.RoomResponse;
-import Database.GameDB;
 import Database.Manager.GameRoomManager;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +12,9 @@ class RoomManagerTest
     void insertRoom()
     {
         GameRoom gameRoom = gm.CreateRoom("rlaehd62", "이 멀티룸은 테스트용 멀티룸");
+        gameRoom.addUser("KID");
+        gameRoom.addUser("root");
+
         assertNotNull(gameRoom);
         assertEquals(gameRoom.getTitle(), "이 멀티룸은 테스트용 멀티룸");
         assertFalse(gameRoom.isRunning());
@@ -28,6 +26,14 @@ class RoomManagerTest
         System.out.println("\nTitle: " + gameRoom.getTitle());
         System.out.println("Owner: " + gameRoom.getOwner());
         System.out.println("Started: " + gameRoom.isRunning());
+
+        assertTrue(gm.containsRoom("rlaehd62"));
+        assertTrue(gm.containsUser("KID"));
+        assertTrue(gm.containsUser("root"));
+
+        gameRoom.removeUser("KID");
+        assertFalse(gm.containsUser("KID"));
+
     }
 
 }

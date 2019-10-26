@@ -1,5 +1,5 @@
 import DTO.Request.Account.LoginRequest;
-import DTO.Response.AccountResponse;
+import DTO.Response.Account.AccountResponse;
 import Database.GameDB;
 import Database.ServerDB;
 import org.junit.jupiter.api.Test;

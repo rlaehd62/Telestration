@@ -3,9 +3,10 @@ package Database;
 import DTO.Request.Room.CreateRoomRequest;
 import DTO.Request.Room.GameRoom;
 import DTO.Request.Users.AddUserRequest;
-import DTO.Response.AccountResponse;
-import DTO.Response.RoomResponse;
-import DTO.Response.UserResponse;
+import DTO.Response.Account.AccountResponse;
+import DTO.Response.Room.CreateRoomResponse;
+import DTO.Response.Room.RoomResponse;
+import DTO.Response.User.UserResponse;
 import Database.Manager.AccountManager;
 import Database.Manager.GameRoomManager;
 import Database.Manager.UserManager;
@@ -79,7 +80,7 @@ public class GameDB implements DataPresenter
     public void createRoom(CreateRoomRequest request)
     {
         String ID = request.getID();
-        boolean NOT_OWNER = !roomManager.containsRoom(ID);
+        boolean NOT_OWNER = !roomManager.containsRoom(ID) || !roomManager.containsUser(ID);
 
         if(isOnline(ID) && NOT_OWNER)
         {
@@ -87,7 +88,8 @@ public class GameDB implements DataPresenter
             r.setLevelLimit(request.getLimit());
             r.changeTimeout(request.getTimeout() / 60, request.getTimeout() % 60);
 
-            RoomResponse response = new RoomResponse(r);
+            CreateRoomResponse response = new CreateRoomResponse(new RoomResponse(r));
+            response.setAccepted(true);
             request.getSender().writeAndFlush(response);
         }
     }
@@ -112,11 +114,6 @@ public class GameDB implements DataPresenter
     public UserResponse getUser(String ID)
     {
         return user.getUser(ID);
-    }
-
-    public String[] getUsers(int RoomID)
-    {
-        return user.getUsers(RoomID);
     }
 
     public boolean isOnline(String ID)

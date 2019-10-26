@@ -3,9 +3,9 @@ package MVP;
 import DTO.Request.Users.AddUserRequest;
 import DTO.Request.Room.CreateRoomRequest;
 import DTO.Request.Account.LoginRequest;
-import DTO.Response.AccountResponse;
-import DTO.Response.RoomResponse;
-import DTO.Response.UserResponse;
+import DTO.Response.Account.AccountResponse;
+import DTO.Response.Room.RoomResponse;
+import DTO.Response.User.UserResponse;
 
 import java.sql.Connection;
 
@@ -22,7 +22,6 @@ public interface DataPresenter
 
     void UpdateUser(AddUserRequest request);
     UserResponse getUser(String ID);
-    String[] getUsers(int RoomID);
     boolean isOnline(String ID);
 
     void InsertAccount(LoginRequest request);
@@ -49,7 +48,6 @@ public interface DataPresenter
     {
         void UpdateUser(AddUserRequest request);
         UserResponse getUser(String ID);
-        String[] getUsers(int RoomID);
         String[] getUsers();
         void setPresenter(DataPresenter presenter);
 

@@ -1,5 +1,5 @@
 import DTO.Request.Users.AddUserRequest;
-import DTO.Response.UserResponse;
+import DTO.Response.User.UserResponse;
 import Database.GameDB;
 import Util.State;
 import org.junit.jupiter.api.Test;

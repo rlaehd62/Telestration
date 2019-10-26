@@ -3,8 +3,8 @@ package tele.client.Room;
 import DTO.Request.Room.CreateRoomRequest;
 import DTO.Request.Room.RoomListRequest;
 import DTO.Request.Users.UserInfoRequest;
-import DTO.Response.RoomListResponse;
-import DTO.Response.UserResponse;
+import DTO.Response.Room.RoomListResponse;
+import DTO.Response.User.UserResponse;
 import tele.client.Login.Data.Account;
 import tele.client.Room.Interface.RoomMVP;
 

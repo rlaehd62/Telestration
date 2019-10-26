@@ -1,6 +1,6 @@
 package tele.client.Room.Listener;
 
-import DTO.Response.RoomListResponse;
+import DTO.Response.Room.RoomListResponse;
 import com.badlogic.gdx.Gdx;
 import com.google.common.eventbus.Subscribe;
 import tele.client.Room.Interface.RoomMVP;

@@ -1,7 +1,7 @@
 package DTO.Request.Room;
 
 import DTO.Request.GamePacket;
-import DTO.Response.RoomResponse;
+import DTO.Response.Room.RoomResponse;
 import Util.State;
 
 public class CreateRoomRequest extends GamePacket

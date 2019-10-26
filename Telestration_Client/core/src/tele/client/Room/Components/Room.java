@@ -1,12 +1,14 @@
 package tele.client.Room.Components;
 
 import DTO.Request.Room.GameRoom;
-import DTO.Response.RoomResponse;
+import DTO.Response.Room.RoomResponse;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import tele.client.Room.Interface.RoomMVP;
+import tele.client.Room.RoomPresenter;
 
 public class Room extends TextButton
 {
@@ -39,7 +41,9 @@ public class Room extends TextButton
     {
         public void clicked(InputEvent event, float x, float y)
         {
+            RoomMVP.Presenter presenter = RoomPresenter.getInstance();
             System.out.printf("Connect to %s's Room\n", getID());
+            // JoinRoomRequest 보내야함 .. (만들어진 상태 + 이벤트 리스터 준비됨)
         }
     }
 }

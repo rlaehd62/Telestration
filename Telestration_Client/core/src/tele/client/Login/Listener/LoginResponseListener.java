@@ -1,6 +1,6 @@
 package tele.client.Login.Listener;
 
-import DTO.Response.AccountResponse;
+import DTO.Response.Account.AccountResponse;
 import com.badlogic.gdx.Gdx;
 import com.google.common.eventbus.Subscribe;
 import tele.client.Login.Data.Account;

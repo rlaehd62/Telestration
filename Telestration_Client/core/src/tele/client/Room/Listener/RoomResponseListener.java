@@ -1,6 +1,6 @@
 package tele.client.Room.Listener;
 
-import DTO.Response.RoomResponse;
+import DTO.Response.Room.RoomResponse;
 import com.google.common.eventbus.Subscribe;
 import tele.client.Room.Data.RoomInfo;
 
