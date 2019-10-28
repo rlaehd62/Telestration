@@ -1,5 +1,6 @@
 package GameData;
 
+
 import DTO.Response.Account.AccountResponse;
 
 public class Account

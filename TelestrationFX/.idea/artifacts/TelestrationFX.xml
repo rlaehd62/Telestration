@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="TelestrationFX">
+    <output-path>$PROJECT_DIR$/out/artifacts/TelestrationFX</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="TelestrationFX.MainFX" />
+        <option name="description" value="" />
+        <option name="height" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+        <option name="width" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="TelestrationFX.jar">
+        <element id="module-output" name="TelestrationFX" />
+      </element>
+    </root>
+  </artifact>
+</component>

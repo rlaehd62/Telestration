@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.191"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WaitRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WaitRoomController">
    <children>
       <SplitPane dividerPositions="0.7944862155388471" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
         <items>
@@ -24,7 +23,7 @@
                <children>
                   <Label fx:id="username" layoutY="36.0" onMouseClicked="#updateInfo" prefHeight="36.0" prefWidth="161.0" text="EMPTY-NAME" textAlignment="CENTER" underline="true">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="NanumBarunGothic" size="15.0" />
                      </font>
                      <padding>
                         <Insets left="10.0" />
@@ -40,7 +39,7 @@
                   </Label>
                   <Label fx:id="exp" layoutY="108.0" prefHeight="36.0" prefWidth="161.0" text="EXP (0 / 0)">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="NanumBarunGothic" size="15.0" />
                      </font>
                      <padding>
                         <Insets left="10.0" />
@@ -50,16 +49,16 @@
                   <Separator layoutY="34.0" prefHeight="4.0" prefWidth="161.0" />
                   <JFXTextField fx:id="title" focusColor="#5e6eff" layoutY="401.0" prefHeight="23.0" prefWidth="161.0" promptText="Title">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="NanumBarunGothic Bold" size="15.0" />
                      </font>
                   </JFXTextField>
                   <JFXTextField fx:id="limit" focusColor="#5e6eff" layoutY="435.0" prefHeight="23.0" prefWidth="161.0" promptText="Level Limit">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="NanumBarunGothic" size="15.0" />
                      </font>
                   </JFXTextField>
                   <Separator layoutX="1.0" layoutY="521.0" prefHeight="4.0" prefWidth="161.0" />
-                  <JFXButton fx:id="creation" layoutX="6.0" layoutY="476.0" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: #5e6eff;" text="방 생성" textFill="WHITE">
+                  <JFXButton fx:id="creation" layoutX="6.0" layoutY="476.0" onAction="#createRoom" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: #5e6eff;" text="방 생성" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>

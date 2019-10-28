@@ -24,4 +24,9 @@ public class ClientHandler extends SimpleChannelInboundHandler<Object>
         System.out.println("Received Something");
         bus.post(packet);
     }
+
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception
+    {
+        cause.printStackTrace();
+    }
 }

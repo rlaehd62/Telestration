@@ -2,6 +2,7 @@ package Network;
 
 import DTO.Request.GamePacket;
 import Listener.Login.LoginResponseListener;
+import Listener.WaitRoom.CreateRoomResponseListener;
 import Listener.WaitRoom.RoomListResponseListener;
 import Listener.WaitRoom.UserResponseListener;
 import TelestrationFX.MainFX;
@@ -30,6 +31,7 @@ public class Client extends Thread
         eventBus.register(new LoginResponseListener());
         eventBus.register(new UserResponseListener());
         eventBus.register(new RoomListResponseListener());
+        eventBus.register(new CreateRoomResponseListener());
     }
 
     public static Client getInstance()

@@ -1,16 +1,21 @@
 package Controller;
 
+import DTO.Request.Room.CreateRoomRequest;
 import DTO.Request.Room.GameRoom;
+import DTO.Request.Room.RoomListRequest;
 import DTO.Response.Room.RoomListResponse;
 import DTO.Response.Room.RoomResponse;
 import GameData.Account;
 import GameData.User;
+import Network.Client;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
@@ -58,6 +63,28 @@ public class WaitRoomController
         username.setText(Account.getInstance().getID());
         level.setText("Lv." + User.getInstance().level());
         exp.setText(String.format("EXP (%d / %d)", User.getInstance().exp(), User.getInstance().maxExp()));
+        RoomListRequest request = new RoomListRequest(Account.getInstance().getID(), 10);
+        Client.getInstance().send(request);
+    }
+
+    @FXML
+    void createRoom(ActionEvent event)
+    {
+        try
+        {
+            String ID = Account.getInstance().getID();
+            String TITLE = title.getText();
+            title.clear();
+
+            int level = Integer.parseInt(limit.getText());
+            limit.clear();
+
+            CreateRoomRequest request = new CreateRoomRequest(ID, TITLE);
+            request.setLimit(level);
+
+            Client.getInstance().send(request);
+
+        } catch (Exception e) { return; }
     }
 
 
@@ -70,34 +97,37 @@ public class WaitRoomController
 
     public void updateRoomList(RoomListResponse response)
     {
-        JFXTreeTableColumn<GameRoomBean, String> title = new JFXTreeTableColumn<>("Title");
-        title.setPrefWidth(100);
-        title.setCellValueFactory(param ->
-                param.getValue().getValue().title);
-
-        JFXTreeTableColumn<GameRoomBean, String> owner = new JFXTreeTableColumn<>("Owner");
-        owner.setPrefWidth(100);
-        owner.setCellValueFactory(param ->
-                param.getValue().getValue().owner);
-
-        JFXTreeTableColumn<GameRoomBean, String> level = new JFXTreeTableColumn<>("Level 제한");
-        owner.setPrefWidth(100);
-        owner.setCellValueFactory(param ->
-                param.getValue().getValue().limit);
-
-        ObservableList<GameRoomBean> list = FXCollections.observableArrayList();
-        for(RoomResponse room : response.getRooms())
+        Platform.runLater(() ->
         {
-            GameRoom gr = room.getRoom();
-            GameRoomBean bean = new GameRoomBean(gr);
-            list.add(bean);
-        }
+            JFXTreeTableColumn<GameRoomBean, String> owner = new JFXTreeTableColumn<>("Owner");
+            owner.setPrefWidth(100);
+            owner.setCellValueFactory(param ->
+                    param.getValue().getValue().owner);
 
-        final TreeItem<GameRoomBean> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
-        table.getColumns().setAll(title, owner, level);
-        table.setRoot(root);
-        table.setShowRoot(false);
-        System.out.println("테스트");
+            JFXTreeTableColumn<GameRoomBean, String> title = new JFXTreeTableColumn<>("Title");
+            title.setPrefWidth(400);
+            title.setCellValueFactory(param ->
+                    param.getValue().getValue().title);
+
+
+            JFXTreeTableColumn<GameRoomBean, String> level = new JFXTreeTableColumn<>("Level 제한");
+            level.setPrefWidth(100);
+            level.setCellValueFactory(param ->
+                    param.getValue().getValue().limit);
+
+            ObservableList<GameRoomBean> list = FXCollections.observableArrayList();
+            for(RoomResponse room : response.getRooms())
+            {
+                GameRoom gr = room.getRoom();
+                GameRoomBean bean = new GameRoomBean(gr);
+                list.add(bean);
+            }
+
+            final TreeItem<GameRoomBean> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
+            table.getColumns().setAll(owner, title, level);
+            table.setRoot(root);
+            table.setShowRoot(false);
+        });
     }
 
     private class GameRoomBean extends RecursiveTreeObject<GameRoomBean>

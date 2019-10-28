@@ -2,8 +2,8 @@ package TelestrationFX;
 
 import Network.Client;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -41,9 +41,11 @@ public class MainFX extends Application
         primaryStage.show();
     }
 
+    @Override
     public void stop() throws Exception
     {
         Client.getInstance().stopServer();
+        Platform.exit();
     }
 
     public void init()
