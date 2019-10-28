@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="TelestrationFX.jnlp">
+  <information>
+    <title>TelestrationFX</title>
+    <vendor>Unknown</vendor>
+    <description>TelestrationFX</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Core.jar" size="12704565" download="eager" />
+    <jar href="TelestrationFX.jar" size="21729" download="eager" />
+    <jar href="jfoenix-8.0.8.jar" size="2708772" download="eager" />
+    <jar href="sqlite-jdbc-3.27.2.1.jar" size="6012107" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="800" height="600" main-class="TelestrationFX.MainFX"  name="TelestrationFX" />
+  <update check="background"/>
+</jnlp>

@@ -17,6 +17,7 @@ import Server.ChannelManager;
 import Util.State;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameDB implements DataPresenter
@@ -103,7 +104,8 @@ public class GameDB implements DataPresenter
             list.add(response);
         }
 
-        return list.toArray(new RoomResponse[1]);
+        if(list.size() > 0) return list.toArray(new RoomResponse[1]);
+        return null;
     }
 
     public void UpdateUser(AddUserRequest request)

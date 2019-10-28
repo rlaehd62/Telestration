@@ -23,6 +23,7 @@ public class GameRoomManager
         if(!rooms.containsKey(owner))
         {
             GameRoom gr = new GameRoom(owner, title);
+            gr.addUser(owner);
             rooms.put(owner, gr);
             return gr;
         }
