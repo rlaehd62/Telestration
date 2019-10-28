@@ -32,18 +32,6 @@ public class ServerDB implements DataPresenter.DataModel
                             "PW VARCHAR (45) NOT NULL" +
                             ")";
 
-            String ROOM =
-                    "CREATE TABLE IF NOT EXISTS ROOM" +
-                            "(" +
-                            "ID INTEGER PRIMARY KEY NOT NULL," +
-                            "STATE INTEGER NOT NULL DEFAULT 0," +
-                            "TITLE VARCHAR (45) NOT NULL," +
-                            "OWNER VARCHAR(45) NOT NULL," +
-                            "LMT INTEGER NOT NULL," +
-                            "TIMEOUT INTEGER NOT NULL," +
-                            "FOREIGN KEY (OWNER) REFERENCES ACCOUNT(ID)" +
-                            ")";
-
             String USERS =
                     "CREATE TABLE IF NOT EXISTS USERS" +
                             "(" +
@@ -57,7 +45,6 @@ public class ServerDB implements DataPresenter.DataModel
                             ")";
 
             state.execute(ACCOUNT);
-            state.execute(ROOM);
             state.execute(USERS);
             state.close();
         }

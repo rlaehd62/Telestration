@@ -27,14 +27,23 @@ public class MainFX extends Application
         init();
         Client.getInstance().startServer();
 
+<<<<<<< HEAD
         Scene main = new Scene(FXMLLoader.load(getClass().getResource("../Layout/Login.fxml")));
+=======
+        Scene main = new Scene(FXMLLoader.load(getClass().getResource("Layout/Login.fxml")));
+>>>>>>> dev
         primaryStage.setScene(main);
 
         ScreenManager sm = ScreenManager.getInstance();
         sm.setMain(main);
 
+<<<<<<< HEAD
         sm.addScreen("Login", FXMLLoader.load(getClass().getResource("../Layout/Login.fxml")));
         sm.addScreen("WaitRoom", FXMLLoader.load(getClass().getResource("../Layout/WaitRoom.fxml")));
+=======
+        sm.addScreen("Login", FXMLLoader.load(getClass().getResource("Layout/Login.fxml")));
+        sm.addScreen("WaitRoom", FXMLLoader.load(getClass().getResource("Layout/WaitRoom.fxml")));
+>>>>>>> dev
         sm.activate("Login");
 
         primaryStage.centerOnScreen();

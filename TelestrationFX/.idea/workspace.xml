@@ -6,6 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/../.gitattributes" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Core/Core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/Core.iml" afterDir="false" />
@@ -60,6 +61,9 @@
       <change beforePath="$PROJECT_DIR$/../Telestration_Client/lib/netty-all-4.0.31.Final.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Telestration_Client/lib/sqlite-jdbc-3.27.2.1.jar" beforeDir="false" />
     </list>
+=======
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
+>>>>>>> dev
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,6 +128,13 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="ErrorTreeViewConfiguration">
+    <option name="autoscrollToSource" value="true" />
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="true" />
+  </component>
+>>>>>>> dev
   <component name="FavoritesManager">
     <favorites_list name="JavaFxApplication" />
   </component>
@@ -134,6 +145,7 @@
       </list>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="FindInProjectRecents">
     <findStrings>
       <find>owner</find>
@@ -143,6 +155,8 @@
       <find>Font</find>
     </findStrings>
   </component>
+=======
+>>>>>>> dev
   <component name="FindManager">
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="false" />
@@ -167,6 +181,13 @@
     <option name="STATE" value="0" />
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD
+=======
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="telestrationfx" />
+>>>>>>> dev
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="GoToFile.includeJavaFiles" value="false" />
@@ -177,6 +198,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Listener/WaitRoom" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -186,15 +208,38 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/설계도/Waiting Room 기능 설계 (클라이언트).png" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="recentsLimit" value="5" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX\Layout" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX" />
+    </key>
+>>>>>>> dev
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+<<<<<<< HEAD
       <recent name="C:\Users\user\Desktop\Dev\Telestration\TelestrationFX\src\Listener\WaitRoom" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\Listener\WaitRoom" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\GameData" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\Listener\Login" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\Network" />
+=======
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\설계도" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\libs" />
+      <recent name="C:\Users\user\Desktop\Dev\Telestration\TelestrationFX\src\Listener\WaitRoom" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\Listener\WaitRoom" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\GameData" />
+>>>>>>> dev
     </key>
   </component>
   <component name="RunDashboard">
@@ -311,6 +356,7 @@
       <workItem from="1572232717992" duration="520000" />
       <workItem from="1572234238101" duration="61000" />
       <workItem from="1572238783017" duration="107000" />
+<<<<<<< HEAD
     </task>
     <servers />
   </component>
@@ -323,6 +369,16 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
+=======
+      <workItem from="1572281977900" duration="1115000" />
+      <workItem from="1572283098536" duration="418000" />
+      <workItem from="1572283525578" duration="658000" />
+      <workItem from="1572284284025" duration="443000" />
+      <workItem from="1572285351331" duration="3214000" />
+    </task>
+    <servers />
+  </component>
+>>>>>>> dev
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
@@ -331,7 +387,13 @@
       <map>
         <entry key="MAIN">
           <value>
+<<<<<<< HEAD
             <State />
+=======
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+>>>>>>> dev
           </value>
         </entry>
       </map>
@@ -340,6 +402,7 @@
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+<<<<<<< HEAD
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -351,11 +414,17 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+=======
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
+>>>>>>> dev
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
+<<<<<<< HEAD
   <component name="masterDetails">
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
@@ -432,4 +501,6 @@
       </state>
     </states>
   </component>
+=======
+>>>>>>> dev
 </project>

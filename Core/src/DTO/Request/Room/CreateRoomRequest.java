@@ -1,7 +1,8 @@
 package DTO.Request.Room;
 
 import DTO.Request.GamePacket;
-import DTO.Response.RoomResponse;
+import DTO.Response.Room.RoomResponse;
+import Util.State;
 
 public class CreateRoomRequest extends GamePacket
 {
@@ -13,11 +14,12 @@ public class CreateRoomRequest extends GamePacket
 
     public CreateRoomRequest(RoomResponse response)
     {
-        setID(response.getOwner());
-        this.title = response.getTitle();
-        this.limit = response.getLimit();
-        this.timeout = response.getTimeout();
-        this.state = response.getTimeout();
+        GameRoom room = response.getRoom();
+        setID(room.getOwner());
+        this.title = room.getTitle();
+        this.limit = room.getLevelLimit();
+        this.timeout = room.getTimeOut();
+        this.state = (room.isRunning()) ? State.STARTED : State.READY;
     }
 
     public CreateRoomRequest(String ID, String title)

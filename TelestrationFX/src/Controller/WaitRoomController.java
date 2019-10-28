@@ -105,7 +105,11 @@ public class WaitRoomController
                     param.getValue().getValue().owner);
 
             JFXTreeTableColumn<GameRoomBean, String> title = new JFXTreeTableColumn<>("Title");
+<<<<<<< HEAD
             title.setPrefWidth(400);
+=======
+            title.setPrefWidth(430);
+>>>>>>> dev
             title.setCellValueFactory(param ->
                     param.getValue().getValue().title);
 

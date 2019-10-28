@@ -5,6 +5,10 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/libs" type="java-resource" />
+<<<<<<< HEAD
+=======
+      <sourceFolder url="file://$MODULE_DIR$/설계도" type="java-resource" />
+>>>>>>> dev
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -18,7 +22,10 @@
         <SOURCES />
       </library>
     </orderEntry>
+<<<<<<< HEAD
     <orderEntry type="library" name="Netty 4.1.39" level="application" />
+=======
+>>>>>>> dev
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -28,5 +35,9 @@
         <SOURCES />
       </library>
     </orderEntry>
+<<<<<<< HEAD
+=======
+    <orderEntry type="library" name="Netty 4.0.31" level="application" />
+>>>>>>> dev
   </component>
 </module>

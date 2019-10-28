@@ -1,0 +1,148 @@
+@startuml
+title 1. Login 기능 설계
+footer Page 1 of 2
+
+object Main {
+    start()
+    stop()
+}
+
+package Screen
+{
+
+    object ScreenManager {
+        addScreen()
+        removeScreen()
+        activate()
+    }
+
+    object Login.fxml {
+        UI 파일
+    }
+
+    object LoginController {
+        makeLogin()
+        makeRegister()
+    }
+}
+
+package Request
+{
+    object LoginRequest
+    object RoomListRequest
+    object UserInfoRequest
+}
+
+package Network
+{
+    object Client {
+        send()
+    }
+
+    object ClientHandler {
+        channelRead()
+    }
+}
+
+package Listener
+{
+    object LoginResponseListener
+}
+
+package Data
+{
+    object Account {
+        수신한 게정 정보를 저장
+    }
+}
+
+Main ..> ScreenManager : activate() >
+ScreenManager .> Login.fxml
+Login.fxml ..> LoginController
+LoginController ..> Client : send() >
+
+LoginController .> LoginRequest
+LoginController .> RoomListRequest
+LoginController .> UserInfoRequest
+
+ClientHandler ..> LoginResponseListener
+LoginResponseListener ..> Account : setResponse() >
+
+newpage
+
+title 2. Waiting Room 기능 설계
+footer Page 2 of 2
+
+package Screen
+{
+
+    object ScreenManager {
+        addScreen()
+        removeScreen()
+        activate()
+    }
+
+    object WaitRoom.fxml {
+        UI 파일
+    }
+
+    object WaitRoomController {
+        updateInfo()
+        createRoom()
+        updateRoomInfo()
+        updateUserInfo()
+    }
+}
+
+package Listener
+{
+    object CreateRoomResponseListener
+    object RoomListResponseListener
+    object UserResponseListener
+
+}
+
+package Request
+{
+    object RoomListRequest
+    object UserInfoRequest
+    object CreateRoomRequest
+}
+
+package Data
+{
+    object User {
+    }
+
+    object RoomInfo {
+    }
+}
+
+package Network
+{
+    object Client {
+        send()
+    }
+
+    object ClientHandler {
+        channelRead()
+    }
+}
+
+ScreenManager ..> WaitRoom.fxml
+WaitRoom.fxml ..> WaitRoomController
+WaitRoomController ..> Client : send() >
+
+WaitRoomController .> RoomListRequest
+WaitRoomController .> UserInfoRequest
+WaitRoomController .> CreateRoomRequest
+
+ClientHandler ..> CreateRoomResponseListener
+ClientHandler ...> RoomListResponseListener
+ClientHandler ..> UserResponseListener
+
+CreateRoomResponseListener ..> RoomInfo : setResponse() >
+UserResponseListener ..> User : setResponse() >
+
+RoomListResponseListener ....> WaitRoomController : updateRoomInfo() >
+@enduml

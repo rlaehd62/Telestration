@@ -14,11 +14,19 @@ public class LoginResponseListener
     @Subscribe
     public void handle(AccountResponse response)
     {
+<<<<<<< HEAD
+=======
+        if(!response.isAccepted()) return;
+
+>>>>>>> dev
         System.out.printf("%3s\n", "ID: " + response.getID());
         System.out.printf("%3s\n", "PW: " + response.getPassword());
         System.out.printf("%3s\n", "RES: " + response.isAccepted());
 
+<<<<<<< HEAD
         if(!response.isAccepted()) return;
+=======
+>>>>>>> dev
         Account.getInstance().setResponse(response);
         ScreenManager.getInstance().activate("WaitRoom");
         Client.getInstance().send(new UserInfoRequest(Account.getInstance().getID()));

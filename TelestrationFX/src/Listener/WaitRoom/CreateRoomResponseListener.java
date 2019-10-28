@@ -20,5 +20,9 @@ public class CreateRoomResponseListener
         RoomListRequest request = new RoomListRequest(Account.getInstance().getID(), 10);
         Client.getInstance().send(request);
 
+<<<<<<< HEAD
+=======
+        // RoomList 요청 대신, GameRoom 화면으로 스크린을 바꿀 것.
+>>>>>>> dev
     }
 }

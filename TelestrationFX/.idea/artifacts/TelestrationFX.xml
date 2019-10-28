@@ -5,12 +5,23 @@
       <options>
         <option name="appClass" value="TelestrationFX.MainFX" />
         <option name="description" value="" />
+<<<<<<< HEAD
         <option name="height" value="" />
         <option name="htmlPlaceholderId" value="" />
         <option name="title" value="" />
         <option name="vendor" value="" />
         <option name="version" value="" />
         <option name="width" value="" />
+=======
+        <option name="height" value="600" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="msgOutputLevel" value="Verbose" />
+        <option name="nativeBundle" value="all" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+        <option name="width" value="800" />
+>>>>>>> dev
       </options>
     </properties>
     <root id="root">
