@@ -1,20 +1,17 @@
 package Server;
 
-import Listener.CreateRoomListener;
-import Listener.LoginListener;
-import Listener.RoomListListener;
-import Listener.UserInfoRequestListener;
+import Listener.Room.CreateRoomListener;
+import Listener.Account.LoginListener;
+import Listener.Room.JoinRoomListener;
+import Listener.Room.RoomListListener;
+import Listener.User.UserInfoRequestListener;
 import MVP.ServerPresenter;
-import Util.GamePacketDecoder;
-import Util.GamePacketEncoder;
-import Database.ServerDB;
 import com.google.common.eventbus.EventBus;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.serialization.ClassResolver;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
@@ -41,6 +38,7 @@ public class Server extends Thread implements ServerPresenter.ServerModel
         eventBus.register(new CreateRoomListener());
         eventBus.register(new RoomListListener());
         eventBus.register(new UserInfoRequestListener());
+        eventBus.register(new JoinRoomListener());
     }
 
     public static Server getInstance()

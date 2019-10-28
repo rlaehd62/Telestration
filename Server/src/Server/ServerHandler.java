@@ -1,7 +1,6 @@
 package Server;
 
 import DTO.Request.GamePacket;
-import DTO.Response.AccountResponse;
 import com.google.common.eventbus.EventBus;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -22,6 +21,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<GamePacket>
         System.out.println("뭐가 끊김");
 
         // 어떤 유저가 접속을 끊었는지 알 수 있음.
+        // 유저가 접속 끊었을 때 룸 사람 없으면 삭제 하거나 다른 애한테 방장 넘겨야됨
         for(Map.Entry entry : ChannelManager.getChannels().entrySet())
         {
             if(entry.getValue().equals(ctx))

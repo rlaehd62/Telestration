@@ -1,7 +1,7 @@
 package Database.Manager;
 
 import DTO.Request.Users.AddUserRequest;
-import DTO.Response.UserResponse;
+import DTO.Response.User.UserResponse;
 import Database.ServerDB;
 import MVP.DataPresenter;
 
@@ -71,28 +71,6 @@ public class UserManager implements DataPresenter.UserModel
         }
 
         return null;
-    }
-
-    public String[] getUsers(int RoomID)
-    {
-        List<String> list = new ArrayList<>();
-        try (Connection conn = DB.getConnection())
-        {
-            String query = "SELECT ID FROM USERS WHERE EXISTS (SELECT * FROM USERS WHERE ROOM_ID = ?)";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, RoomID);
-
-            ResultSet result = ps.executeQuery();
-            while(result.next())
-                list.add(result.getString(1));
-
-            return list.toArray(new String[1]);
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-
-        return list.toArray(new String[1]);
     }
 
     public String[] getUsers()

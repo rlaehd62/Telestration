@@ -1,0 +1,18 @@
+package Listener.Room;
+
+import DTO.Request.Room.CreateRoomRequest;
+import Database.GameDB;
+import Database.Manager.GameRoomManager;
+import Listener.ServerListener;
+import MVP.DataPresenter;
+import com.google.common.eventbus.Subscribe;
+
+public class CreateRoomListener extends ServerListener<CreateRoomRequest>
+{
+    @Subscribe
+    public void handle(CreateRoomRequest message)
+    {
+        System.out.println(GameRoomManager.getInstance().getRoomList().size());
+        presenter.createRoom(message);
+    }
+}
