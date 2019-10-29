@@ -6,6 +6,7 @@ import DTO.Response.Room.CreateRoomResponse;
 import GameData.Account;
 import GameData.RoomInfo;
 import Network.Client;
+import TelestrationFX.ScreenManager;
 import com.google.common.eventbus.Subscribe;
 
 public class CreateRoomResponseListener
@@ -17,9 +18,7 @@ public class CreateRoomResponseListener
 
         RoomInfo info = RoomInfo.getInstance();
         if(response.getResponse() != null) info.setResponse(response.getResponse());
-        RoomListRequest request = new RoomListRequest(Account.getInstance().getID(), 10);
-        Client.getInstance().send(request);
-
-        // RoomList 요청 대신, GameRoom 화면으로 스크린을 바꿀 것.
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.activate("GameRoom");
     }
 }

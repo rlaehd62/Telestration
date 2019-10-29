@@ -19,7 +19,7 @@ public class UserResponseListener
         System.out.println("Lv. " + response.getLevel());
         System.out.println("EXP (" + response.getExp() + " / " + response.getMaxExp() + ")");
 
-        WaitRoomController con = WaitRoomController.controller;
+        WaitRoomController con = WaitRoomController.getInstance();
         con.updateUserInfo();
     }
 }

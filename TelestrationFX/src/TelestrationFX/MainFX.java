@@ -35,6 +35,7 @@ public class MainFX extends Application
 
         sm.addScreen("Login", FXMLLoader.load(getClass().getResource("Layout/Login.fxml")));
         sm.addScreen("WaitRoom", FXMLLoader.load(getClass().getResource("Layout/WaitRoom.fxml")));
+        sm.addScreen("GameRoom", FXMLLoader.load(getClass().getResource("Layout/GameRoom.fxml")));
         sm.activate("Login");
 
         primaryStage.centerOnScreen();
