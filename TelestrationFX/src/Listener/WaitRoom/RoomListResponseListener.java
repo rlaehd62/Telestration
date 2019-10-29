@@ -10,7 +10,7 @@ public class RoomListResponseListener
     public void handle(RoomListResponse response)
     {
         System.out.println("Something .. Room .. " + response.getRooms().size());
-        WaitRoomController con = WaitRoomController.controller;
+        WaitRoomController con = WaitRoomController.getInstance();
         con.updateRoomList(response);
     }
 }

@@ -12,18 +12,13 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.application.Platform;
 import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
-
-import java.util.Observer;
 
 public class WaitRoomController
 {
@@ -49,50 +44,66 @@ public class WaitRoomController
     @FXML
     private JFXButton creation;
 
-    public static WaitRoomController controller;
+    private Client client;
+    private static WaitRoomController controller;
 
     public WaitRoomController()
     {
-        System.out.println("테스트");
+        client = Client.getInstance();
         controller = this;
+    }
+
+    public static WaitRoomController getInstance()
+    {
+        return controller;
     }
 
     @FXML
     void updateInfo(MouseEvent event)
     {
-        username.setText(Account.getInstance().getID());
-        level.setText("Lv." + User.getInstance().level());
-        exp.setText(String.format("EXP (%d / %d)", User.getInstance().exp(), User.getInstance().maxExp()));
-        RoomListRequest request = new RoomListRequest(Account.getInstance().getID(), 10);
-        Client.getInstance().send(request);
+        Platform.runLater(() ->
+        {
+            username.setText(Account.getInstance().getID());
+            level.setText("Lv." + User.getInstance().level());
+            exp.setText(String.format("EXP (%d / %d)", User.getInstance().exp(), User.getInstance().maxExp()));
+
+            RoomListRequest request = new RoomListRequest(Account.getInstance().getID(), 10);
+            client.send(request);
+        });
     }
 
     @FXML
     void createRoom(ActionEvent event)
     {
-        try
+        Platform.runLater(() ->
         {
-            String ID = Account.getInstance().getID();
-            String TITLE = title.getText();
-            title.clear();
+            try
+            {
+                String ID = Account.getInstance().getID();
+                String TITLE = title.getText();
+                title.clear();
 
-            int level = Integer.parseInt(limit.getText());
-            limit.clear();
+                int level = Integer.parseInt(limit.getText());
+                limit.clear();
 
-            CreateRoomRequest request = new CreateRoomRequest(ID, TITLE);
-            request.setLimit(level);
+                CreateRoomRequest request = new CreateRoomRequest(ID, TITLE);
+                request.setLimit(level);
 
-            Client.getInstance().send(request);
+                client.send(request);
 
-        } catch (Exception e) { return; }
+            } catch (Exception e) { return; }
+        });
     }
 
 
     public void updateUserInfo()
     {
-        username.setText(Account.getInstance().getID());
-        level.setText("Lv." + User.getInstance().level());
-        exp.setText(String.format("EXP (%d / %d)", User.getInstance().exp(), User.getInstance().maxExp()));
+        Platform.runLater(() ->
+        {
+            username.setText(Account.getInstance().getID());
+            level.setText("Lv." + User.getInstance().level());
+            exp.setText(String.format("EXP (%d / %d)", User.getInstance().exp(), User.getInstance().maxExp()));
+        });
     }
 
     public void updateRoomList(RoomListResponse response)

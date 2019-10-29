@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.sun.xml.internal.bind.v2.model.core.ID;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -23,31 +24,46 @@ public class LoginController {
     @FXML
     private JFXButton register;
 
+    private static LoginController controller;
     private Client client = Client.getInstance();
+
+    public LoginController()
+    {
+        this.controller = this;
+    }
+
+    public static LoginController getInstance()
+    {
+        return controller;
+    }
 
     @FXML
     void makeLogin(ActionEvent event)
     {
-        String ID = username.getText();
-        String PW = password.getText();
-        if(ID.contains(" ") || PW.contains(" ") || ID.equals("") || PW.equals("")) return;
-        LoginRequest request = new LoginRequest(ID, PW);
-        request.setSubscribable(false);
-        client.send(request);
+        Platform.runLater(() ->
+        {
+            String ID = username.getText();
+            String PW = password.getText();
+            if(ID.contains(" ") || PW.contains(" ") || ID.equals("") || PW.equals("")) return;
+            LoginRequest request = new LoginRequest(ID, PW);
+            request.setSubscribable(false);
+            client.send(request);
+        });
     }
 
     @FXML
     void makeRegister(ActionEvent event)
     {
-        String ID = username.getText();
-        String PW = password.getText();
-        if(!isValid()) return;
+        Platform.runLater(() ->
+        {
+            String ID = username.getText();
+            String PW = password.getText();
+            if(!isValid()) return;
 
-        LoginRequest request = new LoginRequest(ID, PW);
-        request.setSubscribable(true);
-        client.send(request);
-
-        event.getSource();
+            LoginRequest request = new LoginRequest(ID, PW);
+            request.setSubscribable(true);
+            client.send(request);
+        });
     }
 
     private boolean isValid()
