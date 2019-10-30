@@ -1,5 +1,6 @@
 package Listener.WaitRoom;
 
+import Controller.GameRoomController;
 import DTO.Request.Room.CreateRoomRequest;
 import DTO.Request.Room.RoomListRequest;
 import DTO.Response.Room.CreateRoomResponse;
@@ -18,7 +19,12 @@ public class CreateRoomResponseListener
 
         RoomInfo info = RoomInfo.getInstance();
         if(response.getResponse() != null) info.setResponse(response.getResponse());
+
         ScreenManager sm = ScreenManager.getInstance();
         sm.activate("GameRoom");
+
+        GameRoomController con = GameRoomController.getInstance();
+        con.UpdateRoomInfo();
+        con.UpdateUserList();
     }
 }
