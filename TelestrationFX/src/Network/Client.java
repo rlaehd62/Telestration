@@ -1,10 +1,9 @@
 package Network;
 
 import DTO.Request.GamePacket;
+import Listener.GameRoom.ChatResponseListener;
 import Listener.Login.LoginResponseListener;
-import Listener.WaitRoom.CreateRoomResponseListener;
-import Listener.WaitRoom.RoomListResponseListener;
-import Listener.WaitRoom.UserResponseListener;
+import Listener.WaitRoom.*;
 import TelestrationFX.MainFX;
 import com.google.common.eventbus.EventBus;
 import io.netty.bootstrap.Bootstrap;
@@ -14,6 +13,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
+import javafx.application.Platform;
 
 public class Client extends Thread
 {
@@ -30,8 +30,13 @@ public class Client extends Thread
         eventBus = new EventBus();
         eventBus.register(new LoginResponseListener());
         eventBus.register(new UserResponseListener());
+
         eventBus.register(new RoomListResponseListener());
+        eventBus.register(new JoinRoomResponseListener());
         eventBus.register(new CreateRoomResponseListener());
+
+        eventBus.register(new RoomResponseListener());
+        eventBus.register(new ChatResponseListener());
     }
 
     public static Client getInstance()
@@ -55,7 +60,7 @@ public class Client extends Thread
         } catch (Exception e)
         {
             worker.shutdownGracefully();
-            System.exit(-1);
+            Platform.exit();
         }
     }
 

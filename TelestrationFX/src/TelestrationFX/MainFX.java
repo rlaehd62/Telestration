@@ -18,6 +18,13 @@ public class MainFX extends Application
     public static String IP;
     public static String PORT;
 
+    /*
+     * [ To Do ]
+     * - 방에 접속하고 정보 브로드캐스트 (구현)
+     * - 채팅 기능 구현하기 (구현)
+     * - 클라이언트 종료 시, 해당 유저 룸에서 제거하고 정보 브로드캐스트
+     */
+
     @Override
     public void start(Stage primaryStage) throws Exception
     {

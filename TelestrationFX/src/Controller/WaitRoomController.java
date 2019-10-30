@@ -2,6 +2,7 @@ package Controller;
 
 import DTO.Request.Room.CreateRoomRequest;
 import DTO.Request.Room.GameRoom;
+import DTO.Request.Room.JoinRoomRequest;
 import DTO.Request.Room.RoomListRequest;
 import DTO.Response.Room.RoomListResponse;
 import DTO.Response.Room.RoomResponse;
@@ -16,8 +17,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 public class WaitRoomController
@@ -57,6 +60,24 @@ public class WaitRoomController
     {
         return controller;
     }
+
+    @FXML
+    void clickTable(MouseEvent event)
+    {
+        String ID = Account.getInstance().getID();
+        MouseButton button = event.getButton();
+
+        if(button.equals(MouseButton.PRIMARY))
+        {
+            TreeItem<GameRoomBean> bean = table.getSelectionModel().getSelectedItem();
+            if(bean == null) return;
+
+            JoinRoomRequest request = new JoinRoomRequest(ID);
+            request.setOwner(bean.getValue().owner.getValue());
+            client.send(request);
+        }
+    }
+
 
     @FXML
     void updateInfo(MouseEvent event)

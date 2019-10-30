@@ -199,6 +199,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Listener/WaitRoom" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -210,6 +211,9 @@
   <component name="RecentsManager">
 =======
     <property name="last_opened_file_path" value="$PROJECT_DIR$/설계도/Waiting Room 기능 설계 (클라이언트).png" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/Core.jar!/" />
+>>>>>>> dev
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -377,6 +381,17 @@
       <workItem from="1572285351331" duration="3214000" />
       <workItem from="1572362178727" duration="25000" />
       <workItem from="1572362820791" duration="2145000" />
+      <workItem from="1572434997698" duration="3279000" />
+      <workItem from="1572438358532" duration="2232000" />
+      <workItem from="1572440864206" duration="46000" />
+      <workItem from="1572441334295" duration="1595000" />
+      <workItem from="1572443111651" duration="126000" />
+      <workItem from="1572443254715" duration="2000" />
+      <workItem from="1572443277092" duration="79000" />
+      <workItem from="1572443591549" duration="2494000" />
+      <workItem from="1572446512133" duration="825000" />
+      <workItem from="1572447822971" duration="171000" />
+      <workItem from="1572448126570" duration="347000" />
     </task>
     <servers />
   </component>

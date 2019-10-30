@@ -23,8 +23,12 @@
       </library>
     </orderEntry>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <orderEntry type="library" name="Netty 4.1.39" level="application" />
 =======
+>>>>>>> dev
+=======
+    <orderEntry type="library" name="Netty 4.0.31" level="application" />
 >>>>>>> dev
     <orderEntry type="module-library">
       <library>
@@ -36,8 +40,11 @@
       </library>
     </orderEntry>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     <orderEntry type="library" name="Netty 4.0.31" level="application" />
+>>>>>>> dev
+=======
 >>>>>>> dev
   </component>
 </module>

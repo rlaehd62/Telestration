@@ -10,4 +10,14 @@ public class JoinRoomRequest extends GamePacket
     {
         setID(ID);
     }
+
+    public void setOwner(String owner)
+    {
+        this.owner = owner;
+    }
+
+    public String getOwner()
+    {
+        return owner;
+    }
 }
