@@ -15,7 +15,7 @@ public class RoomInfo
         return (ins != null) ? ins : (ins = new RoomInfo());
     }
 
-    public void setResponse(RoomResponse response)
+    public synchronized void setResponse(RoomResponse response)
     {
         this.response = response;
         this.room = response.getRoom();
@@ -24,27 +24,27 @@ public class RoomInfo
         System.out.println("Users: " + room.getUsers());
     }
 
-    public void setRoom(GameRoom room)
+    public synchronized void setRoom(GameRoom room)
     {
         this.room = room;
     }
 
-    public String getTitle()
+    public synchronized String getTitle()
     {
         return room.getTitle();
     }
 
-    public String getOwner()
+    public synchronized String getOwner()
     {
-        return response.getRoom().getOwner();
+        return room.getOwner();
     }
 
     public boolean isRunning()
     {
-        return response.getRoom().isRunning();
+        return room.isRunning();
     }
 
-    public String[] getUserList()
+    public synchronized String[] getUserList()
     {
         return room.getUsers().toArray(new String[1]);
     }

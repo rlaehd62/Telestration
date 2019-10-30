@@ -86,6 +86,7 @@ public class GameDB implements DataPresenter
         if(isOnline(ID) && NOT_OWNER)
         {
             GameRoom r = roomManager.CreateRoom(ID, request.getTitle());
+            r.setOwner(ID);
             r.setLevelLimit(request.getLimit());
             r.changeTimeout(request.getTimeout() / 60, request.getTimeout() % 60);
 
