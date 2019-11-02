@@ -60,11 +60,15 @@ public class MainFX extends Application
     {
         try
         {
-            File file = new File(System.getProperty("user.home") + "/Telestration/config.properties");
+            File file = new File(System.getProperty("user.home") + "./System/config.properties");
             Properties properties = new Properties();
             properties.setProperty("IP", "localhost");
 
-            if(!file.exists()) properties.store(new FileOutputStream(file), "");
+            if(!file.exists())
+            {
+                file.getParentFile().mkdirs();  // 이거 빼먹어서 1시간 날렸음 ㅋㅋㅋㅋㅋ (폴더 생성하는거)
+                properties.store(new FileOutputStream(file), "");
+            }
             else properties.load(new FileInputStream(file));
 
             IP = properties.getProperty("IP");
