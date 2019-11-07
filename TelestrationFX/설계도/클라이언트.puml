@@ -33,7 +33,7 @@ package Request
     object UserInfoRequest
 }
 
-package Network
+package kid.Network
 {
     object Client {
         send()
@@ -44,7 +44,7 @@ package Network
     }
 }
 
-package Listener
+package kid.Listener
 {
     object LoginResponseListener
 }
@@ -94,7 +94,7 @@ package Screen
     }
 }
 
-package Listener
+package kid.Listener
 {
     object CreateRoomResponseListener
     object RoomListResponseListener
@@ -118,7 +118,7 @@ package Data
     }
 }
 
-package Network
+package kid.Network
 {
     object Client {
         send()

@@ -59,19 +59,15 @@ public class Server extends Thread implements ServerPresenter.ServerModel
             sb.group(boss, work)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(initializer())
+                    .option(ChannelOption.TCP_NODELAY, true)
                     .option(ChannelOption.SO_KEEPALIVE, true);
 
             ChannelFuture channelFuture = sb.bind(PORT).sync();
-            channelFuture.channel().closeFuture().sync();
 
-        } catch (InterruptedException e)
-        {
-            stopServer();
-        } finally
+        } catch (Exception e)
         {
             stopServer();
         }
-
     }
 
     private ChannelInitializer<SocketChannel> initializer()
