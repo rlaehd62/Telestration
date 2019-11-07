@@ -15,6 +15,8 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import javafx.application.Platform;
 
+import java.nio.channels.ClosedChannelException;
+
 public class Client extends Thread
 {
     private static Client ins = null;
@@ -53,11 +55,12 @@ public class Client extends Thread
             boot.group(worker)
                     .channel(NioSocketChannel.class)
                     .handler(initializer())
+                    .option(ChannelOption.TCP_NODELAY, true)
                     .option(ChannelOption.SO_KEEPALIVE, true);
 
             ChannelFuture f = boot.connect(MainFX.IP, Integer.parseInt(MainFX.PORT)).sync();
             channel = f.channel();
-        } catch (Exception e)
+        }catch (Exception e)
         {
             e.printStackTrace();
             worker.shutdownGracefully();

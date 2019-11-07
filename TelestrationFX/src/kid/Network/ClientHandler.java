@@ -3,6 +3,7 @@ package kid.Network;
 import com.google.common.eventbus.EventBus;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import javafx.application.Platform;
 
 public class ClientHandler extends SimpleChannelInboundHandler<Object>
 {
@@ -15,7 +16,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<Object>
 
     public void channelInactive(ChannelHandlerContext ctx) throws Exception
     {
-        System.exit(-1);
+        Platform.exit();
     }
 
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, Object packet) throws Exception
