@@ -123,18 +123,18 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/Core.jar!/" />
+    <property name="last_opened_file_path" value="C:/Program Files/Java/javafx-sdk-11.0.2/lib/javafx.web.jar!/" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15067025" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX\Layout" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX\Layout" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
@@ -179,12 +179,12 @@
       </method>
     </configuration>
     <configuration name="MainFX" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="TelestrationFX.MainFX" />
+      <option name="MAIN_CLASS_NAME" value="kid.TelestrationFX.MainFX" />
       <module name="TelestrationFX" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="TelestrationFX.*" />
+          <option name="PATTERN" value="kid.TelestrationFX.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -279,6 +279,24 @@
       <workItem from="1572446512133" duration="825000" />
       <workItem from="1572447822971" duration="171000" />
       <workItem from="1572448126570" duration="347000" />
+      <workItem from="1572449496579" duration="31000" />
+      <workItem from="1572449565212" duration="53000" />
+      <workItem from="1572625073582" duration="35000" />
+      <workItem from="1572625173317" duration="257000" />
+      <workItem from="1572706260662" duration="133000" />
+      <workItem from="1572706965568" duration="364000" />
+      <workItem from="1572707360866" duration="794000" />
+      <workItem from="1572708623009" duration="276000" />
+      <workItem from="1572709412808" duration="39000" />
+      <workItem from="1572710426221" duration="5721000" />
+      <workItem from="1572719564557" duration="215000" />
+      <workItem from="1573125758855" duration="912000" />
+      <workItem from="1573127201382" duration="2424000" />
+      <workItem from="1573130032612" duration="6000" />
+      <workItem from="1573130042415" duration="17000" />
+      <workItem from="1573130836025" duration="749000" />
+      <workItem from="1573131693622" duration="23000" />
+      <workItem from="1573226503016" duration="1588000" />
     </task>
     <servers />
   </component>

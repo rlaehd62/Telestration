@@ -1,6 +1,7 @@
 package Server;
 
 import Listener.GameRoom.ChatRequestListener;
+import Listener.GameRoom.ExitRoomRequestListener;
 import Listener.Room.CreateRoomListener;
 import Listener.Account.LoginListener;
 import Listener.Room.JoinRoomListener;
@@ -41,6 +42,7 @@ public class Server extends Thread implements ServerPresenter.ServerModel
         eventBus.register(new UserInfoRequestListener());
         eventBus.register(new JoinRoomListener());
         eventBus.register(new ChatRequestListener());
+        eventBus.register(new ExitRoomRequestListener());
     }
 
     public static Server getInstance()
@@ -59,19 +61,15 @@ public class Server extends Thread implements ServerPresenter.ServerModel
             sb.group(boss, work)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(initializer())
+                    .option(ChannelOption.TCP_NODELAY, true)
                     .option(ChannelOption.SO_KEEPALIVE, true);
 
             ChannelFuture channelFuture = sb.bind(PORT).sync();
-            channelFuture.channel().closeFuture().sync();
 
-        } catch (InterruptedException e)
-        {
-            stopServer();
-        } finally
+        } catch (Exception e)
         {
             stopServer();
         }
-
     }
 
     private ChannelInitializer<SocketChannel> initializer()
