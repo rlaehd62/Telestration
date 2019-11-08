@@ -1,14 +1,15 @@
 package kid.Controller;
 
 import DTO.Request.GameRoom.ChatRequest;
+import DTO.Request.GameRoom.ExitRoomRequest;
+import DTO.Request.Room.RoomListRequest;
+import DTO.Request.Users.UserInfoRequest;
 import DTO.Response.GameRoom.ChatResponse;
+import com.jfoenix.controls.*;
 import kid.GameData.Account;
 import kid.GameData.RoomInfo;
+import kid.GameData.User;
 import kid.Network.Client;
-import com.jfoenix.controls.JFXColorPicker;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.input.*;
+import kid.TelestrationFX.ScreenManager;
 
 
 public class GameRoomController
@@ -43,6 +45,9 @@ public class GameRoomController
 
     @FXML
     private JFXTextField word;
+
+    @FXML
+    private JFXButton exit;
 
     private static GameRoomController controller;
     private GraphicsContext gc;
@@ -118,12 +123,29 @@ public class GameRoomController
     }
 
     @FXML
+    void exitRoom(ActionEvent event)
+    {
+        System.out.println("감지됨");
+        Platform.runLater(() ->
+        {
+            RoomInfo info = RoomInfo.getInstance();
+            ScreenManager sm = ScreenManager.getInstance();
+            String ID = Account.getInstance().getID();
+
+            client.send(new ExitRoomRequest(ID, info.getOwner()));
+            sm.activate("WaitRoom");
+            client.send(new UserInfoRequest(Account.getInstance().getID()));
+            client.send(new RoomListRequest(Account.getInstance().getID(), 10));
+        });
+
+    }
+
+    @FXML
     void pressMouse(MouseEvent event)
     {
         Platform.runLater(() ->
         {
             if(gc == null) gc = canvas.getGraphicsContext2D();
-
             gc.setStroke(colorPicker.getValue());
             gc.beginPath();
             gc.moveTo(event.getX(), event.getY());
@@ -147,6 +169,7 @@ public class GameRoomController
     {
         Platform.runLater(() ->
         {
+            if(gc == null) gc = canvas.getGraphicsContext2D();
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         });
     }
