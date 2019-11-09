@@ -125,7 +125,7 @@
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="C:/Program Files/Java/javafx-sdk-11.0.2/lib/javafx.web.jar!/" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15067025" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
@@ -297,6 +297,10 @@
       <workItem from="1573130836025" duration="749000" />
       <workItem from="1573131693622" duration="23000" />
       <workItem from="1573226503016" duration="1588000" />
+      <workItem from="1573232294801" duration="276000" />
+      <workItem from="1573311013171" duration="203000" />
+      <workItem from="1573311303867" duration="1182000" />
+      <workItem from="1573314035784" duration="182000" />
     </task>
     <servers />
   </component>

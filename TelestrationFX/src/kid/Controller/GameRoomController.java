@@ -130,9 +130,11 @@ public class GameRoomController
         {
             RoomInfo info = RoomInfo.getInstance();
             ScreenManager sm = ScreenManager.getInstance();
+            WaitRoomController wc = WaitRoomController.getInstance();
             String ID = Account.getInstance().getID();
 
             client.send(new ExitRoomRequest(ID, info.getOwner()));
+            wc.clearList();
             sm.activate("WaitRoom");
             client.send(new UserInfoRequest(Account.getInstance().getID()));
             client.send(new RoomListRequest(Account.getInstance().getID(), 10));

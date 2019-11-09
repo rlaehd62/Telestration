@@ -4,6 +4,7 @@ import DTO.Request.Room.CreateRoomRequest;
 import DTO.Request.Room.GameRoom;
 import DTO.Request.Room.JoinRoomRequest;
 import DTO.Request.Room.RoomListRequest;
+import DTO.Request.Users.UserInfoRequest;
 import DTO.Response.Room.RoomListResponse;
 import DTO.Response.Room.RoomResponse;
 import kid.GameData.Account;
@@ -87,6 +88,7 @@ public class WaitRoomController
             level.setText("Lv." + User.getInstance().level());
             exp.setText(String.format("EXP (%d / %d)", User.getInstance().exp(), User.getInstance().maxExp()));
 
+            clearList();
             RoomListRequest request = new RoomListRequest(Account.getInstance().getID(), 10);
             client.send(request);
         });
@@ -112,6 +114,14 @@ public class WaitRoomController
                 client.send(request);
 
             } catch (Exception e) { return; }
+        });
+    }
+
+    public void clearList()
+    {
+        Platform.runLater(() ->
+        {
+            table.getColumns().clear();
         });
     }
 

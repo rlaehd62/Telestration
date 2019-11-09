@@ -2,12 +2,15 @@ package Listener.GameRoom;
 
 import DTO.Request.GameRoom.ExitRoomRequest;
 import DTO.Request.Room.GameRoom;
+import DTO.Response.Room.RoomListResponse;
 import DTO.Response.Room.RoomResponse;
 import Database.Manager.GameRoomManager;
 import Listener.ServerListener;
 import Server.ChannelManager;
 import com.google.common.eventbus.Subscribe;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,14 +23,24 @@ public class ExitRoomRequestListener extends ServerListener<ExitRoomRequest>
     {
         String OWNER = message.getOwner();
         String ID = message.getID();
-
-        GameRoom room = gm.searchRoom(OWNER);
         if(!gm.containsRoom(OWNER) || !gm.containsUser(ID)) return;
 
-        List<String> users = room.getUsers();
-        users.remove(ID);
+        GameRoom room = gm.searchRoom(OWNER);
+        room.removeUser(ID);
+        System.out.println(room.getUsers());
+
+        if(room.isEmpty())
+        {
+            gm.RemoveRoom(OWNER);
+            return;
+        }
+        else if(ID.equals(OWNER))
+        {
+            room.setOwner(room.getUsers().get(0));
+            gm.UpdateRoom();
+        }
 
         RoomResponse response = new RoomResponse(room);
-        ChannelManager.sendBroadCast(Arrays.stream(users.toArray()).toArray(String[]::new), response);
+        ChannelManager.sendBroadCast(room.getUsers().stream().toArray(String[]::new), response);
     }
 }

@@ -37,11 +37,7 @@ public class JoinRoomListener extends ServerListener<JoinRoomRequest>
             System.out.println("　유저: " + room.getUsers());
 
             message.getSender().writeAndFlush(response);
-            for(String name : room.getUsers())
-            {
-                if(!name.equals(ID))
-                    ChannelManager.getChannels().get(name).writeAndFlush(roomResponse);
-            }
+            ChannelManager.sendBroadCast(room.getUsers().stream().toArray(String[]::new), roomResponse);
         }
     }
 }
