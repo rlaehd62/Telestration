@@ -2,6 +2,7 @@ package kid.Network;
 
 import DTO.Request.GamePacket;
 import kid.Listener.GameRoom.ChatResponseListener;
+import kid.Listener.GameRoom.SketchBookResponseListener;
 import kid.Listener.Login.LoginResponseListener;
 import kid.Listener.WaitRoom.*;
 import kid.TelestrationFX.MainFX;
@@ -39,6 +40,7 @@ public class Client extends Thread
 
         eventBus.register(new RoomResponseListener());
         eventBus.register(new ChatResponseListener());
+        eventBus.register(new SketchBookResponseListener());
     }
 
     public static Client getInstance()
@@ -97,7 +99,9 @@ public class Client extends Thread
         if(isRunning())
         {
             try
-            { channel.writeAndFlush(packet); }
+            {
+                channel.writeAndFlush(packet);
+            }
             catch (Exception e)
             { stopServer(); }
         }

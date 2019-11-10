@@ -2,17 +2,17 @@ package DTO.Request.GameRoom;
 
 import DTO.Request.GamePacket;
 import Util.SketchBook;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 
 public class SendSketchBookRequest extends GamePacket
 {
+    private static final long serialVersionUID = 3582029039115827201L;
     private String owner;
     private SketchBook sketchBook;
 
     public SendSketchBookRequest(SketchBook sketchBook, String ID, String owner)
     {
         setID(ID);
-        setOwner(owner);
+        this.owner = owner;
         this.sketchBook = sketchBook;
     }
 

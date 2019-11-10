@@ -301,6 +301,18 @@
       <workItem from="1573311013171" duration="203000" />
       <workItem from="1573311303867" duration="1182000" />
       <workItem from="1573314035784" duration="182000" />
+      <workItem from="1573395676418" duration="150000" />
+      <workItem from="1573397084883" duration="474000" />
+      <workItem from="1573397577405" duration="125000" />
+      <workItem from="1573397707354" duration="216000" />
+      <workItem from="1573398064635" duration="268000" />
+      <workItem from="1573398420966" duration="865000" />
+      <workItem from="1573399690558" duration="1428000" />
+      <workItem from="1573401170931" duration="3027000" />
+      <workItem from="1573404339904" duration="67000" />
+      <workItem from="1573404473846" duration="32000" />
+      <workItem from="1573404588151" duration="2068000" />
+      <workItem from="1573406712571" duration="2644000" />
     </task>
     <servers />
   </component>
@@ -326,6 +338,13 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="sketchBook" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

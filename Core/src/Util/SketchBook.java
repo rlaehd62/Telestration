@@ -1,19 +1,19 @@
 package Util;
 
 import javafx.scene.canvas.GraphicsContext;
-
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
-public class SketchBook
+public class SketchBook implements Serializable
 {
-    private List<Command> commands;
+    private static final long serialVersionUID = 5015030143108005673L;
+    private ArrayList<Command> commands;
     private String secretWord;
 
     public SketchBook(String secretWord)
     {
-        commands = new ArrayList<>();
         this.secretWord = secretWord;
+        commands = new ArrayList<>();
     }
 
     public void addCommand(Command cmd)
@@ -30,6 +30,11 @@ public class SketchBook
     {
         for(Command cmd : commands)
             cmd.draw(gc);
+    }
+
+    public ArrayList<Command> getCommands()
+    {
+        return commands;
     }
 
     public void setSecretWord(String secretWord)

@@ -2,10 +2,16 @@ package kid.Controller;
 
 import DTO.Request.GameRoom.ChatRequest;
 import DTO.Request.GameRoom.ExitRoomRequest;
+import DTO.Request.GameRoom.SendSketchBookRequest;
 import DTO.Request.Room.RoomListRequest;
 import DTO.Request.Users.UserInfoRequest;
 import DTO.Response.GameRoom.ChatResponse;
+import Util.Command;
+import Util.SketchBook;
 import com.jfoenix.controls.*;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 import kid.GameData.Account;
 import kid.GameData.RoomInfo;
 import kid.GameData.User;
@@ -18,6 +24,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import kid.TelestrationFX.ScreenManager;
+
+import java.util.List;
 
 
 public class GameRoomController
@@ -50,12 +58,14 @@ public class GameRoomController
     private JFXButton exit;
 
     private static GameRoomController controller;
+    private SketchBook sketchBook;
     private GraphicsContext gc;
     private Client client;
 
     public GameRoomController()
     {
         this.controller = this;
+        this.sketchBook = new SketchBook("");
         client = Client.getInstance();
     }
 
@@ -156,6 +166,23 @@ public class GameRoomController
     }
 
     @FXML
+    void eraseCanvas(ActionEvent event)
+    {
+        Platform.runLater(() ->
+        {
+            if(gc == null) gc = canvas.getGraphicsContext2D();
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        });
+
+        String ID = Account.getInstance().getID();
+        String OWNER = RoomInfo.getInstance().getOwner();
+
+        sketchBook.setSecretWord("사용자정의 (Custom)");
+        SendSketchBookRequest request = new SendSketchBookRequest(sketchBook, ID, OWNER);
+        client.send(request);
+    }
+
+    @FXML
     void dragMouse(MouseEvent event)
     {
         Platform.runLater(() ->
@@ -166,12 +193,10 @@ public class GameRoomController
         });
     }
 
-    @FXML
-    void eraseCanvas(ActionEvent event)
+    public void reDraw(SketchBook sketchBook)
     {
         Platform.runLater(() ->
         {
-            if(gc == null) gc = canvas.getGraphicsContext2D();
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         });
     }
