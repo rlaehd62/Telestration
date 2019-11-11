@@ -313,6 +313,9 @@
       <workItem from="1573404473846" duration="32000" />
       <workItem from="1573404588151" duration="2068000" />
       <workItem from="1573406712571" duration="2644000" />
+      <workItem from="1573482548152" duration="264000" />
+      <workItem from="1573483354991" duration="368000" />
+      <workItem from="1573483787814" duration="986000" />
     </task>
     <servers />
   </component>
@@ -343,6 +346,7 @@
     <watches-manager>
       <configuration name="Application">
         <watch expression="sketchBook" language="JAVA" />
+        <watch expression="this" />
       </configuration>
     </watches-manager>
   </component>

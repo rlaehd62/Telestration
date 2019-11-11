@@ -1,42 +1,57 @@
 package Util;
 
+import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
 import javafx.scene.canvas.GraphicsContext;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SketchBook implements Serializable
 {
     private static final long serialVersionUID = 5015030143108005673L;
-    private ArrayList<Command> commands;
+
+    private byte[] imageBytes;
     private String secretWord;
 
     public SketchBook(String secretWord)
     {
         this.secretWord = secretWord;
-        commands = new ArrayList<>();
     }
 
-    public void addCommand(Command cmd)
+    public void toByte(@NotNull BufferedImage image)
     {
-        commands.add(cmd);
+        try(ByteArrayOutputStream baos = new ByteArrayOutputStream())
+        {
+            ImageIO.write(image, "jpg", baos);
+            byte[] arr = baos.toByteArray();
+            imageBytes = arr;
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
-    public void clearCommands()
+    public @Nullable BufferedImage toImage()
     {
-        commands.clear();
-    }
+        try(ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes))
+        {
+            BufferedImage image = ImageIO.read(bais);
+            return image;
 
-    public void draw(GraphicsContext gc)
-    {
-        for(Command cmd : commands)
-            cmd.draw(gc);
-    }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
-    public ArrayList<Command> getCommands()
-    {
-        return commands;
+        return null;
     }
-
     public void setSecretWord(String secretWord)
     {
         this.secretWord = new String(secretWord);

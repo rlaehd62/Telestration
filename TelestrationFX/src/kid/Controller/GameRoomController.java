@@ -6,9 +6,9 @@ import DTO.Request.GameRoom.SendSketchBookRequest;
 import DTO.Request.Room.RoomListRequest;
 import DTO.Request.Users.UserInfoRequest;
 import DTO.Response.GameRoom.ChatResponse;
-import Util.Command;
 import Util.SketchBook;
 import com.jfoenix.controls.*;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
@@ -25,7 +25,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import kid.TelestrationFX.ScreenManager;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.Objects;
 
 
 public class GameRoomController
@@ -170,16 +172,23 @@ public class GameRoomController
     {
         Platform.runLater(() ->
         {
+            String ID = Account.getInstance().getID();
+            String OWNER = RoomInfo.getInstance().getOwner();
+
+            WritableImage snapshot = canvas.snapshot(null, null);
+            BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
+            sketchBook.toByte(image);
+            sketchBook.setSecretWord("사용자정의 (Custom)");
+
+            SendSketchBookRequest request = new SendSketchBookRequest(sketchBook, ID, OWNER);
+            client.send(request);
+        });
+
+        Platform.runLater(() ->
+        {
             if(gc == null) gc = canvas.getGraphicsContext2D();
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         });
-
-        String ID = Account.getInstance().getID();
-        String OWNER = RoomInfo.getInstance().getOwner();
-
-        sketchBook.setSecretWord("사용자정의 (Custom)");
-        SendSketchBookRequest request = new SendSketchBookRequest(sketchBook, ID, OWNER);
-        client.send(request);
     }
 
     @FXML
@@ -197,7 +206,10 @@ public class GameRoomController
     {
         Platform.runLater(() ->
         {
+            if(gc == null) gc = canvas.getGraphicsContext2D();
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            WritableImage snapshot = SwingFXUtils.toFXImage(sketchBook.toImage(), null);
+            gc.drawImage(snapshot, 0, 0, canvas.getWidth(), canvas.getHeight());
         });
     }
 
