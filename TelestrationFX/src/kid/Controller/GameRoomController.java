@@ -84,8 +84,11 @@ public class GameRoomController
             if(info == null) return;
 
             list.getItems().clear();
+
+            String ID = Account.getInstance().getID();
             for(String name : info.getUserList())
-                list.getItems().add(new Label(name));
+                list.getItems().add(new Label((name.equals(ID)) ? name + " (Me)" : name));
+
         });
     }
 

@@ -123,7 +123,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="C:/Program Files/Java/javafx-sdk-11.0.2/lib/javafx.web.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/kid/Controller" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15067025" />
@@ -132,19 +132,20 @@
     <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX" />
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX\Layout" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Controller" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\설계도" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\libs" />
       <recent name="C:\Users\user\Desktop\Dev\Telestration\TelestrationFX\src\Listener\WaitRoom" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\Listener\WaitRoom" />
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\GameData" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Controller\Layout" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX\Layout" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -316,6 +317,8 @@
       <workItem from="1573482548152" duration="264000" />
       <workItem from="1573483354991" duration="368000" />
       <workItem from="1573483787814" duration="986000" />
+      <workItem from="1573566327995" duration="354000" />
+      <workItem from="1573571670419" duration="3404000" />
     </task>
     <servers />
   </component>
@@ -343,6 +346,25 @@
     </ignored-roots>
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/kid/Listener/WaitRoom/RoomListResponseListener.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/kid/Listener/WaitRoom/RoomListResponseListener.java</url>
+          <line>12</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/kid/Listener/WaitRoom/RoomListResponseListener.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="sketchBook" language="JAVA" />
