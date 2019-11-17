@@ -1,5 +1,6 @@
 package kid.TelestrationFX;
 
+import javafx.stage.StageStyle;
 import kid.Network.Client;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -31,6 +32,7 @@ public class MainFX extends Application
     {
         primaryStage.setResizable(false);
         primaryStage.setTitle("텔레스트레이션 (Telestration)");
+        primaryStage.initStyle(StageStyle.UTILITY);
 
         init();
         Client.getInstance().startServer();

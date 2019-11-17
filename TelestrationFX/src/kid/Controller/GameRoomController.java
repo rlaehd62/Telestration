@@ -3,6 +3,7 @@ package kid.Controller;
 import DTO.Request.GameRoom.ChatRequest;
 import DTO.Request.GameRoom.ExitRoomRequest;
 import DTO.Request.GameRoom.SendSketchBookRequest;
+import DTO.Request.GameRoom.StartTimerRequest;
 import DTO.Request.Room.RoomListRequest;
 import DTO.Request.Users.UserInfoRequest;
 import DTO.Response.GameRoom.ChatResponse;
@@ -59,6 +60,9 @@ public class GameRoomController
     @FXML
     private JFXButton exit;
 
+    @FXML
+    private JFXButton start;
+
     private static GameRoomController controller;
     private SketchBook sketchBook;
     private GraphicsContext gc;
@@ -82,13 +86,14 @@ public class GameRoomController
         {
             RoomInfo info = RoomInfo.getInstance();
             if(info == null) return;
-
             list.getItems().clear();
 
             String ID = Account.getInstance().getID();
+            String OWNER = info.getOwner();
+            start.setVisible(ID.equals(OWNER));
+
             for(String name : info.getUserList())
                 list.getItems().add(new Label((name.equals(ID)) ? name + " (Me)" : name));
-
         });
     }
 
@@ -205,6 +210,19 @@ public class GameRoomController
         });
     }
 
+    @FXML
+    void startGame(ActionEvent event)
+    {
+        String ID = Account.getInstance().getID();
+        client.send(new StartTimerRequest(ID, 1, 0));
+    }
+
+    @FXML
+    void releaseMouse(MouseEvent event)
+    {
+
+    }
+
     public void reDraw(SketchBook sketchBook)
     {
         Platform.runLater(() ->
@@ -214,11 +232,5 @@ public class GameRoomController
             WritableImage snapshot = SwingFXUtils.toFXImage(sketchBook.toImage(), null);
             gc.drawImage(snapshot, 0, 0, canvas.getWidth(), canvas.getHeight());
         });
-    }
-
-    @FXML
-    void releaseMouse(MouseEvent event)
-    {
-
     }
 }
