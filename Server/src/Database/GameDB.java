@@ -10,12 +10,14 @@ import DTO.Response.User.UserResponse;
 import Database.Manager.AccountManager;
 import Database.Manager.GameRoomManager;
 import Database.Manager.UserManager;
+import Database.Manager.WordPoolManager;
 import MVP.DataPresenter;
 import MVP.ServerPresenter;
 import DTO.Request.Account.LoginRequest;
 import Server.ChannelManager;
 import Util.State;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +27,7 @@ public class GameDB implements DataPresenter
     private static GameDB ins = null;
     private AccountModel account;
     private UserModel user;
+    private WordPoolManager words;
     private GameRoomManager roomManager;
     private ServerPresenter presenter;
 
@@ -41,7 +44,12 @@ public class GameDB implements DataPresenter
         user = new UserManager();
         user.setPresenter(this);
 
+
         roomManager = GameRoomManager.getInstance();
+        words = new WordPoolManager();
+
+        File file = new File(System.getProperty("user.home") + "./System/words.txt");
+        words.init(file);
     }
 
     public void log(String tag, String text)

@@ -44,8 +44,15 @@ public class ServerDB implements DataPresenter.DataModel
                             "FOREIGN KEY (ID) REFERENCES ACCOUNT(ID) ON DELETE CASCADE" +
                             ")";
 
+            String WORD_POOL =
+                    "CREATE TABLE IF NOT EXISTS WORD_POOL" +
+                            "(" +
+                            "WORD VARCHAR(50) PRIMARY KEY NOT NULL" +
+                            ")";
+
             state.execute(ACCOUNT);
             state.execute(USERS);
+            state.execute(WORD_POOL);
             state.close();
         }
 

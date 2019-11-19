@@ -19,6 +19,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 public class Server extends Thread implements ServerPresenter.ServerModel
 {
@@ -64,9 +66,10 @@ public class Server extends Thread implements ServerPresenter.ServerModel
             ServerBootstrap sb = new ServerBootstrap();
             sb.group(boss, work)
                     .channel(NioServerSocketChannel.class)
+                    .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(initializer())
-                    .option(ChannelOption.TCP_NODELAY, true)
-                    .option(ChannelOption.SO_KEEPALIVE, true);
+                    .childOption(ChannelOption.TCP_NODELAY, true)
+                    .childOption(ChannelOption.SO_KEEPALIVE, true);
 
             ChannelFuture channelFuture = sb.bind(PORT).sync();
 
@@ -83,9 +86,9 @@ public class Server extends Thread implements ServerPresenter.ServerModel
             protected void initChannel(SocketChannel ch) throws Exception
             {
                 ChannelPipeline cp = ch.pipeline();
-                cp.addLast(new ObjectEncoder());
-                cp.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
-                cp.addLast(new ServerHandler(eventBus));
+                cp.addLast("Encoder", new ObjectEncoder());
+                cp.addLast("Decoder", new ObjectDecoder(ClassResolvers.cacheDisabled(getClass().getClassLoader())));
+                cp.addLast("Handler", new ServerHandler(eventBus));
             }
         };
     }
