@@ -109,6 +109,7 @@ public class GameDB implements DataPresenter
         List<RoomResponse> list = new ArrayList<>();
         for(GameRoom gr : GameRoomManager.getInstance().getRoomList())
         {
+            if(gr.isRunning()) continue;
             RoomResponse response = new RoomResponse(gr);
             list.add(response);
         }

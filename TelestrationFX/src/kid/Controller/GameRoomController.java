@@ -1,9 +1,7 @@
 package kid.Controller;
 
-import DTO.Request.GameRoom.ChatRequest;
-import DTO.Request.GameRoom.ExitRoomRequest;
-import DTO.Request.GameRoom.SendSketchBookRequest;
-import DTO.Request.GameRoom.StartTimerRequest;
+import DTO.Notification.GameRoom.CurrentTimeNotification;
+import DTO.Request.GameRoom.*;
 import DTO.Request.Room.RoomListRequest;
 import DTO.Request.Users.UserInfoRequest;
 import DTO.Response.GameRoom.ChatResponse;
@@ -78,6 +76,18 @@ public class GameRoomController
     public static GameRoomController getInstance()
     {
         return controller;
+    }
+
+    public void init()
+    {
+        Platform.runLater(() ->
+        {
+            if(gc == null) gc = canvas.getGraphicsContext2D();
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            word.clear();
+            chatArea.clear();
+            chatField.clear();
+        });
     }
 
     public void UpdateUserList()
@@ -214,13 +224,22 @@ public class GameRoomController
     void startGame(ActionEvent event)
     {
         String ID = Account.getInstance().getID();
-        client.send(new StartTimerRequest(ID, 1, 0));
+        client.send(new GameStartRequest(RoomInfo.getInstance().getOwner()));
+        start.setVisible(false);
     }
 
     @FXML
     void releaseMouse(MouseEvent event)
     {
 
+    }
+
+    public void setWord(String word, boolean isPainter)
+    {
+        Platform.runLater(() ->
+        {
+            this.word.setText(word + ((isPainter) ? " (난 화가 역할)" : " (난 맞추는 역할)"));
+        });
     }
 
     public void reDraw(SketchBook sketchBook)

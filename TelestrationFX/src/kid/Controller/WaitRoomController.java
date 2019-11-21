@@ -132,38 +132,6 @@ public class WaitRoomController
 
     public void updateRoomList(RoomListResponse response)
     {
-//        Platform.runLater(() ->
-//        {
-//            JFXTreeTableColumn<GameRoomBean, String> owner = new JFXTreeTableColumn<>("Owner");
-//            owner.setPrefWidth(100);
-//            owner.setCellValueFactory(param ->
-//                    param.getValue().getValue().owner);
-//
-//            JFXTreeTableColumn<GameRoomBean, String> title = new JFXTreeTableColumn<>("Title");
-//            title.setPrefWidth(430);
-//            title.setCellValueFactory(param ->
-//                    param.getValue().getValue().title);
-//
-//
-//            JFXTreeTableColumn<GameRoomBean, String> level = new JFXTreeTableColumn<>("Level 제한");
-//            level.setPrefWidth(100);
-//            level.setCellValueFactory(param ->
-//                    param.getValue().getValue().limit);
-//
-//            ObservableList<GameRoomBean> list = FXCollections.observableArrayList();
-//            for(RoomResponse room : response.getRooms())
-//            {
-//                GameRoom gr = room.getRoom();
-//                GameRoomBean bean = new GameRoomBean(gr);
-//                list.add(bean);
-//            }
-//
-//            final TreeItem<GameRoomBean> root = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
-//            table.getColumns().setAll(owner, title, level);
-//            table.setRoot(root);
-//            table.setShowRoot(false);
-//        });
-
         System.out.println("되긴됨?");
         Platform.runLater(() ->
         {

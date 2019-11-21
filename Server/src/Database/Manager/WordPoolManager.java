@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -66,9 +68,12 @@ public class WordPoolManager
     public void init(File file)
     {
         if(!file.exists()) return;
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file))))
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)))
         {
-            for(String line = br.readLine(); line != null; line = br.readLine()) addWord(line);
+            for(String line = br.readLine(); line != null; line = br.readLine())
+            {
+                addWord(line);
+            }
         } catch (Exception e)
         { e.printStackTrace(); }
     }

@@ -25,9 +25,14 @@ public class StartTimerListener extends ServerListener<StartTimerRequest>
             public void run()
             {
                 GameRoom room = GameRoomManager.getInstance().searchRoom(owner);
+                room.start();
                 ChatResponse response = new ChatResponse(new ChatRequest("Timer", owner, String.format("타이머 %d초", ++count)));
                 ChannelManager.sendBroadCast(room.getUsers().stream().toArray(java.lang.String[]::new), response);
-                if(count >= (message.getM() * 60) + message.getS()) timer.cancel();
+                if(count >= (message.getM() * 60) + message.getS())
+                {
+                    room.stop();
+                    timer.cancel();
+                }
             }
         }, 1000, 1000);
     }

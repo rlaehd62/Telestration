@@ -1,5 +1,6 @@
 package Database.Manager;
 
+import DTO.Request.Room.GameRoom;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -21,5 +22,24 @@ class WordPoolManagerTest
         System.out.println(Arrays.toString(wm.getRandomWords(5)));
         System.out.println(Arrays.toString(wm.getRandomWords(5)));
         System.out.println(Arrays.toString(wm.getRandomWords(5)));
+    }
+
+    @Test
+    void testUser()
+    {
+        WordPoolManager wm = new WordPoolManager();
+        String[] words = wm.getRandomWords(10);
+        GameRoom room = new GameRoom("TESTER", "TEST");
+        room.addUser("TESTER");
+
+        for(int i = 0; i < words.length; i++)
+        {
+            room.setSecretWord("TESTER", words[i]);
+            assertNotNull(room.getWord("TESTER"));
+            System.out.println("테스터: " + room.getWord("TESTER"));
+        }
+
+        room.removeSecretWord("TESTER");
+        assertNull(room.getWord("TESTER"));
     }
 }

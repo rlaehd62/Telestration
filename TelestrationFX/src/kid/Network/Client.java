@@ -6,6 +6,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import kid.Listener.GameRoom.ChatResponseListener;
+import kid.Listener.GameRoom.GameNotificationListener;
 import kid.Listener.GameRoom.SketchBookResponseListener;
 import kid.Listener.Login.LoginResponseListener;
 import kid.Listener.WaitRoom.*;
@@ -42,6 +43,9 @@ public class Client extends Thread
         eventBus.register(new RoomResponseListener());
         eventBus.register(new ChatResponseListener());
         eventBus.register(new SketchBookResponseListener());
+
+
+        eventBus.register(new GameNotificationListener());
     }
 
     public static Client getInstance()

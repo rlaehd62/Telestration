@@ -1,9 +1,6 @@
 package Server;
 
-import Listener.GameRoom.ChatRequestListener;
-import Listener.GameRoom.ExitRoomRequestListener;
-import Listener.GameRoom.SendSketchBookListener;
-import Listener.GameRoom.StartTimerListener;
+import Listener.GameRoom.*;
 import Listener.Room.CreateRoomListener;
 import Listener.Account.LoginListener;
 import Listener.Room.JoinRoomListener;
@@ -49,6 +46,7 @@ public class Server extends Thread implements ServerPresenter.ServerModel
         eventBus.register(new ExitRoomRequestListener());
         eventBus.register(new SendSketchBookListener());
         eventBus.register(new StartTimerListener());
+        eventBus.register(new GameStartListener());
     }
 
     public static Server getInstance()
