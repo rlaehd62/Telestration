@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
 
 public class GameRoom implements Serializable
 {
@@ -71,7 +72,7 @@ public class GameRoom implements Serializable
 
     public void setOwner(String owner)
     {
-        this.owner = owner;
+        this.owner = new String(owner);
     }
 
     public String getOwner()
@@ -117,6 +118,11 @@ public class GameRoom implements Serializable
     public String getWord(String name)
     {
         return words.getOrDefault(name, null);
+    }
+
+    public boolean isEmpty()
+    {
+        return users.size() <= 0;
     }
 
     public boolean equals(Object obj)

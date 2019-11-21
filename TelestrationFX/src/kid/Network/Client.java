@@ -1,21 +1,24 @@
 package kid.Network;
 
 import DTO.Request.GamePacket;
+import io.netty.channel.*;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import kid.Listener.GameRoom.ChatResponseListener;
+import kid.Listener.GameRoom.GameNotificationListener;
+import kid.Listener.GameRoom.SketchBookResponseListener;
 import kid.Listener.Login.LoginResponseListener;
 import kid.Listener.WaitRoom.*;
 import kid.TelestrationFX.MainFX;
 import com.google.common.eventbus.EventBus;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import javafx.application.Platform;
-
-import java.nio.channels.ClosedChannelException;
 
 public class Client extends Thread
 {
@@ -39,6 +42,10 @@ public class Client extends Thread
 
         eventBus.register(new RoomResponseListener());
         eventBus.register(new ChatResponseListener());
+        eventBus.register(new SketchBookResponseListener());
+
+
+        eventBus.register(new GameNotificationListener());
     }
 
     public static Client getInstance()
@@ -97,22 +104,28 @@ public class Client extends Thread
         if(isRunning())
         {
             try
-            { channel.writeAndFlush(packet); }
+            {
+                ChannelFuture future = channel.writeAndFlush(packet);
+                future.awaitUninterruptibly();
+                System.out.println(future.isDone() + " | " + future.isSuccess());
+                if(!future.isSuccess()) channel.writeAndFlush(packet);
+            }
             catch (Exception e)
             { stopServer(); }
         }
     }
 
-    public ChannelInitializer<NioSocketChannel> initializer()
+    public ChannelInitializer<SocketChannel> initializer()
     {
-        return new ChannelInitializer<NioSocketChannel>()
+        return new ChannelInitializer<SocketChannel>()
         {
-            protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception
+            protected void initChannel(SocketChannel ch) throws Exception
             {
-                ChannelPipeline pipeline = nioSocketChannel.pipeline();
-                pipeline.addLast(new ObjectEncoder());
-                pipeline.addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
-                pipeline.addLast(new ClientHandler(eventBus));
+                ChannelPipeline cp = ch.pipeline();
+                cp.addLast("Logging", new LoggingHandler(LogLevel.DEBUG));
+                cp.addLast("Encoder", new ObjectEncoder());
+                cp.addLast("Decoder", new ObjectDecoder(ClassResolvers.cacheDisabled(getClass().getClassLoader())));
+                cp.addLast("Handler", new ClientHandler(eventBus));
             }
         };
     }

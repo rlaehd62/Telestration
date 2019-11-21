@@ -1,11 +1,16 @@
 package kid.Controller;
 
-import DTO.Request.GameRoom.ChatRequest;
-import DTO.Request.GameRoom.ExitRoomRequest;
+import DTO.Notification.GameRoom.CurrentTimeNotification;
+import DTO.Request.GameRoom.*;
 import DTO.Request.Room.RoomListRequest;
 import DTO.Request.Users.UserInfoRequest;
 import DTO.Response.GameRoom.ChatResponse;
+import Util.SketchBook;
 import com.jfoenix.controls.*;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 import kid.GameData.Account;
 import kid.GameData.RoomInfo;
 import kid.GameData.User;
@@ -18,6 +23,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import kid.TelestrationFX.ScreenManager;
+
+import java.awt.image.BufferedImage;
+import java.util.List;
+import java.util.Objects;
 
 
 public class GameRoomController
@@ -49,13 +58,18 @@ public class GameRoomController
     @FXML
     private JFXButton exit;
 
+    @FXML
+    private JFXButton start;
+
     private static GameRoomController controller;
+    private SketchBook sketchBook;
     private GraphicsContext gc;
     private Client client;
 
     public GameRoomController()
     {
         this.controller = this;
+        this.sketchBook = new SketchBook("");
         client = Client.getInstance();
     }
 
@@ -64,16 +78,32 @@ public class GameRoomController
         return controller;
     }
 
+    public void init()
+    {
+        Platform.runLater(() ->
+        {
+            if(gc == null) gc = canvas.getGraphicsContext2D();
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            word.clear();
+            chatArea.clear();
+            chatField.clear();
+        });
+    }
+
     public void UpdateUserList()
     {
         Platform.runLater(() ->
         {
             RoomInfo info = RoomInfo.getInstance();
             if(info == null) return;
-
             list.getItems().clear();
+
+            String ID = Account.getInstance().getID();
+            String OWNER = info.getOwner();
+            start.setVisible(ID.equals(OWNER));
+
             for(String name : info.getUserList())
-                list.getItems().add(new Label(name));
+                list.getItems().add(new Label((name.equals(ID)) ? name + " (Me)" : name));
         });
     }
 
@@ -130,9 +160,11 @@ public class GameRoomController
         {
             RoomInfo info = RoomInfo.getInstance();
             ScreenManager sm = ScreenManager.getInstance();
+            WaitRoomController wc = WaitRoomController.getInstance();
             String ID = Account.getInstance().getID();
 
             client.send(new ExitRoomRequest(ID, info.getOwner()));
+            wc.clearList();
             sm.activate("WaitRoom");
             client.send(new UserInfoRequest(Account.getInstance().getID()));
             client.send(new RoomListRequest(Account.getInstance().getID(), 10));
@@ -154,6 +186,30 @@ public class GameRoomController
     }
 
     @FXML
+    void eraseCanvas(ActionEvent event)
+    {
+        Platform.runLater(() ->
+        {
+            String ID = Account.getInstance().getID();
+            String OWNER = RoomInfo.getInstance().getOwner();
+
+            WritableImage snapshot = canvas.snapshot(null, null);
+            BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
+            sketchBook.toByte(image);
+            sketchBook.setSecretWord("사용자정의 (Custom)");
+
+            SendSketchBookRequest request = new SendSketchBookRequest(sketchBook, ID, OWNER);
+            client.send(request);
+        });
+
+        Platform.runLater(() ->
+        {
+            if(gc == null) gc = canvas.getGraphicsContext2D();
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        });
+    }
+
+    @FXML
     void dragMouse(MouseEvent event)
     {
         Platform.runLater(() ->
@@ -165,18 +221,35 @@ public class GameRoomController
     }
 
     @FXML
-    void eraseCanvas(ActionEvent event)
+    void startGame(ActionEvent event)
     {
-        Platform.runLater(() ->
-        {
-            if(gc == null) gc = canvas.getGraphicsContext2D();
-            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        });
+        String ID = Account.getInstance().getID();
+        client.send(new GameStartRequest(RoomInfo.getInstance().getOwner()));
+        start.setVisible(false);
     }
 
     @FXML
     void releaseMouse(MouseEvent event)
     {
 
+    }
+
+    public void setWord(String word, boolean isPainter)
+    {
+        Platform.runLater(() ->
+        {
+            this.word.setText(word + ((isPainter) ? " (난 화가 역할)" : " (난 맞추는 역할)"));
+        });
+    }
+
+    public void reDraw(SketchBook sketchBook)
+    {
+        Platform.runLater(() ->
+        {
+            if(gc == null) gc = canvas.getGraphicsContext2D();
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            WritableImage snapshot = SwingFXUtils.toFXImage(sketchBook.toImage(), null);
+            gc.drawImage(snapshot, 0, 0, canvas.getWidth(), canvas.getHeight());
+        });
     }
 }

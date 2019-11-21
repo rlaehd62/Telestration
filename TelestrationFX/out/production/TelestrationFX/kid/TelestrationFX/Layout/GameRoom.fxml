@@ -43,5 +43,10 @@
       <Line endX="100.0" layoutX="692.0" layoutY="310.0" startX="-100.0" />
       <Line endX="99.0" layoutX="692.0" layoutY="1.0" startX="-100.0" />
       <JFXButton fx:id="exit" buttonType="RAISED" layoutX="531.0" layoutY="502.0" onAction="#exitRoom" prefHeight="25.0" prefWidth="55.0" ripplerFill="WHITE" style="-fx-background-color: #C70039;" text="나가기" textFill="WHITE" />
+      <JFXButton fx:id="start" buttonType="RAISED" layoutX="168.0" layoutY="380.0" onAction="#startGame" prefHeight="39.0" prefWidth="259.0" ripplerFill="WHITE" style="-fx-background-color: #48C9B0;" text="게임 시작" textFill="WHITE" visible="false">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

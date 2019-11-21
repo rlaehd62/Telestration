@@ -2,68 +2,104 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kid.Controller.WaitRoomController">
    <children>
-      <SplitPane dividerPositions="0.793233082706767" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+      <SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
         <items>
-          <AnchorPane>
+          <AnchorPane prefHeight="605.0" prefWidth="811.0">
                <children>
-                  <JFXTreeTableView fx:id="table" onMouseClicked="#clickTable" prefHeight="598.0" prefWidth="631.0" />
-               </children>
-            </AnchorPane>
-          <AnchorPane>
-               <children>
-                  <Label fx:id="username" layoutY="36.0" onMouseClicked="#updateInfo" prefHeight="36.0" prefWidth="161.0" text="EMPTY-NAME" textAlignment="CENTER" underline="true">
-                     <font>
-                        <Font name="NanumBarunGothic" size="15.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Label>
-                  <Label fx:id="level" layoutY="72.0" prefHeight="36.0" prefWidth="161.0" text="Lv.0" textAlignment="CENTER">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Label>
-                  <Label fx:id="exp" layoutY="108.0" prefHeight="36.0" prefWidth="161.0" text="EXP (0 / 0)">
-                     <font>
-                        <Font name="NanumBarunGothic" size="15.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Label>
-                  <Separator layoutY="142.0" prefHeight="4.0" prefWidth="161.0" />
-                  <Separator layoutY="34.0" prefHeight="4.0" prefWidth="161.0" />
-                  <JFXTextField fx:id="title" focusColor="#5e6eff" layoutY="401.0" prefHeight="23.0" prefWidth="161.0" promptText="Title">
-                     <font>
-                        <Font name="NanumBarunGothic Bold" size="15.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="limit" focusColor="#5e6eff" layoutY="435.0" prefHeight="23.0" prefWidth="161.0" promptText="Level Limit">
-                     <font>
-                        <Font name="NanumBarunGothic" size="15.0" />
-                     </font>
-                  </JFXTextField>
-                  <Separator layoutX="1.0" layoutY="521.0" prefHeight="4.0" prefWidth="161.0" />
-                  <JFXButton fx:id="creation" layoutX="6.0" layoutY="476.0" onAction="#createRoom" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: #5e6eff;" text="방 생성" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <Separator layoutY="399.0" prefHeight="4.0" prefWidth="161.0" />
+                  <VBox layoutX="632.0" prefHeight="600.0" prefWidth="167.0" style="-fx-background-color: #BBDEFB;">
+                     <children>
+                        <ImageView fitHeight="75.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="username" onMouseClicked="#updateInfo" prefHeight="36.0" prefWidth="161.0" text="EMPTY-NAME" textAlignment="CENTER">
+                           <font>
+                              <Font name="NanumBarunGothic" size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="level" prefHeight="36.0" prefWidth="161.0" text="Lv.0" textAlignment="CENTER">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="exp" prefHeight="36.0" prefWidth="161.0" text="EXP (0 / 0)">
+                           <font>
+                              <Font name="NanumBarunGothic" size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                        </Label>
+                        <ImageView fitHeight="208.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true" />
+                        <JFXTextField fx:id="title" focusColor="#5e6eff" prefHeight="23.0" prefWidth="161.0" promptText="Title">
+                           <font>
+                              <Font name="NanumBarunGothic Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="limit" focusColor="#5e6eff" prefHeight="23.0" prefWidth="161.0" promptText="Level Limit">
+                           <font>
+                              <Font name="NanumBarunGothic" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </JFXTextField>
+                        <JFXButton fx:id="creation" onAction="#createRoom" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: #5e6eff;" text="방 생성" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="9.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+                  <AnchorPane layoutX="-4.0" prefHeight="600.0" prefWidth="636.0" style="-fx-background-color: #ffff;">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="636.0" style="-fx-background-color: #f3f3f3;">
+                           <children>
+                              <Label text="방장 (Owner)">
+                                 <HBox.margin>
+                                    <Insets left="100.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="제목 (Title)">
+                                 <HBox.margin>
+                                    <Insets left="100.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="Level 제한 (Limit)">
+                                 <HBox.margin>
+                                    <Insets left="100.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <ScrollPane layoutX="15.0" layoutY="76.0" prefHeight="500.0" prefWidth="610.0">
+                           <content>
+                              <VBox fx:id="list" prefHeight="498.0" prefWidth="608.0" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
         </items>

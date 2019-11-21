@@ -23,7 +23,7 @@ public class JoinRoomListener extends ServerListener<JoinRoomRequest>
 
         boolean VALID = !gm.containsRoom(ID) || !gm.containsUser(ID);
 
-        if(room != null && VALID)
+        if(room != null && VALID && !room.getUsers().contains(ID))
         {
             System.out.println(ID + "(이)가 접속 요청");
             room.addUser(ID);
@@ -37,11 +37,7 @@ public class JoinRoomListener extends ServerListener<JoinRoomRequest>
             System.out.println("　유저: " + room.getUsers());
 
             message.getSender().writeAndFlush(response);
-            for(String name : room.getUsers())
-            {
-                if(!name.equals(ID))
-                    ChannelManager.getChannels().get(name).writeAndFlush(roomResponse);
-            }
+            ChannelManager.sendBroadCast(room.getUsers().stream().toArray(String[]::new), roomResponse);
         }
     }
 }

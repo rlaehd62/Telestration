@@ -37,7 +37,6 @@ public class ChannelManager
         {
             ChannelHandlerContext ctx = channels.get(name);
             ChannelFuture future = ctx.writeAndFlush(packet);
-            if(!future.isSuccess()) ctx.writeAndFlush(packet);
         }
     }
 

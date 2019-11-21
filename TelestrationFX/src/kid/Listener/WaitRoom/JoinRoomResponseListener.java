@@ -22,5 +22,6 @@ public class JoinRoomResponseListener
         GameRoomController con = GameRoomController.getInstance();
         con.UpdateRoomInfo();
         con.UpdateUserList();
+        con.init();
     }
 }

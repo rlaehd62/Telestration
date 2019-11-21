@@ -1,8 +1,10 @@
 package Database.Manager;
 
 import DTO.Request.Room.GameRoom;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -36,6 +38,13 @@ public class GameRoomManager
         if(!rooms.containsKey(owner)) return false;
         rooms.remove(owner);
         return true;
+    }
+
+    public void UpdateRoom()
+    {
+        List<GameRoom> backup = new ArrayList<>(rooms.values());
+        rooms.clear();
+        backup.forEach(room -> rooms.put(room.getOwner(), room));
     }
 
     public GameRoom searchRoom(String owner)

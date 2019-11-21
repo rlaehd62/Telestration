@@ -1,0 +1,35 @@
+@startuml
+
+title : Game 시작
+autonumber "<b>0."
+Client -> Server : 게임 시작 요청
+activate Server
+Server -> Server : GameRoom Running 상태로 변경
+note right : Running으로 변경하면 해당 방은\n탐색 시 RoomList로 포함되지 않는다.
+
+Server -> SecretWordPool : SecretWord 요청
+activate SecretWordPool
+return SecretWord (중복 X)
+
+Server -> Server : 각 유저에 SecretWord 할당
+Server -> Server : 설정된 시간 만큼 타이머 시작
+note right : 타이머는 1초 간격으로 유저에게 전송된다.
+
+return GameStartNotification
+note left: GameStartNotification\n각 유저에 대한 SecretWord 포함\n해당 룸의 게임이 시작되었음을 알린다.
+
+newpage 타이머 종료
+autonumber "<b>0."
+Server -> Server : 타이머가 종료된다.
+activate Server
+Server -> Client : 타이머 종료를 알린다.
+activate Client
+return SketchBook 반환
+note left : SketchBook 패킷은 자신이\n그렸던 그림과 단어를 포함함\n누구의 SketchBook인지도 포함.
+
+Server -> Server : 결과에 따라서 패널티를 부여한다.
+Server -> Client : SketchBook을 전달.
+note left : SketchBook의 주인 다음 사람에게 전달한다.\n전달 받으면서 단어를 추측할지 그림을 그릴지 정한다.
+Server -> Server : 타이머를 재시작한다.
+return 타이머가 1초 간격으로 유저에게 전송된다.
+@enduml
