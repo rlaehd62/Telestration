@@ -1,6 +1,6 @@
 package Database.Manager;
 
-import DTO.Request.Room.GameRoom;
+import Game.GameRoom;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

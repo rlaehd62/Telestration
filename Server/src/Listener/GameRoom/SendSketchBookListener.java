@@ -1,7 +1,7 @@
 package Listener.GameRoom;
 
 import DTO.Request.GameRoom.SendSketchBookRequest;
-import DTO.Request.Room.GameRoom;
+import Game.GameRoom;
 import DTO.Response.GameRoom.SketchBookResponse;
 import Database.GameDB;
 import Database.Manager.GameRoomManager;

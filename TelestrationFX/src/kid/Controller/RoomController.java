@@ -1,7 +1,7 @@
 package kid.Controller;
 
-import DTO.Request.Room.GameRoom;
 import DTO.Request.Room.JoinRoomRequest;
+import Game.GameRoom;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

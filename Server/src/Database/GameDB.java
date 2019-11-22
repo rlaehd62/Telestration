@@ -1,7 +1,7 @@
 package Database;
 
 import DTO.Request.Room.CreateRoomRequest;
-import DTO.Request.Room.GameRoom;
+import Game.GameRoom;
 import DTO.Request.Users.AddUserRequest;
 import DTO.Response.Account.AccountResponse;
 import DTO.Response.Room.CreateRoomResponse;
@@ -19,7 +19,6 @@ import Util.State;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class GameDB implements DataPresenter

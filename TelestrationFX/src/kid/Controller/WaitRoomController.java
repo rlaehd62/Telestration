@@ -1,11 +1,11 @@
 package kid.Controller;
 
 import DTO.Request.Room.CreateRoomRequest;
-import DTO.Request.Room.GameRoom;
 import DTO.Request.Room.JoinRoomRequest;
 import DTO.Request.Room.RoomListRequest;
 import DTO.Response.Room.RoomListResponse;
 import DTO.Response.Room.RoomResponse;
+import Game.GameRoom;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;

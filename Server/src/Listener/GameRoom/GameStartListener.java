@@ -2,7 +2,7 @@ package Listener.GameRoom;
 
 import DTO.Notification.GameRoom.GameInfoNotification;
 import DTO.Request.GameRoom.GameStartRequest;
-import DTO.Request.Room.GameRoom;
+import Game.GameRoom;
 import Database.Manager.GameRoomManager;
 import Database.Manager.WordPoolManager;
 import Listener.ServerListener;

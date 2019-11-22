@@ -1,18 +1,12 @@
 package Listener.GameRoom;
 
 import DTO.Request.GameRoom.ExitRoomRequest;
-import DTO.Request.Room.GameRoom;
-import DTO.Response.Room.RoomListResponse;
+import Game.GameRoom;
 import DTO.Response.Room.RoomResponse;
 import Database.Manager.GameRoomManager;
 import Listener.ServerListener;
 import Server.ChannelManager;
 import com.google.common.eventbus.Subscribe;
-import com.sun.xml.internal.bind.v2.model.core.ID;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class ExitRoomRequestListener extends ServerListener<ExitRoomRequest>
 {
@@ -31,6 +25,7 @@ public class ExitRoomRequestListener extends ServerListener<ExitRoomRequest>
 
         if(room.isEmpty())
         {
+            room.stop();
             gm.RemoveRoom(OWNER);
             return;
         }

@@ -1,5 +1,5 @@
 package DTO.Response.Room;
-import DTO.Request.Room.GameRoom;
+import Game.GameRoom;
 import DTO.Response.GamePacketResponse;
 
 public class RoomResponse implements GamePacketResponse

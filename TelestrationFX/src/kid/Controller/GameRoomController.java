@@ -8,12 +8,9 @@ import DTO.Response.GameRoom.ChatResponse;
 import Util.SketchBook;
 import com.jfoenix.controls.*;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
 import kid.GameData.Account;
 import kid.GameData.RoomInfo;
-import kid.GameData.User;
 import kid.Network.Client;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -23,10 +20,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import kid.TelestrationFX.ScreenManager;
-
 import java.awt.image.BufferedImage;
-import java.util.List;
-import java.util.Objects;
 
 
 public class GameRoomController

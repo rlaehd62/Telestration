@@ -1,13 +1,14 @@
 package Utility;
 
-import DTO.Notification.GameRoom.CurrentTimeNotification;
 import DTO.Notification.GameRoom.SendSketchBookNotification;
 import DTO.Request.GameRoom.ChatRequest;
-import DTO.Request.Room.GameRoom;
+import Game.GameRoom;
 import DTO.Response.GameRoom.ChatResponse;
 import Database.Manager.GameRoomManager;
+import Game.Round;
 import Server.ChannelManager;
 
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,39 +17,45 @@ public class GameLoop extends TimerTask
     private Timer timer;
     private GameRoom room;
     private GameRoomManager gm;
-
-    private int MAX_SECOND;
-    private int CUR_SECOND;
+    private boolean isWaiting;
 
     public GameLoop(Timer timer, GameRoom room)
     {
         this.timer = timer;
         this.room = room;
         this.gm = GameRoomManager.getInstance();
+        this.isWaiting = false;
 
-        this.MAX_SECOND = room.getTimeOut();
-        this.CUR_SECOND = 0;
+        Round first = new Round(1, room.getTimeOut());
+        first.setRoom(room);
+        room.pushRound(first);
     }
 
     public void run()
     {
+        Round round = room.getCurrentRound();
+        if(Objects.isNull(round)) return;
+        else if(!round.isExpired()) round.increaseTime();
+
         if(!isValid()) timer.cancel();
-        else if(CUR_SECOND < MAX_SECOND)
+        else if(round.isExpired() && !isWaiting)
         {
-            CUR_SECOND++;
-            ChatResponse response = new ChatResponse(new ChatRequest("Timer", room.getOwner(), String.format("%d초", CUR_SECOND)));
-            CurrentTimeNotification notification = new CurrentTimeNotification(CUR_SECOND / 60, CUR_SECOND % 60);
-            notification.setMax(MAX_SECOND / 60, MAX_SECOND % 60);
-
-            String[] arr = room.getUsers().toArray(new String[1]);
-            ChannelManager.sendBroadCast(arr, response);
-        } else if(CUR_SECOND == MAX_SECOND)
+            String[] users = room.getUsers().toArray(new String[1]);
+            ChannelManager.sendBroadCast(users, new SendSketchBookNotification());
+            isWaiting = true;
+        } else if(round.isDone())
         {
-            ChannelManager.sendBroadCast(room.getUsers().toArray(new String[1]), new SendSketchBookNotification());
-            CUR_SECOND = 0;
+            room.switchRound(); // 라운드 교체
+            // 각종 조건 체크
+            room.pushRound(new Round(round.getRoundNumber()+1, round.getMaxSeconds())); // 임시
+            isWaiting = false;
+        } else if(!isWaiting)
+        {
+            String[] users = room.getUsers().toArray(new String[1]);
+            System.out.println("GameLoop: " + round);
+            ChatResponse response = new ChatResponse(new ChatRequest("시스템", room.getOwner(), round.toString()));
+            ChannelManager.sendBroadCast(users, response);
         }
-
-        MAX_SECOND = room.getTimeOut();
     }
 
     private boolean isValid()

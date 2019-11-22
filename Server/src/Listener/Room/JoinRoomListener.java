@@ -1,6 +1,6 @@
 package Listener.Room;
 
-import DTO.Request.Room.GameRoom;
+import Game.GameRoom;
 import DTO.Request.Room.JoinRoomRequest;
 import DTO.Response.Room.JoinRoomResponse;
 import DTO.Response.Room.RoomResponse;
@@ -8,7 +8,6 @@ import Database.Manager.GameRoomManager;
 import Listener.ServerListener;
 import Server.ChannelManager;
 import com.google.common.eventbus.Subscribe;
-import io.netty.channel.ChannelFuture;
 
 public class JoinRoomListener extends ServerListener<JoinRoomRequest>
 {
