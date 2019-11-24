@@ -41,7 +41,11 @@ public class GameLoop extends TimerTask
         if(Objects.isNull(round)) return;
         else if(!round.isExpired()) round.increaseTime();
 
-        if(!isValid()) timer.cancel();
+        if(!isValid())
+        {
+            room.stop();
+            timer.cancel();
+        }
         else if(round.isExpired() && !isWaiting)
         {
             String[] users = room.getUsers().toArray(new String[1]);
@@ -123,6 +127,6 @@ public class GameLoop extends TimerTask
     private boolean isValid()
     {
         final String OWNER = room.getOwner();
-        return gm.containsRoom(OWNER) || room.isRunning();
+        return gm.containsRoom(OWNER) || room.isRunning() || room.getUsers().size() > 0;
     }
 }

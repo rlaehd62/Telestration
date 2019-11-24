@@ -25,7 +25,10 @@ public class ServerHandler extends SimpleChannelInboundHandler<GamePacket>
         for(Map.Entry entry : ChannelManager.getChannels().entrySet())
         {
             if(entry.getValue().equals(ctx))
+            {
                 System.out.println(entry.getKey());
+                ChannelManager.getChannels().remove(entry.getKey());
+            }
         }
     }
 
