@@ -3,6 +3,7 @@ package kid.Listener.GameRoom;
 import kid.Controller.GameRoomController;
 import DTO.Response.GameRoom.ChatResponse;
 import com.google.common.eventbus.Subscribe;
+import kid.Controller.TestController;
 
 public class ChatResponseListener
 {
@@ -13,7 +14,7 @@ public class ChatResponseListener
         if(response != null)
         {
             System.out.println(response.toString());
-            GameRoomController con = GameRoomController.getInstance();
+            TestController con = TestController.getController();
             con.receiveChat(response);
         }
     }

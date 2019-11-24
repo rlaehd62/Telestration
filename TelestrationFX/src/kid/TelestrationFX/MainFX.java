@@ -1,13 +1,11 @@
 package kid.TelestrationFX;
 
-import javafx.stage.StageStyle;
 import kid.Network.Client;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import kid.TelestrationFX.ScreenManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,6 +36,7 @@ public class MainFX extends Application
         sm.addScreen("Login", FXMLLoader.load(getClass().getResource("Layout/Login.fxml")));
         sm.addScreen("WaitRoom", FXMLLoader.load(getClass().getResource("Layout/WaitRoom.fxml")));
         sm.addScreen("GameRoom", FXMLLoader.load(getClass().getResource("Layout/GameRoom.fxml")));
+        sm.addScreen("Test", FXMLLoader.load(getClass().getResource("Layout/TEST.fxml")));
         sm.activate("Login");
 
         primaryStage.centerOnScreen();

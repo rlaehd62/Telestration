@@ -1,5 +1,6 @@
 package Game;
 
+import DTO.Notification.GameRoom.CurrentTimeNotification;
 import DTO.Notification.GameRoom.GameInfoNotification;
 import DTO.Notification.GameRoom.SendSketchBookNotification;
 import DTO.Request.GameRoom.ChatRequest;
@@ -10,6 +11,7 @@ import Database.Manager.GameRoomManager;
 import Server.ChannelManager;
 import Util.SketchBook;
 
+import javax.management.timer.TimerNotification;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -66,8 +68,10 @@ public class GameLoop extends TimerTask
         {
             String[] users = room.getUsers().toArray(new String[1]);
             System.out.println("GameLoop: " + round);
-            ChatResponse response = new ChatResponse(new ChatRequest("시스템", room.getOwner(), round.toString()));
-            ChannelManager.sendBroadCast(users, response);
+
+            CurrentTimeNotification noti = new CurrentTimeNotification(round.getCurrentSeconds() / 60, round.getCurrentSeconds() % 60);
+            noti.setMax(round.getMaxSeconds() / 60, round.getMaxSeconds() % 60);
+            ChannelManager.sendBroadCast(users, noti);
         }
     }
 

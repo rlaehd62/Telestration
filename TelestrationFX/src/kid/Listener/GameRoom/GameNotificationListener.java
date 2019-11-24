@@ -3,6 +3,7 @@ package kid.Listener.GameRoom;
 import DTO.Notification.GameRoom.GameInfoNotification;
 import com.google.common.eventbus.Subscribe;
 import kid.Controller.GameRoomController;
+import kid.Controller.TestController;
 
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ public class GameNotificationListener
    @Subscribe
    public void handle(GameInfoNotification notification)
    {
-       GameRoomController controller = GameRoomController.getInstance();
+       TestController controller = TestController.getController();
        if(notification.getSketchBook() == null)
        {
            System.out.println(notification.getWord());
@@ -27,7 +28,7 @@ public class GameNotificationListener
        else
        {
            controller.reDraw(notification.getSketchBook());
-           controller.setWord("단어 추측 타임!", false);
+           controller.setWord("", false);
        }
 
        controller.setPainter(notification.isPainter());

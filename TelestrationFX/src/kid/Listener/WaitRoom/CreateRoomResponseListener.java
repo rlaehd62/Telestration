@@ -2,6 +2,7 @@ package kid.Listener.WaitRoom;
 
 import kid.Controller.GameRoomController;
 import DTO.Response.Room.CreateRoomResponse;
+import kid.Controller.TestController;
 import kid.GameData.RoomInfo;
 import kid.TelestrationFX.ScreenManager;
 import com.google.common.eventbus.Subscribe;
@@ -17,9 +18,15 @@ public class CreateRoomResponseListener
         if(response.getResponse() != null) info.setResponse(response.getResponse());
 
         ScreenManager sm = ScreenManager.getInstance();
-        sm.activate("GameRoom");
+        sm.activate("Test");
+//        sm.activate("GameRoom");
 
-        GameRoomController con = GameRoomController.getInstance();
+//        GameRoomController con = GameRoomController.getInstance();
+//        con.UpdateRoomInfo();
+//        con.UpdateUserList();
+//        con.init();
+
+        TestController con = TestController.getController();
         con.UpdateRoomInfo();
         con.UpdateUserList();
         con.init();

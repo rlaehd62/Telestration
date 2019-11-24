@@ -6,6 +6,7 @@ import DTO.Response.GameRoom.SketchBookResponse;
 import Util.SketchBook;
 import com.google.common.eventbus.Subscribe;
 import kid.Controller.GameRoomController;
+import kid.Controller.TestController;
 
 public class SketchBookResponseListener
 {
@@ -15,7 +16,7 @@ public class SketchBookResponseListener
     {
         SketchBook book = response.getSketchBook();
         ChatResponse response1 = new ChatResponse(new ChatRequest("받은 단어", "", book.getSecretWord()));
-        GameRoomController.getInstance().receiveChat(response1);
-        GameRoomController.getInstance().reDraw(book);
+        TestController.getController().receiveChat(response1);
+        TestController.getController().reDraw(book);
     }
 }
