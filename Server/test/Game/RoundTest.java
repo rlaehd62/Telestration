@@ -27,10 +27,10 @@ class RoundTest
 
         assertFalse(getter.isDone());
         System.out.println(getter.isDone());
-        getter.setResult(OWNER, new SketchBook("TEST"));
+        getter.setResult(OWNER, new SketchBook("A", "TEST"));
         assertFalse(getter.isDone());
         System.out.println(getter.isDone());
-        getter.setResult(USER, new SketchBook("고구마"));
+        getter.setResult(USER, new SketchBook("B","고구마"));
         assertTrue(getter.isDone());
         System.out.println(getter.isDone());
 

@@ -132,6 +132,11 @@
     <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Controller\Layout" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX\Layout" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
@@ -141,11 +146,6 @@
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\libs" />
       <recent name="C:\Users\user\Desktop\Dev\Telestration\TelestrationFX\src\Listener\WaitRoom" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\Listener\WaitRoom" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Controller\Layout" />
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX" />
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX\Layout" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -333,6 +333,9 @@
       <workItem from="1574440500506" duration="105000" />
       <workItem from="1574440609669" duration="582000" />
       <workItem from="1574441214053" duration="5000" />
+      <workItem from="1574526532272" duration="4339000" />
+      <workItem from="1574530894512" duration="3202000" />
+      <workItem from="1574562264382" duration="3063000" />
     </task>
     <servers />
   </component>
@@ -377,12 +380,73 @@
           <line>13</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>41</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>45</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>46</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>47</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>48</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>49</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>42</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>76</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>77</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>79</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>81</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>82</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="sketchBook" language="JAVA" />
         <watch expression="this" />
+        <watch expression="OWNER" />
       </configuration>
     </watches-manager>
   </component>

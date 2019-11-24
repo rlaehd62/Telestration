@@ -7,7 +7,7 @@ import Database.Manager.GameRoomManager;
 import Database.Manager.WordPoolManager;
 import Listener.ServerListener;
 import Server.ChannelManager;
-import Utility.GameLoop;
+import Game.GameLoop;
 import com.google.common.eventbus.Subscribe;
 import java.util.*;
 

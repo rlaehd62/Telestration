@@ -11,6 +11,7 @@ public class GameRoom implements Serializable
 
     private List<String> users;
     private Queue<Round> roundQueue;
+    private List<History> history;
 
     private int level_limit;
     private int timeout;
@@ -33,6 +34,7 @@ public class GameRoom implements Serializable
         this.users = new ArrayList<>();
         this.words = new HashMap<>();
         this.roundQueue = new LinkedList<>();
+        this.history = new ArrayList<>();
     }
 
     public void start()
@@ -53,6 +55,21 @@ public class GameRoom implements Serializable
     public Round switchRound()
     {
         return roundQueue.poll();
+    }
+
+    public void pushHistory(History story)
+    {
+        this.history.add(story);
+    }
+
+    public List<History> history()
+    {
+        return history;
+    }
+
+    public void clearHistory()
+    {
+        history.clear();
     }
 
     public Round getCurrentRound()

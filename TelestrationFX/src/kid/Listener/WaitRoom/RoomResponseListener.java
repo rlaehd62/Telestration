@@ -13,6 +13,7 @@ public class RoomResponseListener
         GameRoomController con = GameRoomController.getInstance();
         if(response.getRoom() != null)
         {
+            System.out.println("받긴 받음?");
             System.out.println(response.getRoom().getTitle());
             System.out.println(response.getRoom().getOwner());
 

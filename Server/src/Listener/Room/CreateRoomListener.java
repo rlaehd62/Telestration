@@ -10,24 +10,8 @@ public class CreateRoomListener extends ServerListener<CreateRoomRequest>
     @Subscribe
     public void handle(CreateRoomRequest message)
     {
+        message.setTimeout(30);
         System.out.println(GameRoomManager.getInstance().getRoomList().size());
         presenter.createRoom(message);
-
-        /*  타이머 테스트 코드 (정상적인 동작 확인)
-        Timer timer = new Timer(message.getID() + "'s Room");
-        timer.schedule(new TimerTask()
-        {
-            String owner = message.getID();
-            int count = 0;
-            public void run()
-            {
-                count++;
-                GameRoom room = GameRoomManager.getInstance().searchRoom(owner);
-                ChatResponse response = new ChatResponse(new ChatRequest("Timer", owner, "타이머 " + count + "초"));
-                ChannelManager.sendBroadCast(room.getUsers().stream().toArray(java.lang.String[]::new), response);
-                if(count >= 30) timer.cancel();
-            }
-        }, 1000, 1000);
-         */
     }
 }

@@ -1,6 +1,5 @@
 package kid.Controller;
 
-import DTO.Notification.GameRoom.CurrentTimeNotification;
 import DTO.Request.GameRoom.*;
 import DTO.Request.Room.RoomListRequest;
 import DTO.Request.Users.UserInfoRequest;
@@ -8,6 +7,7 @@ import DTO.Response.GameRoom.ChatResponse;
 import Util.SketchBook;
 import com.jfoenix.controls.*;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
 import kid.GameData.Account;
 import kid.GameData.RoomInfo;
@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import kid.TelestrationFX.ScreenManager;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 
 public class GameRoomController
@@ -56,14 +57,14 @@ public class GameRoomController
     private JFXButton start;
 
     private static GameRoomController controller;
-    private SketchBook sketchBook;
     private GraphicsContext gc;
     private Client client;
+    private boolean isPainter;
 
     public GameRoomController()
     {
-        this.controller = this;
-        this.sketchBook = new SketchBook("");
+        controller = this;
+        isPainter = false;
         client = Client.getInstance();
     }
 
@@ -97,7 +98,7 @@ public class GameRoomController
             start.setVisible(ID.equals(OWNER));
 
             for(String name : info.getUserList())
-                list.getItems().add(new Label((name.equals(ID)) ? name + " (Me)" : name));
+                list.getItems().add(new Label((name.equals(ID)) ? name + "　←　" : name));
         });
     }
 
@@ -184,23 +185,46 @@ public class GameRoomController
     {
         Platform.runLater(() ->
         {
-            String ID = Account.getInstance().getID();
-            String OWNER = RoomInfo.getInstance().getOwner();
+            if(gc == null) gc = canvas.getGraphicsContext2D();
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        });
+    }
 
-            WritableImage snapshot = canvas.snapshot(null, null);
+    @FXML
+    public void sendCurrentCanvas()
+    {
+        String ID = Account.getInstance().getID();
+        String OWNER = RoomInfo.getInstance().getOwner();
+        SketchBook sketchBook = new SketchBook(OWNER, getWord());
+
+        Platform.runLater(() ->
+        {
+            WritableImage snapshot = canvas.snapshot(new SnapshotParameters(), null);
             BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
+
             sketchBook.toByte(image);
-            sketchBook.setSecretWord("사용자정의 (Custom)");
+            sketchBook.setSecretWord(getWord());
+            sketchBook.setPainter(isPainter);
 
             SendSketchBookRequest request = new SendSketchBookRequest(sketchBook, ID, OWNER);
             client.send(request);
         });
 
-        Platform.runLater(() ->
-        {
-            if(gc == null) gc = canvas.getGraphicsContext2D();
-            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        });
+    }
+
+    public void setPainter(boolean painter)
+    {
+        isPainter = painter;
+    }
+
+    public boolean isPainter()
+    {
+        return isPainter;
+    }
+
+    public String getWord()
+    {
+        return word.getText();
     }
 
     @FXML
@@ -232,7 +256,16 @@ public class GameRoomController
     {
         Platform.runLater(() ->
         {
-            this.word.setText(word + ((isPainter) ? " (난 화가 역할)" : " (난 맞추는 역할)"));
+            this.word.setText(word);
+        });
+    }
+
+    public void clearCanvas()
+    {
+        Platform.runLater(() ->
+        {
+            if (gc == null) gc = canvas.getGraphicsContext2D();
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         });
     }
 
@@ -242,6 +275,7 @@ public class GameRoomController
         {
             if(gc == null) gc = canvas.getGraphicsContext2D();
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
             WritableImage snapshot = SwingFXUtils.toFXImage(sketchBook.toImage(), null);
             gc.drawImage(snapshot, 0, 0, canvas.getWidth(), canvas.getHeight());
         });

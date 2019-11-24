@@ -1,7 +1,6 @@
 package kid.Listener.GameRoom;
 
 import DTO.Request.GameRoom.ChatRequest;
-import DTO.Request.Room.GameRoom;
 import DTO.Response.GameRoom.ChatResponse;
 import DTO.Response.GameRoom.SketchBookResponse;
 import Util.SketchBook;

@@ -8,8 +8,8 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Core.jar" size="10736217" download="eager" />
-    <jar href="TelestrationFX.jar" size="192093" download="eager" />
+    <jar href="Core.jar" size="10737357" download="eager" />
+    <jar href="TelestrationFX.jar" size="192651" download="eager" />
     <jar href="guava-23.0.jar" size="2614708" download="eager" />
     <jar href="jfoenix-8.0.8.jar" size="2708772" download="eager" />
     <jar href="sqlite-jdbc-3.27.2.1.jar" size="6012107" download="eager" />

@@ -1,8 +1,11 @@
 package Game;
 
+import DTO.Response.GameRoom.SketchBookResponse;
 import Util.SketchBook;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 public class Round
 {
@@ -48,6 +51,8 @@ public class Round
 
     public boolean isDone()
     {
+        System.out.println(Objects.isNull(room));
+        System.out.println(Objects.isNull(getResult()));
         return (room.getUsers().size() <= getResult().size());
     }
 
