@@ -1,6 +1,5 @@
 package kid.Listener.WaitRoom;
 
-import kid.Controller.GameRoomController;
 import DTO.Response.Room.RoomResponse;
 import kid.Controller.TestController;
 import kid.GameData.RoomInfo;
@@ -11,6 +10,7 @@ public class RoomResponseListener
     @Subscribe
     public void handle(RoomResponse response)
     {
+        System.out.println("Room 정보 왔음?");
         TestController con = TestController.getController();
         if(response.getRoom() != null)
         {
