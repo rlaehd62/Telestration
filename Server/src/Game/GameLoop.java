@@ -3,15 +3,11 @@ package Game;
 import DTO.Notification.GameRoom.CurrentTimeNotification;
 import DTO.Notification.GameRoom.GameInfoNotification;
 import DTO.Notification.GameRoom.SendSketchBookNotification;
-import DTO.Request.GameRoom.ChatRequest;
-import DTO.Response.GameRoom.ChatResponse;
-import DTO.Response.GameRoom.SketchBookResponse;
 import Database.GameDB;
 import Database.Manager.GameRoomManager;
 import Server.ChannelManager;
 import Util.SketchBook;
 
-import javax.management.timer.TimerNotification;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -45,8 +41,7 @@ public class GameLoop extends TimerTask
         {
             room.stop();
             timer.cancel();
-        }
-        else if(round.isExpired() && !isWaiting)
+        } else if(round.isExpired() && !isWaiting)
         {
             String[] users = room.getUsers().toArray(new String[1]);
             ChannelManager.sendBroadCast(users, new SendSketchBookNotification());
@@ -55,7 +50,21 @@ public class GameLoop extends TimerTask
         {
             if(isFinal(round))
             {
+                AtomicInteger cnt = new AtomicInteger(1);
                 System.out.println(room.getOwner() + "의 방이 Final 도달");
+                checkAnswer(round);
+                room.switchRound();
+                System.out.println("< 게임 결과 >");
+                room.history()
+                        .forEach(history ->
+                        {
+                            int answer = history.getAnswers();
+                            System.out.printf("[%d 라운드] 총 %d개 정답\n", cnt.getAndIncrement(), answer);
+                        });
+                room.clearHistory();
+
+                room.stop();
+                timer.cancel();
             } else
             {
                 checkAnswer(round);
@@ -118,9 +127,19 @@ public class GameLoop extends TimerTask
 
     private boolean isFinal(Round round)
     {
-//        HashMap<String, SketchBook> result = round.getResult();
-//        return result.keySet().stream()
-//                .anyMatch(key -> key.equals(result.get(key).getOwner()));
+        boolean IS_VALID = round.getRoundNumber() > 1;
+        final HashMap<String, SketchBook> result = round.getResult();
+        final List<String> users = room.getUsers();
+
+        if(!IS_VALID) return false;
+        for(String ID : result.keySet())
+        {
+            int index = users.indexOf(ID);
+            String NEXT = users.get((index + 1) % users.size());
+            SketchBook book = result.get(ID);
+            if(index >= 0 && NEXT.equals(book.getOwner())) return true;
+        }
+
         return false;
     }
 

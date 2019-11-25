@@ -79,6 +79,7 @@ public class TestController
     private GraphicsContext gc;
     private Client client;
     private boolean isPainter;
+    private SketchBook received;
 
     public TestController()
     {
@@ -247,7 +248,8 @@ public class TestController
     public void sendCurrentCanvas()
     {
         String ID = Account.getInstance().getID();
-        String OWNER = RoomInfo.getInstance().getOwner();
+        String OWNER = (received == null) ? ID : received.getOwner();
+        String ROOM_OWNER = RoomInfo.getInstance().getOwner();
         SketchBook sketchBook = new SketchBook(OWNER, getWord());
 
         Platform.runLater(() ->
@@ -259,7 +261,7 @@ public class TestController
             sketchBook.setSecretWord(getWord());
             sketchBook.setPainter(isPainter);
 
-            SendSketchBookRequest request = new SendSketchBookRequest(sketchBook, ID, OWNER);
+            SendSketchBookRequest request = new SendSketchBookRequest(sketchBook, ID, ROOM_OWNER);
             client.send(request);
         });
 
@@ -298,4 +300,8 @@ public class TestController
         });
     }
 
+    public void setReceived(SketchBook received)
+    {
+        this.received = received;
+    }
 }

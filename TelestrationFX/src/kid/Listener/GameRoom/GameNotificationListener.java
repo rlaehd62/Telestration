@@ -31,6 +31,7 @@ public class GameNotificationListener
            controller.setWord("", false);
        }
 
+       controller.setReceived(notification.getSketchBook());
        controller.setPainter(notification.isPainter());
    }
 }
