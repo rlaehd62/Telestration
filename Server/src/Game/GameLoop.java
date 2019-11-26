@@ -52,17 +52,26 @@ public class GameLoop extends TimerTask
             {
                 AtomicInteger cnt = new AtomicInteger(1);
                 System.out.println(room.getOwner() + "의 방이 Final 도달");
+
                 checkAnswer(round);
-                room.switchRound();
+                process();
+
                 System.out.println("< 게임 결과 >");
+                room.switchRound();
                 room.history()
                         .forEach(history ->
                         {
                             int answer = history.getAnswers();
                             System.out.printf("[%d 라운드] 총 %d개 정답\n", cnt.getAndIncrement(), answer);
                         });
-                room.clearHistory();
+                room.history()
+                        .forEach(history ->
+                        {
+                            HashMap<String, Integer> temp = history.getAnswerCount();
+                            temp.keySet().forEach(name -> System.out.println("[" + name + "] " + temp.get(name) + "회 정답!"));
+                        });
 
+                room.clearHistory();
                 room.stop();
                 timer.cancel();
             } else
@@ -92,6 +101,9 @@ public class GameLoop extends TimerTask
     {
         AtomicInteger count = new AtomicInteger();
         HashMap<String, SketchBook> result = round.getResult();
+        History story = new History();
+        story.round(round.getRoundNumber());
+
         result.keySet().stream()
                 .filter(key -> !result.get(key).isPainter())
                 .forEach(key ->
@@ -99,9 +111,14 @@ public class GameLoop extends TimerTask
                     SketchBook book = result.get(key);
                     String owner = book.getOwner();
                     String real = room.getWord(owner);
-                    if(book.getSecretWord().equals(real)) count.getAndIncrement();
+                    story.saveSketchbook(owner, book);
+                    if(book.getSecretWord().equals(real))
+                    {
+                        story
+                                .answer(count.incrementAndGet())
+                                .setAnswerCound(key, 1);
+                    }
                 });
-        History story = new History().answer(count.get());
         room.pushHistory(story);
     }
 
