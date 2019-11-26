@@ -20,7 +20,24 @@ public class GameNotificationListener
            System.out.println(notification.isPainter());
            controller.setWord(notification.getWord(), notification.isPainter());
        }
-       else if(notification.isPainter())
+       else if(!notification.isOdd()) isEven(notification);
+       else isOdd(notification);
+
+       controller.setReceived(notification.getSketchBook());
+       controller.setPainter(notification.isPainter());
+   }
+
+    private void isOdd(GameInfoNotification notification)
+    {
+        TestController controller = TestController.getController();
+        controller.reDraw(notification.getSketchBook());
+        controller.setWord(notification.getWord(), notification.isPainter());
+    }
+
+   private void isEven(GameInfoNotification notification)
+   {
+       TestController controller = TestController.getController();
+       if(notification.isPainter())
        {
            controller.clearCanvas();
            controller.setWord(notification.getWord(), notification.isPainter());
@@ -30,8 +47,5 @@ public class GameNotificationListener
            controller.reDraw(notification.getSketchBook());
            controller.setWord("", false);
        }
-
-       controller.setReceived(notification.getSketchBook());
-       controller.setPainter(notification.isPainter());
    }
 }

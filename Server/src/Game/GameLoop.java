@@ -16,6 +16,7 @@ public class GameLoop extends TimerTask
     private Timer timer;
     private GameRoom room;
     private GameRoomManager gm;
+    private GameProcessor processor;
     private boolean isWaiting;
 
     public GameLoop(Timer timer, GameRoom room)
@@ -24,6 +25,7 @@ public class GameLoop extends TimerTask
         this.room = room;
         this.gm = GameRoomManager.getInstance();
         this.isWaiting = false;
+        this.processor = (room.getUsers().size() % 2 == 0) ? (new EvenProcessor()) : (new OddProcessor());
 
         Round first = new Round(1, room.getTimeOut());
         first.setRoom(room);
@@ -48,13 +50,13 @@ public class GameLoop extends TimerTask
             isWaiting = true;
         } else if(round.isDone())
         {
-            if(isFinal(round))
+            if(processor.isFinal(room, round))
             {
                 AtomicInteger cnt = new AtomicInteger(1);
                 System.out.println(room.getOwner() + "의 방이 Final 도달");
 
-                checkAnswer(round);
-                process();
+                processor.checkAnswer(room, round);
+                processor.process(room);
 
                 System.out.println("< 게임 결과 >");
                 room.switchRound();
@@ -62,13 +64,10 @@ public class GameLoop extends TimerTask
                         .forEach(history ->
                         {
                             int answer = history.getAnswers();
-                            System.out.printf("[%d 라운드] 총 %d개 정답\n", cnt.getAndIncrement(), answer);
-                        });
-                room.history()
-                        .forEach(history ->
-                        {
                             HashMap<String, Integer> temp = history.getAnswerCount();
+                            System.out.printf("[%d 라운드] 총 %d개 정답\n", cnt.getAndIncrement(), answer);
                             temp.keySet().forEach(name -> System.out.println("[" + name + "] " + temp.get(name) + "회 정답!"));
+
                         });
 
                 room.clearHistory();
@@ -76,8 +75,8 @@ public class GameLoop extends TimerTask
                 timer.cancel();
             } else
             {
-                checkAnswer(round);
-                process();
+                processor.checkAnswer(room, round);
+                processor.process(room);
                 room.switchRound(); // 라운드 교체
 
                 Round NEW = new Round(round.getRoundNumber()+1, round.getMaxSeconds());
@@ -95,69 +94,6 @@ public class GameLoop extends TimerTask
             noti.setMax(round.getMaxSeconds() / 60, round.getMaxSeconds() % 60);
             ChannelManager.sendBroadCast(users, noti);
         }
-    }
-
-    private void checkAnswer(Round round)
-    {
-        AtomicInteger count = new AtomicInteger();
-        HashMap<String, SketchBook> result = round.getResult();
-        History story = new History();
-        story.round(round.getRoundNumber());
-
-        result.keySet().stream()
-                .filter(key -> !result.get(key).isPainter())
-                .forEach(key ->
-                {
-                    SketchBook book = result.get(key);
-                    String owner = book.getOwner();
-                    String real = room.getWord(owner);
-                    story.saveSketchbook(owner, book);
-                    if(book.getSecretWord().equals(real))
-                    {
-                        story
-                                .answer(count.incrementAndGet())
-                                .setAnswerCound(key, 1);
-                    }
-                });
-        room.pushHistory(story);
-    }
-
-    private void process()
-    {
-        final String OWNER = room.getOwner();
-        final Round round = room.getCurrentRound();
-        final HashMap<String, SketchBook> result = round.getResult();
-
-        for(String ID : result.keySet())
-        {
-            SketchBook book = result.get(ID);
-            List<String> users = room.getUsers();
-            int index = users.indexOf(ID);
-            String NEXT = users.get(((index + 1) % users.size()));
-            if(index < 0 || NEXT.equals("")) return;
-
-            GameDB.getInstance().log("수신", ID + " → " + NEXT + " in " + OWNER + "'s ROOM");
-            GameInfoNotification notification = new GameInfoNotification(book, book.getSecretWord(), !book.isPainter());
-            ChannelManager.getChannels().get(NEXT).writeAndFlush(notification);
-        }
-    }
-
-    private boolean isFinal(Round round)
-    {
-        boolean IS_VALID = round.getRoundNumber() > 1;
-        final HashMap<String, SketchBook> result = round.getResult();
-        final List<String> users = room.getUsers();
-
-        if(!IS_VALID) return false;
-        for(String ID : result.keySet())
-        {
-            int index = users.indexOf(ID);
-            String NEXT = users.get((index + 1) % users.size());
-            SketchBook book = result.get(ID);
-            if(index >= 0 && NEXT.equals(book.getOwner())) return true;
-        }
-
-        return false;
     }
 
     private boolean isValid()

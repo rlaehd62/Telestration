@@ -344,6 +344,8 @@
       <workItem from="1574702305708" duration="137000" />
       <workItem from="1574702576369" duration="1424000" />
       <workItem from="1574773973219" duration="38000" />
+      <workItem from="1574777261321" duration="182000" />
+      <workItem from="1574777969534" duration="1976000" />
     </task>
     <servers />
   </component>
@@ -462,16 +464,6 @@
           <url>file://$PROJECT_DIR$/src/kid/Listener/WaitRoom/RoomResponseListener.java</url>
           <line>13</line>
           <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/kid/Listener/GameRoom/GameNotificationListener.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/kid/Listener/GameRoom/GameNotificationListener.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
