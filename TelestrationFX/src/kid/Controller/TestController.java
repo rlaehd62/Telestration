@@ -304,4 +304,12 @@ public class TestController
     {
         this.received = received;
     }
+    public void setAccess(boolean forCanvas, boolean forWord)
+    {
+        Platform.runLater(() ->
+        {
+            canvas.setDisable(!forCanvas);
+            word.setDisable(!forWord);
+        });
+    }
 }

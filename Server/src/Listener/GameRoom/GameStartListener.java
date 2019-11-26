@@ -32,7 +32,7 @@ public class GameStartListener extends ServerListener<GameStartRequest>
         {
             final String ID = users.get(i);
             final String WORD = room.getWord(ID);
-            GameInfoNotification notification = new GameInfoNotification(WORD, true);
+            GameInfoNotification notification = new GameInfoNotification(WORD, (users.size() % 2 == 0));
             ChannelManager.sendBroadCast(new String[] { ID }, notification);
         }
 

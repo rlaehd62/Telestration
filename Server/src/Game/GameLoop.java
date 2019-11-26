@@ -27,7 +27,7 @@ public class GameLoop extends TimerTask
         this.isWaiting = false;
         this.processor = (room.getUsers().size() % 2 == 0) ? (new EvenProcessor()) : (new OddProcessor());
 
-        Round first = new Round(1, room.getTimeOut());
+        Round first = new Round(1, (room.getUsers().size() % 2 == 0) ? room.getTimeOut() : 2);
         first.setRoom(room);
         room.clearHistory();
         room.pushRound(first);
@@ -77,11 +77,11 @@ public class GameLoop extends TimerTask
             {
                 processor.checkAnswer(room, round);
                 processor.process(room);
-                room.switchRound(); // 라운드 교체
+                room.switchRound();
 
-                Round NEW = new Round(round.getRoundNumber()+1, round.getMaxSeconds());
+                Round NEW = new Round(round.getRoundNumber()+1, (round.getRoundNumber() > 1) ? round.getMaxSeconds() : room.getTimeOut());
                 NEW.setRoom(room);
-                room.pushRound(NEW); // 임시
+                room.pushRound(NEW);
                 isWaiting = false;
             }
 

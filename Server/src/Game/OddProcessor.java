@@ -61,7 +61,7 @@ public class OddProcessor implements GameProcessor
             if(index < 0 || NEXT.equals("")) return;
 
             GameDB.getInstance().log("수신", ID + " → " + NEXT + " in " + OWNER + "'s ROOM");
-            GameInfoNotification notification = new GameInfoNotification(book, book.getSecretWord(), book.isPainter());
+            GameInfoNotification notification = new GameInfoNotification(book, book.getSecretWord(), !book.isPainter());
             notification.setOdd(true);
             ChannelManager.getChannels().get(NEXT).writeAndFlush(notification);
         }
