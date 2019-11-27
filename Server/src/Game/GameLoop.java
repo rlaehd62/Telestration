@@ -54,9 +54,7 @@ public class GameLoop extends TimerTask
             {
                 AtomicInteger cnt = new AtomicInteger(1);
                 System.out.println(room.getOwner() + "의 방이 Final 도달");
-
                 processor.checkAnswer(room, round);
-                processor.process(room);
 
                 System.out.println("< 게임 결과 >");
                 room.switchRound();
@@ -65,8 +63,8 @@ public class GameLoop extends TimerTask
                         {
                             int answer = history.getAnswers();
                             HashMap<String, Integer> temp = history.getAnswerCount();
-                            System.out.printf("[%d 라운드] 총 %d개 정답\n", cnt.getAndIncrement(), answer);
-                            temp.keySet().forEach(name -> System.out.println("[" + name + "] " + temp.get(name) + "회 정답!"));
+                            GameDB.getInstance().log("결과", String.format("\n[%d 라운드] 총 %d개 정답", cnt.getAndIncrement(), answer));
+                            temp.keySet().forEach(name -> GameDB.getInstance().log("결과", "[" + name + "] " + temp.get(name) + "회 정답!"));
 
                         });
 
@@ -79,7 +77,7 @@ public class GameLoop extends TimerTask
                 processor.process(room);
                 room.switchRound();
 
-                Round NEW = new Round(round.getRoundNumber()+1, (round.getRoundNumber() > 1) ? round.getMaxSeconds() : room.getTimeOut());
+                Round NEW = new Round(round.getRoundNumber()+1, (round.getRoundNumber() <= 1) ? room.getTimeOut() : round.getMaxSeconds());
                 NEW.setRoom(room);
                 room.pushRound(NEW);
                 isWaiting = false;
