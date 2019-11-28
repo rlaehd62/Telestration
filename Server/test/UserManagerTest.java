@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserManagerTest
 {
     private GameDB manager = GameDB.getInstance();
-    private String ID = "rlaehd62";
+    private String ID = "root";
 
     @Test
     void insertUser()
@@ -27,14 +27,11 @@ class UserManagerTest
         manager.UpdateUser(request);
 
         UserResponse response = manager.getUser(ID);
-        assertEquals(response.getState(), State.OFFLINE);
+        response.setExp(3000);
 
-        request.setState(State.ONLINE);
-        request.setRoomID(State.OUT_OF_ROOM);
-        manager.UpdateUser(request);
-
-        response = manager.getUser(ID);
-        assertEquals(response.getState(), State.ONLINE);
-        assertEquals(response.getRoomID(), State.OUT_OF_ROOM);
+        manager.UpdateUser(new AddUserRequest(response));
+        UserResponse re = manager.getUser(ID);
+        assertEquals(re.getExp(), 3000);
+        System.out.println(re.getExp());;
     }
 }

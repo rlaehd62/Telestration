@@ -24,12 +24,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import kid.GameData.Account;
 import kid.GameData.RoomInfo;
 import kid.Network.Client;
 import kid.TelestrationFX.ScreenManager;
 
 import java.awt.image.BufferedImage;
+import java.nio.file.Paths;
 
 public class TestController
 {

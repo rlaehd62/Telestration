@@ -50,12 +50,12 @@ public class UserManager implements DataPresenter.UserModel
     {
         try (Connection conn = DB.getConnection())
         {
-            String query = "SELECT STATE, LV, EXP, MAX_EXP, ROOM_ID FROM USERS WHERE EXISTS (SELECT * FROM USERS WHERE ID = ?)";
+            String query = "SELECT STATE, LV, EXP, MAX_EXP, ROOM_ID FROM USERS WHERE ID = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, ID);
 
             ResultSet result = ps.executeQuery();
-            if(result.isBeforeFirst())
+            if(result.next())
             {
                 UserResponse response = new UserResponse(ID);
                 response.setState(result.getInt("STATE"));

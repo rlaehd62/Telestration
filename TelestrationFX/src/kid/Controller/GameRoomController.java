@@ -9,6 +9,7 @@ import com.jfoenix.controls.*;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
+import javafx.scene.media.AudioClip;
 import kid.GameData.Account;
 import kid.GameData.RoomInfo;
 import kid.Network.Client;
@@ -20,6 +21,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import kid.TelestrationFX.ScreenManager;
+import sun.audio.AudioPlayer;
+
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 

@@ -1,12 +1,14 @@
 package Game;
 
 import DTO.Notification.GameRoom.GameInfoNotification;
+import DTO.Notification.GameRoom.RewardNotification;
 import Database.GameDB;
 import Server.ChannelManager;
 import Util.SketchBook;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class OddProcessor implements GameProcessor
@@ -65,5 +67,21 @@ public class OddProcessor implements GameProcessor
             notification.setOdd(true);
             ChannelManager.getChannels().get(NEXT).writeAndFlush(notification);
         }
+    }
+
+    public void rewardRounds(RewardNotification notification, GameRoom room, List<History> histories)
+    {
+        histories.stream()
+                .filter(history -> history.getRound() > 2)
+                .forEach(history ->
+                {
+                    Map<String, Integer> list = history.getAnswerCount();
+                    list.forEach((ID, COUNT) ->
+                    {
+                        addEXP(ID, COUNT * 15);
+                        levelUp(ID);
+                        notification.addReward(ID, notification.getReward(ID) + (COUNT * 15));
+                    });
+                });
     }
 }

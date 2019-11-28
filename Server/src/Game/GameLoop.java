@@ -52,23 +52,13 @@ public class GameLoop extends TimerTask
         {
             if(processor.isFinal(room, round))
             {
-                AtomicInteger cnt = new AtomicInteger(1);
-                System.out.println(room.getOwner() + "의 방이 Final 도달");
                 processor.checkAnswer(room, round);
-
-                System.out.println("< 게임 결과 >");
                 room.switchRound();
-                room.history()
-                        .forEach(history ->
-                        {
-                            int answer = history.getAnswers();
-                            HashMap<String, Integer> temp = history.getAnswerCount();
-                            GameDB.getInstance().log("결과", String.format("\n[%d 라운드] 총 %d개 정답", cnt.getAndIncrement(), answer));
-                            temp.keySet().forEach(name -> GameDB.getInstance().log("결과", "[" + name + "] " + temp.get(name) + "회 정답!"));
+                processor.giveReward(room, room.history());
 
-                        });
-
+                showResult(room);
                 room.clearHistory();
+
                 room.stop();
                 timer.cancel();
             } else
@@ -92,6 +82,22 @@ public class GameLoop extends TimerTask
             noti.setMax(round.getMaxSeconds() / 60, round.getMaxSeconds() % 60);
             ChannelManager.sendBroadCast(users, noti);
         }
+    }
+
+    private void showResult(GameRoom room)
+    {
+        AtomicInteger cnt = new AtomicInteger(1);
+        GameDB.getInstance().log("종료", room.getOwner() + "님의 방의 게임이 종료되었습니다.");
+        room.history()
+                .forEach(history ->
+                {
+                    int answer = history.getAnswers();
+                    HashMap<String, Integer> temp = history.getAnswerCount();
+                    GameDB.getInstance().log("[" + cnt.getAndIncrement() + " 라운드]", String.format("총 %d개 정답", answer));
+                    temp.keySet().forEach(name -> GameDB.getInstance().log("결과", "[" + name + "] " + temp.get(name) + "회 정답!"));
+
+                });
+
     }
 
     private boolean isValid()

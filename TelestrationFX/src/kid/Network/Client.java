@@ -45,6 +45,7 @@ public class Client extends Thread
         eventBus.register(new GameNotificationListener());
         eventBus.register(new SendSketchBookListener());
         eventBus.register(new TimerListener());
+        eventBus.register(new ResultListener());
     }
 
     public static Client getInstance()

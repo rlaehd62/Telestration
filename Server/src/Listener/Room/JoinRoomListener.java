@@ -1,5 +1,7 @@
 package Listener.Room;
 
+import DTO.Response.User.UserResponse;
+import Database.GameDB;
 import Game.GameRoom;
 import DTO.Request.Room.JoinRoomRequest;
 import DTO.Response.Room.JoinRoomResponse;
@@ -18,12 +20,14 @@ public class JoinRoomListener extends ServerListener<JoinRoomRequest>
     {
         String ID = message.getID();
         GameRoom room = gm.searchRoom(message.getOwner());
+        UserResponse user = GameDB.getInstance().getUser(ID);
         System.out.println(ID + "(이)가 " + message.getOwner() + "의 방에 접속 요청!");
 
         boolean VALID = !gm.containsRoom(ID) || !gm.containsUser(ID);
 
         if(room != null && VALID && !room.getUsers().contains(ID))
         {
+            if(user.getLevel() < room.getLevelLimit()) return;
             System.out.println(ID + "(이)가 접속 요청");
             room.addUser(ID);
 
