@@ -35,15 +35,13 @@ public class GameLoop extends TimerTask
 
     public void run()
     {
+        checkValidation();
+
         Round round = room.getCurrentRound();
         if(Objects.isNull(round)) return;
         else if(!round.isExpired()) round.increaseTime();
 
-        if(!isValid())
-        {
-            room.stop();
-            timer.cancel();
-        } else if(round.isExpired() && !isWaiting)
+        if(round.isExpired() && !isWaiting)
         {
             String[] users = room.getUsers().toArray(new String[1]);
             ChannelManager.sendBroadCast(users, new SendSketchBookNotification());
@@ -104,5 +102,17 @@ public class GameLoop extends TimerTask
     {
         final String OWNER = room.getOwner();
         return gm.containsRoom(OWNER) || room.isRunning() || room.getUsers().size() > 0;
+    }
+
+    private void checkValidation()
+    {
+        if(!isValid() || !room.isRunning())
+        {
+            room.clearHistory();
+            room.switchRound();
+            timer.cancel();
+            timer.purge();
+            System.out.println("종료 시도");
+        }
     }
 }

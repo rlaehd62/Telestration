@@ -86,13 +86,16 @@ public interface GameProcessor
         UserResponse info = db.getUser(ID);
         if(info.getExp() < info.getMaxExp()) return;
 
+        int ADD_LEV = 0;
         int EXP = info.getExp();
         int MAX_EXP = info.getMaxExp();
         int LEV = info.getLevel();
 
-        LEV += (EXP / MAX_EXP);
-        MAX_EXP *= (EXP / MAX_EXP * 2);
+        ADD_LEV = (EXP / MAX_EXP);
+        LEV += ADD_LEV;
         EXP = (EXP % MAX_EXP);
+        MAX_EXP *= (ADD_LEV * 2);
+
 
         info.setLevel(LEV);
         info.setExp(EXP);

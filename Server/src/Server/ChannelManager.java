@@ -27,6 +27,7 @@ public class ChannelManager
         {
             ChannelHandlerContext ctx = channels.get(name);
             ChannelFuture future = ctx.writeAndFlush(packet);
+            future.awaitUninterruptibly();
             if(!future.isSuccess()) ctx.writeAndFlush(packet);
         }
     }
@@ -37,6 +38,8 @@ public class ChannelManager
         {
             ChannelHandlerContext ctx = channels.get(name);
             ChannelFuture future = ctx.writeAndFlush(packet);
+            future.awaitUninterruptibly();
+            if(!future.isSuccess()) ctx.writeAndFlush(packet);
         }
     }
 
@@ -46,6 +49,7 @@ public class ChannelManager
         {
             ChannelHandlerContext ctx = channels.get(name);
             ChannelFuture future = ctx.writeAndFlush(packet);
+            future.awaitUninterruptibly();
             if(!future.isSuccess()) ctx.writeAndFlush(packet);
         });
     }
@@ -56,6 +60,7 @@ public class ChannelManager
         {
             ChannelHandlerContext ctx = channels.get(name);
             ChannelFuture future = ctx.writeAndFlush(packet);
+            future.awaitUninterruptibly();
             if(!future.isSuccess()) ctx.writeAndFlush(packet);
         });
     }

@@ -27,20 +27,17 @@ public class ExitRoomRequestListener extends ServerListener<ExitRoomRequest>
 
         GameRoom room = gm.searchRoom(OWNER);
         room.removeUser(ID);
+        checkRoom(room);
         System.out.println(room.getUsers());
 
         if(room.isEmpty())
         {
-            room.stop();
             gm.RemoveRoom(OWNER);
             return;
         }
         else if(ID.equals(OWNER))
         {
             room.setOwner(room.getUsers().get(0));
-            room.stop();
-            room.switchRound();
-            room.clearHistory();
             gm.UpdateRoom();
         }
 
@@ -54,5 +51,10 @@ public class ExitRoomRequestListener extends ServerListener<ExitRoomRequest>
             System.out.println("isSuccess? " + future.isSuccess());
 
         }
+    }
+
+    private void checkRoom(GameRoom room)
+    {
+        if(room.isRunning()) room.stop();
     }
 }
