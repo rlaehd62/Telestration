@@ -10,7 +10,6 @@ public class CreateRoomListener extends ServerListener<CreateRoomRequest>
     @Subscribe
     public void handle(CreateRoomRequest message)
     {
-        message.setTimeout(50);
         System.out.println(GameRoomManager.getInstance().getRoomList().size());
         presenter.createRoom(message);
     }

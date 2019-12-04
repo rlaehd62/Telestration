@@ -47,6 +47,9 @@ public class WaitRoomController
     private JFXTextField limit;
 
     @FXML
+    private JFXTextField timeout;
+
+    @FXML
     private JFXButton creation;
 
     @FXML
@@ -102,8 +105,13 @@ public class WaitRoomController
                 int level = Integer.parseInt(limit.getText());
                 limit.clear();
 
+                int time = Integer.parseInt(timeout.getText());
+                time = Math.max(time, 30);
+                timeout.clear();
+
                 CreateRoomRequest request = new CreateRoomRequest(ID, TITLE);
                 request.setLimit(level);
+                request.setTimeout(time);
 
                 client.send(request);
 
