@@ -41,6 +41,9 @@ public class WaitRoomController
     private Label exp;
 
     @FXML
+    private Label time;
+
+    @FXML
     private JFXTextField title;
 
     @FXML

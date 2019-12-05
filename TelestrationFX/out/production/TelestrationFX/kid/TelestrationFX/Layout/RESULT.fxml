@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1095.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kid.Controller.ResultController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1095.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kid.Controller.ResultController">
    <children>
       <Pane layoutX="95.0" layoutY="99.0" prefHeight="436.0" prefWidth="617.0" style="-fx-border-color: BLACK; -fx-background-color: WHITE; -fx-border-radius: 3;">
          <children>
-            <Canvas height="414.0" layoutX="10.0" layoutY="12.0" width="598.0" />
+            <Canvas fx:id="canvas" height="414.0" layoutX="10.0" layoutY="12.0" width="598.0" />
             <Label fx:id="word" layoutX="176.0" layoutY="374.0" prefHeight="62.0" prefWidth="265.0" style="-fx-border-color: BLACK; -fx-border-radius: 3; -fx-alignment: CENTER;" text="단어 (WORD)" />
             <HBox alignment="CENTER" layoutX="177.0" prefHeight="37.0" prefWidth="265.0" style="-fx-border-color: BLACK; -fx-background-color: WHITE; -fx-border-radius: 3;">
                <children>

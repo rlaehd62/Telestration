@@ -123,9 +123,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/kid/Controller/Layout" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/Core.jar!/" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15067025" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
@@ -364,6 +364,13 @@
       <workItem from="1575214445666" duration="539000" />
       <workItem from="1575214997322" duration="24000" />
       <workItem from="1575478234099" duration="308000" />
+      <workItem from="1575506386959" duration="88000" />
+      <workItem from="1575506550299" duration="152000" />
+      <workItem from="1575511040866" duration="3278000" />
+      <workItem from="1575517120123" duration="3450000" />
+      <workItem from="1575555191130" duration="1816000" />
+      <workItem from="1575557122017" duration="2103000" />
+      <workItem from="1575559437518" duration="19000" />
     </task>
     <servers />
   </component>

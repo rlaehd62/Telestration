@@ -1,35 +1,65 @@
 package DTO.Notification.GameRoom;
 
 import DTO.Response.GamePacketResponse;
+import Game.GameRoom;
+import Game.History;
+import Game.SketchBookSet;
+import Util.SketchBook;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class RewardNotification implements GamePacketResponse
 {
-    private Map<String, Integer> result;
+    private Map<String, Integer> users;
+    private Map<String, Integer> words;
+    private Map<Integer, SketchBookSet> history;
+
     public RewardNotification()
     {
-        result = new HashMap<>();
+        users = new HashMap<>();
+        words = new HashMap<>();
+        history = new HashMap<>();
     }
 
-    public void addReward(String tag, int exp)
+    public void setUser(String name, int exp)
     {
-        result.put(tag, exp);
+        users.put(name, exp);
     }
 
-    public void removeReward(String tag)
+    public int getUser(String name)
     {
-        result.remove(tag);
+        return users.getOrDefault(name, 0);
     }
 
-    public int getReward(String tag)
+    public Map<String, Integer> getUsers()
     {
-        return result.getOrDefault(tag, 0);
+        return users;
     }
 
-    public Map<String, Integer> getResult()
+    public void setWord(String name, int exp)
     {
-        return result;
+        words.put(name, exp);
+    }
+
+    public int getWord(String name)
+    {
+        return words.getOrDefault(name, 0);
+    }
+
+    public Map<String, Integer> getWords()
+    {
+        return words;
+    }
+
+    public void setSketchBooks(int roundNumber, List<SketchBook> list)
+    {
+        SketchBookSet set = new SketchBookSet(roundNumber);
+        set.saveData(list);
+        history.put(roundNumber, set);
+    }
+
+    public SketchBookSet getSketchBook(int round)
+    {
+        return history.getOrDefault(round, new SketchBookSet(round));
     }
 }

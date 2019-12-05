@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kid.Controller.WaitRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kid.Controller.WaitRoomController">
    <children>
       <SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
         <items>
@@ -84,19 +84,24 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="636.0" style="-fx-background-color: #f3f3f3;">
                            <children>
-                              <Label text="방장 (Owner)">
+                              <Label prefHeight="15.0" prefWidth="85.0" text="방장 (Owner)">
                                  <HBox.margin>
-                                    <Insets left="100.0" />
+                                    <Insets left="50.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label text="제목 (Title)">
+                              <Label prefHeight="15.0" prefWidth="70.0" text="제목 (Title)">
                                  <HBox.margin>
-                                    <Insets left="100.0" />
+                                    <Insets left="50.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="time" text="시간 제한 (TimeOut)">
+                                 <HBox.margin>
+                                    <Insets left="50.0" />
                                  </HBox.margin>
                               </Label>
                               <Label text="Level 제한 (Limit)">
                                  <HBox.margin>
-                                    <Insets left="100.0" />
+                                    <Insets left="50.0" />
                                  </HBox.margin>
                               </Label>
                            </children>

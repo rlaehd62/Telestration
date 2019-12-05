@@ -51,8 +51,8 @@ public class GameLoop extends TimerTask
             if(processor.isFinal(room, round))
             {
                 processor.checkAnswer(room, round);
-                room.switchRound();
                 processor.giveReward(room, room.history());
+                room.switchRound();
 
                 showResult(room);
                 room.clearHistory();

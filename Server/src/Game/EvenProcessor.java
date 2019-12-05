@@ -69,7 +69,7 @@ public class EvenProcessor implements GameProcessor
                     {
                         addEXP(ID, COUNT * 15);
                         levelUp(ID);
-                        notification.addReward(ID, notification.getReward(ID) + (COUNT * 15));
+                        notification.setUser(ID, notification.getUser(ID) + (COUNT * 15));
                     });
                 });
     }

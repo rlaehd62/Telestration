@@ -1,18 +1,15 @@
 package Game;
 
-import DTO.Notification.GameRoom.GameInfoNotification;
 import DTO.Notification.GameRoom.RewardNotification;
 import DTO.Request.Users.AddUserRequest;
 import DTO.Response.User.UserResponse;
 import Database.GameDB;
 import Server.ChannelManager;
 import Util.SketchBook;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import io.netty.channel.ChannelHandlerContext;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public interface GameProcessor
 {
@@ -45,28 +42,38 @@ public interface GameProcessor
         rewardRounds(notification, room, histories);
 
         String[] arr = room.getUsers().toArray(new String[1]);
-        ChannelManager.sendBroadCast(arr, notification);
         for(String ID : arr)
         {
             ChannelHandlerContext ct = ChannelManager.getChannels().get(ID);
             ct.writeAndFlush(db.getUser(ID));
+            ct.writeAndFlush(notification);
         }
     }
 
     default void rewardSketchBooks(RewardNotification notification, GameRoom room,  List<History> histories)
     {
-        histories.get(histories.size()-1).getSketchbooks()
+        System.out.println("< 로그 >");
+        histories.forEach(history ->
+        {
+            System.out.println(history.getRound());
+            System.out.println(history.getSketchbooks().size() + "개의 스케치북 존재");
+            notification.setSketchBooks(history.getRound(), new ArrayList<>(history.getSketchbooks().values()));
+        });
+
+        History LAST_ONE = histories.get(histories.size()-1);
+        LAST_ONE.getSketchbooks()
                 .forEach((s, sketchBook) ->
                 {
                     String CURR = sketchBook.getSecretWord();
                     String REAL = room.getWord(s);
+
                     boolean IS_VALID = REAL.equals(CURR);
-                    notification.addReward(REAL, IS_VALID ? 100 : 0);
+                    notification.setWord(REAL, IS_VALID ? 100 : 0);
 
                     if(IS_VALID)
                     {
                         String[] arr = room.getUsers().toArray(new String[1]);
-                        for(String ID : arr) addEXP(ID, notification.getReward(ID) + 100);
+                        for(String ID : arr) addEXP(ID, notification.getUser(ID) + 100);
                         levelUp(arr);
                     }
                 });
