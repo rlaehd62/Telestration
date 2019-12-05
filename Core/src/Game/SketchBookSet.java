@@ -10,12 +10,10 @@ import java.util.List;
 public class SketchBookSet implements GamePacketResponse
 {
     private int pointer = 0;
-    private int round;
     private List<SketchBook> books;
 
     public SketchBookSet(int round)
     {
-        this.round = round;
         books = new ArrayList<>();
     }
 
@@ -26,22 +24,17 @@ public class SketchBookSet implements GamePacketResponse
 
     public void next()
     {
-        pointer = ++pointer % books.size();
+        if(++pointer <= 0) return;
+        else pointer %= books.size();
     }
 
     public void previous()
     {
-        pointer = (--pointer < 0) ? 0 : pointer;
+        pointer = Math.max(--pointer, 0);
     }
 
     public SketchBook current()
     {
         return books.get(pointer);
-    }
-
-    public boolean equals(Object obj)
-    {
-        SketchBookSet set = (SketchBookSet) obj;
-        return set.round == round;
     }
 }

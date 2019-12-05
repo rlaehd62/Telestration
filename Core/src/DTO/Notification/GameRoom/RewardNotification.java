@@ -3,6 +3,7 @@ package DTO.Notification.GameRoom;
 import DTO.Response.GamePacketResponse;
 import Game.GameRoom;
 import Game.History;
+import Game.RoundSet;
 import Game.SketchBookSet;
 import Util.SketchBook;
 
@@ -12,13 +13,13 @@ public class RewardNotification implements GamePacketResponse
 {
     private Map<String, Integer> users;
     private Map<String, Integer> words;
-    private Map<Integer, SketchBookSet> history;
+    private RoundSet roundSet;
 
     public RewardNotification()
     {
         users = new HashMap<>();
         words = new HashMap<>();
-        history = new HashMap<>();
+        roundSet = new RoundSet();
     }
 
     public void setUser(String name, int exp)
@@ -55,11 +56,11 @@ public class RewardNotification implements GamePacketResponse
     {
         SketchBookSet set = new SketchBookSet(roundNumber);
         set.saveData(list);
-        history.put(roundNumber, set);
+        roundSet.saveData(set);
     }
 
-    public SketchBookSet getSketchBook(int round)
+    public RoundSet getRoundSet()
     {
-        return history.getOrDefault(round, new SketchBookSet(round));
+        return roundSet;
     }
 }

@@ -26,6 +26,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Netty 4.1.39" level="application" />
+    <orderEntry type="library" name="Netty 4.0.31" level="application" />
   </component>
 </module>

@@ -19,12 +19,12 @@ public class OddProcessor implements GameProcessor
         HashMap<String, SketchBook> result = round.getResult();
         History story = new History();
         story.round(round.getRoundNumber());
+        result.forEach((story::saveSketchbook));
+
         if(story.getRound() <= 1)
         {
             result.keySet().forEach(name ->
             {
-                SketchBook book = result.get(name);
-                story.saveSketchbook(book.getOwner(), book);
                 story.answer(0).setAnswerCound(name, 0);
             });
             room.pushHistory(story);
@@ -36,9 +36,10 @@ public class OddProcessor implements GameProcessor
                 {
                     SketchBook book = result.get(key);
                     String owner = book.getOwner();
-                    String real = room.getWord(owner);
-                    story.saveSketchbook(owner, book);
-                    if(book.getSecretWord().equals(real))
+                    String real = room.getWord(owner).replaceAll(" ", "");
+                    String temp = book.getSecretWord().replaceAll(" ", "");
+
+                    if(temp.equals(real))
                     {
                         story
                                 .answer(count.incrementAndGet())

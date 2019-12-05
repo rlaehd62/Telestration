@@ -66,6 +66,7 @@ public class WordPoolManager
     {
         if(!file.exists())
         {
+            file.mkdirs();
             String[] words =
                     {
                             "감자", "고구마", "삽겹살", "한우", "당근",
@@ -75,8 +76,7 @@ public class WordPoolManager
                     };
             try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)))
             {
-                for(int i = 0; i < words.length; i++, bw.newLine())
-                    bw.write(words[i]);
+                for(int i = 0; i < words.length; i++, bw.newLine()) bw.write(words[i]);
             } catch (Exception e)
             { e.printStackTrace(); }
             return;

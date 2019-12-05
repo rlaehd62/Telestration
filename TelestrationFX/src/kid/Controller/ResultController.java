@@ -1,6 +1,7 @@
 package kid.Controller;
 
 import DTO.Notification.GameRoom.RewardNotification;
+import Game.RoundSet;
 import Game.SketchBookSet;
 import Util.SketchBook;
 import com.jfoenix.controls.JFXButton;
@@ -60,12 +61,10 @@ public class ResultController
     private ScreenManager sm;
     private RewardNotification notification;
     private GraphicsContext gc;
-    private int roundNumber;
 
     public ResultController()
     {
         con = this;
-        roundNumber = 1;
         sm = ScreenManager.getInstance();
     }
 
@@ -88,9 +87,8 @@ public class ResultController
             round.setText("");
 
             // TODO: 결과 화면 테스트를 위한 코드 추후 보강하기 (실용적으로)
-            roundNumber = 1;
-            updateScores();
             updateCanvas();
+            updateScores();
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -101,14 +99,11 @@ public class ResultController
     {
         Platform.runLater(() ->
         {
-            try
-            {
-                SketchBookSet set = notification.getSketchBook(roundNumber);
-                SketchBook book = set.current();
-                System.out.println(Objects.isNull(book.toImage()));
-                reDraw(book);
-            } catch (Exception e)
-            { roundNumber = (--roundNumber< 1 ? 1 : roundNumber); }
+            RoundSet roundSet = notification.getRoundSet();
+            SketchBookSet set = roundSet.current();
+            SketchBook book = set.current();
+            System.out.println(Objects.isNull(book.toImage()));
+            reDraw(book);
         });
     }
 
@@ -145,9 +140,12 @@ public class ResultController
         Platform.runLater(() ->
         {
             if(gc == null) gc = canvas.getGraphicsContext2D();
+            RoundSet roundSet = notification.getRoundSet();
+            SketchBookSet set = roundSet.current();
+
             owner.setText(sketchBook.getOwner());
             word.setText(sketchBook.getSecretWord());
-            round.setText(roundNumber + " ROUND");
+            round.setText("0 ROUND");
 
             WritableImage snapshot = SwingFXUtils.toFXImage(sketchBook.toImage(), null);
             gc.drawImage(snapshot, 0, 0, canvas.getWidth(), canvas.getHeight());
@@ -172,7 +170,8 @@ public class ResultController
     @FXML
     void nextOwner(ActionEvent event)
     {
-        SketchBookSet set = notification.getSketchBook(roundNumber);
+        RoundSet roundSet = notification.getRoundSet();
+        SketchBookSet set = roundSet.current();
         set.next();
         reDraw(set.current());
     }
@@ -180,14 +179,16 @@ public class ResultController
     @FXML
     void nextRound(ActionEvent event)
     {
-        roundNumber++;
+        RoundSet roundSet = notification.getRoundSet();
+        roundSet.next();
         updateCanvas();
     }
 
     @FXML
     void previousOwner(ActionEvent event)
     {
-        SketchBookSet set = notification.getSketchBook(roundNumber);
+        RoundSet roundSet = notification.getRoundSet();
+        SketchBookSet set = roundSet.current();
         set.previous();
         reDraw(set.current());
     }
@@ -195,7 +196,8 @@ public class ResultController
     @FXML
     void previousRound(ActionEvent event)
     {
-        roundNumber = (--roundNumber < 1 ? 1 : roundNumber);
+        RoundSet roundSet = notification.getRoundSet();
+        roundSet.previous();
         updateCanvas();
     }
 }

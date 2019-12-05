@@ -64,11 +64,12 @@ public interface GameProcessor
         LAST_ONE.getSketchbooks()
                 .forEach((s, sketchBook) ->
                 {
-                    String CURR = sketchBook.getSecretWord();
-                    String REAL = room.getWord(s);
+                    String CURR = sketchBook.getSecretWord().trim();
+                    String REAL = room.getWord(sketchBook.getOwner()).trim();
 
-                    boolean IS_VALID = REAL.equals(CURR);
+                    boolean IS_VALID = REAL.replaceAll(" ", "").equals(CURR.replaceAll(" ", ""));
                     notification.setWord(REAL, IS_VALID ? 100 : 0);
+                    System.out.println(IS_VALID + " << " + CURR + " | " + REAL);
 
                     if(IS_VALID)
                     {
