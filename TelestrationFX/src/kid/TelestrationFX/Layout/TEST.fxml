@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXColorPicker?>
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kid.Controller.TestController">
+   <children>
+      <HBox prefHeight="54.0" prefWidth="800.0" style="-fx-background-color: #B048C9;">
+         <children>
+            <Label fx:id="title" prefHeight="54.0" prefWidth="668.0" style="-fx-font-family: nanumgothic; -fx-alignment: center;" text="TITLE" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="owner" prefHeight="54.0" prefWidth="157.0" style="-fx-font-family: nanumgothic; -fx-alignment: center;" text="OWNER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="exit" alignment="CENTER" contentDisplay="BOTTOM" graphicTextGap="6.0" onAction="#exit" text="EXIT" textFill="WHITE" wrapText="true">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0">
+                     <image>
+                        <Image url="@../Image/exit.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="NanumGothicBold" size="11.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+      <JFXProgressBar fx:id="timer" layoutY="51.0" prefHeight="16.0" prefWidth="800.0" />
+      <Pane layoutX="198.0" layoutY="69.0" prefHeight="317.0" prefWidth="595.0" style="-fx-border-color: black; -fx-border-radius: 3;">
+         <children>
+            <Canvas fx:id="canvas" height="308.0" layoutX="3.0" layoutY="4.0" onMouseDragged="#drag" onMousePressed="#press" width="586.0" />
+         </children>
+      </Pane>
+      <VBox fx:id="userList" layoutX="8.0" layoutY="69.0" prefHeight="317.0" prefWidth="181.0" style="-fx-border-color: BLACK; -fx-border-radius: 3;" />
+      <JFXTextArea fx:id="chatArea" editable="false" focusColor="WHITE" layoutX="198.0" layoutY="393.0" prefHeight="165.0" prefWidth="595.0" style="-fx-border-color: BLACK; -fx-border-radius: 3;" unFocusColor="WHITE" wrapText="true" />
+      <VBox layoutX="8.0" layoutY="393.0" prefHeight="165.0" prefWidth="181.0" style="-fx-border-color: BLACK; -fx-border-radius: 3;">
+         <children>
+            <Label text="색깔 선택">
+               <VBox.margin>
+                  <Insets left="62.0" top="14.0" />
+               </VBox.margin>
+            </Label>
+            <JFXColorPicker fx:id="picker" prefHeight="43.0" prefWidth="96.0">
+               <VBox.margin>
+                  <Insets left="39.0" />
+               </VBox.margin>
+            </JFXColorPicker>
+            <Label text="펜 크기">
+               <VBox.margin>
+                  <Insets left="67.0" top="13.0" />
+               </VBox.margin>
+            </Label>
+            <JFXSlider fx:id="slider" blockIncrement="1.0" max="50.0" min="1.0" nodeOrientation="LEFT_TO_RIGHT" value="1.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </JFXSlider>
+            <JFXButton fx:id="erase" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#clearCanvas" prefHeight="49.0" prefWidth="109.0" text="지우기">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0">
+                     <image>
+                        <Image url="@../Image/clear.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets left="32.0" top="13.0" />
+               </VBox.margin>
+            </JFXButton>
+         </children>
+      </VBox>
+      <JFXTextField fx:id="chatField" focusColor="WHITE" layoutX="198.0" layoutY="563.0" onKeyPressed="#chat" prefHeight="30.0" prefWidth="448.0" promptText="텍스트를 입력하세요!" style="-fx-border-color: BLACK;" unFocusColor="WHITE" />
+      <JFXButton fx:id="submit" layoutX="5.0" layoutY="563.0" prefHeight="23.0" prefWidth="188.0" style="-fx-background-color: #48A1C9;" text="PLAYER-ID" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="NanumGothicBold" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="word" focusColor="WHITE" layoutX="652.0" layoutY="563.0" prefHeight="30.0" prefWidth="141.0" promptText="단어를 추측해보세요!" style="-fx-border-color: BLACK;" unFocusColor="WHITE" />
+      <JFXButton fx:id="start" layoutX="266.0" layoutY="451.0" onAction="#start" prefHeight="49.0" prefWidth="312.0" style="-fx-background-color: #48C9B0;" text="게임 시작" textFill="WHITE" visible="false" wrapText="true">
+         <font>
+            <Font name="NanumGothicBold" size="21.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

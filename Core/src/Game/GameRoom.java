@@ -1,17 +1,17 @@
-package DTO.Request.Room;
+package Game;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Timer;
+import java.util.*;
 
 public class GameRoom implements Serializable
 {
     private static final long serialVersionUID = -2663665186518595996L;
     private String title;
     private String owner;
+
     private List<String> users;
+    private Queue<Round> roundQueue;
+    private List<History> history;
 
     private int level_limit;
     private int timeout;
@@ -33,6 +33,8 @@ public class GameRoom implements Serializable
         this.running = false;
         this.users = new ArrayList<>();
         this.words = new HashMap<>();
+        this.roundQueue = new LinkedList<>();
+        this.history = new ArrayList<>();
     }
 
     public void start()
@@ -43,6 +45,36 @@ public class GameRoom implements Serializable
     public void stop()
     {
         this.running = false;
+    }
+
+    public void pushRound(Round round)
+    {
+        roundQueue.offer(round);
+    }
+
+    public Round switchRound()
+    {
+        return roundQueue.poll();
+    }
+
+    public void pushHistory(History story)
+    {
+        this.history.add(story);
+    }
+
+    public List<History> history()
+    {
+        return history;
+    }
+
+    public void clearHistory()
+    {
+        history.clear();
+    }
+
+    public Round getCurrentRound()
+    {
+        return roundQueue.peek();
     }
 
     public void addUser(String name)

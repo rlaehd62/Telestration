@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1095.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kid.Controller.ResultController">
+   <children>
+      <Pane layoutX="95.0" layoutY="99.0" prefHeight="436.0" prefWidth="617.0" style="-fx-border-color: BLACK; -fx-background-color: WHITE; -fx-border-radius: 3;">
+         <children>
+            <Canvas fx:id="canvas" height="414.0" layoutX="10.0" layoutY="12.0" width="598.0" />
+            <Label fx:id="word" layoutX="176.0" layoutY="374.0" prefHeight="62.0" prefWidth="265.0" style="-fx-border-color: BLACK; -fx-border-radius: 3; -fx-alignment: CENTER;" text="단어 (WORD)" />
+            <HBox alignment="CENTER" layoutX="177.0" prefHeight="37.0" prefWidth="265.0" style="-fx-border-color: BLACK; -fx-background-color: WHITE; -fx-border-radius: 3;">
+               <children>
+                  <Label fx:id="round" prefHeight="35.0" prefWidth="62.0" style="-fx-font-family: nanumgothic; -fx-font-size: 13;" text="ROUND 0" />
+                  <Label fx:id="owner" style="-fx-font-family: nanumgothic; -fx-font-size: 13;" text="주인: UNKNOWN">
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <JFXButton fx:id="left" contentDisplay="BOTTOM" layoutX="14.0" layoutY="253.0" onAction="#previousOwner" prefHeight="44.0" prefWidth="66.0" text="LEFT">
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@../Image/left.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="up" contentDisplay="BOTTOM" layoutX="371.0" layoutY="14.0" onAction="#previousRound" prefHeight="44.0" prefWidth="66.0" text="UP">
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@../Image/up.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="right" contentDisplay="BOTTOM" layoutX="717.0" layoutY="253.0" onAction="#nextOwner" prefHeight="44.0" prefWidth="66.0" text="RIGHT">
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@../Image/right.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="down" contentDisplay="BOTTOM" layoutX="371.0" layoutY="548.0" onAction="#nextRound" prefHeight="55.0" prefWidth="66.0" text="DOWN">
+         <graphic>
+            <ImageView fitHeight="46.0" fitWidth="48.0">
+               <image>
+                  <Image url="@../Image/down.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <ScrollPane layoutX="788.0" layoutY="107.0" prefHeight="483.0" prefWidth="287.0">
+         <content>
+            <VBox fx:id="list" alignment="CENTER" prefHeight="481.0" prefWidth="285.0" style="-fx-border-color: BLACK; -fx-background-color: WHITE;" />
+         </content>
+      </ScrollPane>
+      <HBox alignment="CENTER" layoutX="788.0" layoutY="60.0" prefHeight="46.0" prefWidth="287.0">
+         <children>
+            <Label prefHeight="37.0" prefWidth="100.0" style="-fx-font-family: NANUMGOTHIC; -fx-background-color: #48A1C9; -fx-alignment: center; -fx-font-weight: bold; -fx-font-size: 14;" text="이름" textFill="WHITE" wrapText="true">
+               <HBox.margin>
+                  <Insets left="8.0" />
+               </HBox.margin>
+            </Label>
+            <Label prefHeight="37.0" prefWidth="100.0" style="-fx-font-family: NANUMGOTHIC; -fx-background-color: #48A1C9; -fx-alignment: center; -fx-font-weight: bold; -fx-font-size: 14;" text="획득 경험치" textFill="WHITE" wrapText="true">
+               <HBox.margin>
+                  <Insets left="26.0" right="8.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <JFXButton fx:id="goback" contentDisplay="BOTTOM" graphicTextGap="0.0" layoutX="-1.0" layoutY="591.0" onAction="#goback" prefHeight="46.0" prefWidth="81.0" text="돌아가기">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="33.0" fitWidth="38.0">
+               <image>
+                  <Image url="@../Image/return.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>

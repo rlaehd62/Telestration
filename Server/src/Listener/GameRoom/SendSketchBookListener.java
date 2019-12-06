@@ -1,16 +1,18 @@
 package Listener.GameRoom;
 
 import DTO.Request.GameRoom.SendSketchBookRequest;
-import DTO.Request.Room.GameRoom;
+import Game.GameRoom;
 import DTO.Response.GameRoom.SketchBookResponse;
 import Database.GameDB;
 import Database.Manager.GameRoomManager;
+import Game.Round;
 import Listener.ServerListener;
 import Server.ChannelManager;
 import Util.SketchBook;
 import com.google.common.eventbus.Subscribe;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SendSketchBookListener extends ServerListener<SendSketchBookRequest>
 {
@@ -25,15 +27,9 @@ public class SendSketchBookListener extends ServerListener<SendSketchBookRequest
         if(!gm.containsRoom(OWNER) || !gm.containsUser(ID)) return;
 
         GameRoom room = gm.searchRoom(OWNER);
+        Round round = room.getCurrentRound();
         SketchBook book = message.getSketchBook();
-
-        List<String> users = room.getUsers();
-        int index = users.indexOf(ID);
-        String NEXT = users.get(((index + 1) % users.size()));
-        if(index < 0 && NEXT.equals("")) return;
-
-        GameDB.getInstance().log("수신", ID + " → " + NEXT + " in " + OWNER + "'s ROOM");
-        SketchBookResponse response = new SketchBookResponse(book);
-        ChannelManager.getChannels().get(NEXT).writeAndFlush(response);
+        System.out.println("그림? " + Objects.isNull(book.toImage()));
+        round.setResult(ID, book);
     }
 }

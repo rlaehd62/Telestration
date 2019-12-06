@@ -1,7 +1,7 @@
 package kid.Controller;
 
-import DTO.Request.Room.GameRoom;
 import DTO.Request.Room.JoinRoomRequest;
+import Game.GameRoom;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -27,6 +27,9 @@ public class RoomController implements Initializable
     private Label limit;
 
     @FXML
+    private Label timeout;
+
+    @FXML
     private JFXButton connect;
     private Client client = Client.getInstance();
 
@@ -48,6 +51,7 @@ public class RoomController implements Initializable
             owner.setText(room.getOwner());
             title.setText(room.getTitle());
             limit.setText("Lv." + room.getLevelLimit());
+            timeout.setText(room.getTimeOut() + "초");
         });
     }
 }

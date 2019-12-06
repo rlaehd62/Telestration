@@ -2,12 +2,13 @@ package Listener.GameRoom;
 
 import DTO.Notification.GameRoom.GameInfoNotification;
 import DTO.Request.GameRoom.GameStartRequest;
-import DTO.Request.Room.GameRoom;
+import Game.GameRoom;
 import Database.Manager.GameRoomManager;
 import Database.Manager.WordPoolManager;
 import Listener.ServerListener;
 import Server.ChannelManager;
-import Utility.GameLoop;
+import Game.GameLoop;
+import Util.SketchBook;
 import com.google.common.eventbus.Subscribe;
 import java.util.*;
 
@@ -31,7 +32,7 @@ public class GameStartListener extends ServerListener<GameStartRequest>
         {
             final String ID = users.get(i);
             final String WORD = room.getWord(ID);
-            GameInfoNotification notification = new GameInfoNotification(WORD, true);
+            GameInfoNotification notification = new GameInfoNotification(WORD, (users.size() % 2 == 0));
             ChannelManager.sendBroadCast(new String[] { ID }, notification);
         }
 

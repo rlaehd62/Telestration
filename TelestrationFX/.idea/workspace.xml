@@ -123,29 +123,30 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/kid/Controller" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/Core.jar!/" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15067025" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\TelestrationFX\Image" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Controller\Layout" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX\Layout" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Controller\Layout" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\TelestrationFX\Layout" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Controller" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\설계도" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\libs" />
-      <recent name="C:\Users\user\Desktop\Dev\Telestration\TelestrationFX\src\Listener\WaitRoom" />
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\Listener\WaitRoom" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Controller\Layout" />
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX" />
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\TelestrationFX\Layout" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -328,6 +329,51 @@
       <workItem from="1574178145729" duration="37000" />
       <workItem from="1574347435603" duration="1580000" />
       <workItem from="1574349973687" duration="509000" />
+      <workItem from="1574440016172" duration="47000" />
+      <workItem from="1574440111540" duration="242000" />
+      <workItem from="1574440500506" duration="105000" />
+      <workItem from="1574440609669" duration="582000" />
+      <workItem from="1574441214053" duration="5000" />
+      <workItem from="1574526532272" duration="4339000" />
+      <workItem from="1574530894512" duration="3202000" />
+      <workItem from="1574562264382" duration="3063000" />
+      <workItem from="1574571027170" duration="300000" />
+      <workItem from="1574607473479" duration="2836000" />
+      <workItem from="1574612310669" duration="28000" />
+      <workItem from="1574612724596" duration="1595000" />
+      <workItem from="1574614800491" duration="437000" />
+      <workItem from="1574702305708" duration="137000" />
+      <workItem from="1574702576369" duration="1424000" />
+      <workItem from="1574773973219" duration="38000" />
+      <workItem from="1574777261321" duration="182000" />
+      <workItem from="1574777969534" duration="1976000" />
+      <workItem from="1574780892358" duration="694000" />
+      <workItem from="1574781598721" duration="26000" />
+      <workItem from="1574781731173" duration="606000" />
+      <workItem from="1574782347986" duration="26000" />
+      <workItem from="1574952970528" duration="34000" />
+      <workItem from="1574953045476" duration="15000" />
+      <workItem from="1574953410407" duration="216000" />
+      <workItem from="1574953651928" duration="28000" />
+      <workItem from="1574957320864" duration="1748000" />
+      <workItem from="1575185885965" duration="173000" />
+      <workItem from="1575186265778" duration="670000" />
+      <workItem from="1575186944909" duration="609000" />
+      <workItem from="1575187600276" duration="272000" />
+      <workItem from="1575212198320" duration="2238000" />
+      <workItem from="1575214445666" duration="539000" />
+      <workItem from="1575214997322" duration="24000" />
+      <workItem from="1575478234099" duration="308000" />
+      <workItem from="1575506386959" duration="88000" />
+      <workItem from="1575506550299" duration="152000" />
+      <workItem from="1575511040866" duration="3278000" />
+      <workItem from="1575517120123" duration="3450000" />
+      <workItem from="1575555191130" duration="1816000" />
+      <workItem from="1575557122017" duration="2103000" />
+      <workItem from="1575559437518" duration="19000" />
+      <workItem from="1575560666788" duration="66000" />
+      <workItem from="1575560770953" duration="88000" />
+      <workItem from="1575561013823" duration="4945000" />
     </task>
     <servers />
   </component>
@@ -372,12 +418,88 @@
           <line>13</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>41</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>45</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>46</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>47</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>48</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>49</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>42</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>76</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>77</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>79</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>81</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/libs/Core.jar!/Util/SketchBook.class</url>
+          <line>83</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/kid/Listener/WaitRoom/RoomResponseListener.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/kid/Listener/WaitRoom/RoomResponseListener.java</url>
+          <line>23</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/kid/Listener/WaitRoom/RoomResponseListener.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="sketchBook" language="JAVA" />
         <watch expression="this" />
+        <watch expression="OWNER" />
       </configuration>
     </watches-manager>
   </component>

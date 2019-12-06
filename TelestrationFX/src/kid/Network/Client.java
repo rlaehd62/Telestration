@@ -5,9 +5,7 @@ import io.netty.channel.*;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import kid.Listener.GameRoom.ChatResponseListener;
-import kid.Listener.GameRoom.GameNotificationListener;
-import kid.Listener.GameRoom.SketchBookResponseListener;
+import kid.Listener.GameRoom.*;
 import kid.Listener.Login.LoginResponseListener;
 import kid.Listener.WaitRoom.*;
 import kid.TelestrationFX.MainFX;
@@ -44,8 +42,10 @@ public class Client extends Thread
         eventBus.register(new ChatResponseListener());
         eventBus.register(new SketchBookResponseListener());
 
-
         eventBus.register(new GameNotificationListener());
+        eventBus.register(new SendSketchBookListener());
+        eventBus.register(new TimerListener());
+        eventBus.register(new ResultListener());
     }
 
     public static Client getInstance()

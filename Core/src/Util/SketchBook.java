@@ -14,24 +14,42 @@ import java.util.ArrayList;
 
 public class SketchBook implements Serializable
 {
-    private static final long serialVersionUID = 5015030143108005673L;
-
+    private static final long serialVersionUID = 3350604569882611288L;
     private byte[] imageBytes;
     private String secretWord;
+    private String owner;
+    private boolean isPainter;
 
-    public SketchBook(String secretWord)
+    public SketchBook(String owner, String secretWord)
     {
+        this.owner = owner;
         this.secretWord = secretWord;
+    }
+
+    public void setPainter(boolean painter)
+    {
+        isPainter = painter;
+    }
+
+    public boolean isPainter()
+    {
+        return isPainter;
+    }
+
+    public String getOwner()
+    {
+        return owner;
     }
 
     public void toByte(@NotNull BufferedImage image)
     {
         try(ByteArrayOutputStream baos = new ByteArrayOutputStream())
         {
-            ImageIO.write(image, "jpg", baos);
-            byte[] arr = baos.toByteArray();
-            imageBytes = arr;
-
+            ImageIO.write(image, "png", baos);
+            imageBytes = baos.toByteArray();
+            baos.close();
+            System.out.println("정보: " + image.toString());
+            System.out.println("길이: " + this.imageBytes.length);
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -43,6 +61,7 @@ public class SketchBook implements Serializable
         try(ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes))
         {
             BufferedImage image = ImageIO.read(bais);
+            bais.close();
             return image;
 
         } catch (Exception e)
@@ -52,6 +71,8 @@ public class SketchBook implements Serializable
 
         return null;
     }
+
+
     public void setSecretWord(String secretWord)
     {
         this.secretWord = new String(secretWord);

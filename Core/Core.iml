@@ -7,8 +7,16 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Netty 4.0.31" level="application" />
     <orderEntry type="library" name="GoogleGuava" level="application" />
-    <orderEntry type="library" name="SQLite" level="application" />
+    <orderEntry type="library" name="Netty 4.0.31" level="application" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../TelestrationFX/libs/sqlite-jdbc-3.27.2.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

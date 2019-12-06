@@ -2,10 +2,7 @@ package Database.Manager;
 
 import Database.ServerDB;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
@@ -67,13 +64,27 @@ public class WordPoolManager
 
     public void init(File file)
     {
-        if(!file.exists()) return;
+        if(!file.exists())
+        {
+            file.mkdirs();
+            String[] words =
+                    {
+                            "감자", "고구마", "삽겹살", "한우", "당근",
+                            "개발자", "프로그래머", "네트워크", "바나나", "사과",
+                            "블랙보리", "불닭볶음면", "한국", "중국", "일본",
+                            "미국", "유럽", "영국", "독일", "사우디아라비아",
+                    };
+            try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)))
+            {
+                for(int i = 0; i < words.length; i++, bw.newLine()) bw.write(words[i]);
+            } catch (Exception e)
+            { e.printStackTrace(); }
+            return;
+        }
         try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)))
         {
             for(String line = br.readLine(); line != null; line = br.readLine())
-            {
                 addWord(line);
-            }
         } catch (Exception e)
         { e.printStackTrace(); }
     }

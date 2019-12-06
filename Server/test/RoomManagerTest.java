@@ -1,4 +1,4 @@
-import DTO.Request.Room.GameRoom;
+import Game.GameRoom;
 import Database.Manager.GameRoomManager;
 import org.junit.jupiter.api.Test;
 

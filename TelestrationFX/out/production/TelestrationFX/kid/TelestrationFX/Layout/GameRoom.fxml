@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="791.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kid.Controller.GameRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="791.0" style="-fx-background-color: #ffff;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kid.Controller.GameRoomController">
    <children>
       <JFXListView fx:id="list" layoutX="592.0" prefHeight="310.0" prefWidth="199.0" />
       <JFXTextArea fx:id="chatArea" editable="false" focusColor="#5e6eff" layoutX="592.0" layoutY="310.0" prefHeight="179.0" prefWidth="199.0" wrapText="true">

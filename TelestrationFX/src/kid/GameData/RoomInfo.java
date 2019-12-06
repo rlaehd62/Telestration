@@ -1,7 +1,7 @@
 package kid.GameData;
 
-import DTO.Request.Room.GameRoom;
 import DTO.Response.Room.RoomResponse;
+import Game.GameRoom;
 
 public class RoomInfo
 {

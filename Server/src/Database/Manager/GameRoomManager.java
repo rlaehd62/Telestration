@@ -1,10 +1,8 @@
 package Database.Manager;
 
-import DTO.Request.Room.GameRoom;
-import com.sun.xml.internal.bind.v2.model.core.ID;
+import Game.GameRoom;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;

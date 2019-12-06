@@ -1,18 +1,15 @@
 package Listener.GameRoom;
 
 import DTO.Request.GameRoom.ExitRoomRequest;
-import DTO.Request.Room.GameRoom;
-import DTO.Response.Room.RoomListResponse;
+import Game.GameRoom;
 import DTO.Response.Room.RoomResponse;
 import Database.Manager.GameRoomManager;
 import Listener.ServerListener;
 import Server.ChannelManager;
 import com.google.common.eventbus.Subscribe;
-import com.sun.xml.internal.bind.v2.model.core.ID;
+import io.netty.channel.ChannelFuture;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class ExitRoomRequestListener extends ServerListener<ExitRoomRequest>
 {
@@ -23,10 +20,14 @@ public class ExitRoomRequestListener extends ServerListener<ExitRoomRequest>
     {
         String OWNER = message.getOwner();
         String ID = message.getID();
+        System.out.println("R1: " + !gm.containsRoom(OWNER));
+        System.out.println("R2: " + !gm.containsUser(ID));
+
         if(!gm.containsRoom(OWNER) || !gm.containsUser(ID)) return;
 
         GameRoom room = gm.searchRoom(OWNER);
         room.removeUser(ID);
+        checkRoom(room);
         System.out.println(room.getUsers());
 
         if(room.isEmpty())
@@ -40,7 +41,20 @@ public class ExitRoomRequestListener extends ServerListener<ExitRoomRequest>
             gm.UpdateRoom();
         }
 
+        System.out.println("목록" + Arrays.asList(room.getUsers().toArray(new String[1])));
         RoomResponse response = new RoomResponse(room);
-        ChannelManager.sendBroadCast(room.getUsers().stream().toArray(String[]::new), response);
+        for(String name : room.getUsers())
+        {
+            ChannelFuture future = ChannelManager.getChannels().get(name).writeAndFlush(response);
+            future.awaitUninterruptibly();
+            System.out.println("isDone? " + future.isDone());
+            System.out.println("isSuccess? " + future.isSuccess());
+
+        }
+    }
+
+    private void checkRoom(GameRoom room)
+    {
+        if(room.isRunning()) room.stop();
     }
 }

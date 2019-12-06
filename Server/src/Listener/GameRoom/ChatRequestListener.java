@@ -1,7 +1,7 @@
 package Listener.GameRoom;
 
 import DTO.Request.GameRoom.ChatRequest;
-import DTO.Request.Room.GameRoom;
+import Game.GameRoom;
 import DTO.Response.GameRoom.ChatResponse;
 import Database.Manager.GameRoomManager;
 import Listener.ServerListener;

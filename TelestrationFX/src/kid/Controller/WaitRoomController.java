@@ -1,11 +1,11 @@
 package kid.Controller;
 
 import DTO.Request.Room.CreateRoomRequest;
-import DTO.Request.Room.GameRoom;
 import DTO.Request.Room.JoinRoomRequest;
 import DTO.Request.Room.RoomListRequest;
 import DTO.Response.Room.RoomListResponse;
 import DTO.Response.Room.RoomResponse;
+import Game.GameRoom;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
@@ -41,10 +41,16 @@ public class WaitRoomController
     private Label exp;
 
     @FXML
+    private Label time;
+
+    @FXML
     private JFXTextField title;
 
     @FXML
     private JFXTextField limit;
+
+    @FXML
+    private JFXTextField timeout;
 
     @FXML
     private JFXButton creation;
@@ -102,8 +108,13 @@ public class WaitRoomController
                 int level = Integer.parseInt(limit.getText());
                 limit.clear();
 
+                int time = Integer.parseInt(timeout.getText());
+                time = Math.max(time, 30);
+                timeout.clear();
+
                 CreateRoomRequest request = new CreateRoomRequest(ID, TITLE);
                 request.setLimit(level);
+                request.setTimeout(time);
 
                 client.send(request);
 

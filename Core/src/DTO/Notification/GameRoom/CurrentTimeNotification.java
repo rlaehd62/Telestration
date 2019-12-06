@@ -22,6 +22,16 @@ public class CurrentTimeNotification extends GamePacket
         this.MAX_SECOND = S;
     }
 
+    public int getCurrentSeconds()
+    {
+        return minute * 60 + second;
+    }
+
+    public int getMaxSeconds()
+    {
+        return MAX_MINUTE * 60 + MAX_SECOND;
+    }
+
     public String toString()
     {
         return String.format("%d : %d", minute, second);
