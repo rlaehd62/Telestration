@@ -1,15 +1,18 @@
 package kid.Controller;
 
 import DTO.Notification.GameRoom.RewardNotification;
+import DTO.Request.GameRoom.ReportRequest;
 import Game.RoundSet;
 import Game.SketchBookSet;
 import Util.SketchBook;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,14 +20,14 @@ import javafx.scene.control.Label;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
+import kid.GameData.RoomInfo;
+import kid.Network.Client;
 import kid.TelestrationFX.MainFX;
 import kid.TelestrationFX.ScreenManager;
 
+import javax.swing.*;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class ResultController
 {
@@ -59,6 +62,9 @@ public class ResultController
     @FXML
     private JFXButton goback;
 
+    @FXML
+    private JFXButton report;
+
     private static ResultController con;
     private ScreenManager sm;
     private RewardNotification notification;
@@ -87,6 +93,7 @@ public class ResultController
             owner.setText("");
             word.setText("");
             round.setText("");
+            report.setDisable(false);
 
             // TODO: 결과 화면 테스트를 위한 코드 추후 보강하기 (실용적으로)
             updateCanvas();
@@ -112,27 +119,29 @@ public class ResultController
     private void updateScores()
     {
         list.getChildren().clear();
-        Map<String, Integer> result = new HashMap<>();
-        notification.getUsers().forEach(result::put);
-        notification.getWords().forEach(result::put);
+        Map<String, Integer> users = notification.getUsers();
+        users.forEach((ID, VALUE) -> createResultItem("Layout/RESULT-ITEM.fxml", ID, VALUE));
 
-        result.forEach((name, exp) ->
+        Map<String, Integer> words = notification.getWords();
+        words.forEach((ID, VALUE) -> createResultItem("Layout/RESULT-ITEM.fxml", ID, VALUE));
+    }
+
+    private void createResultItem(String path, String name, int exp)
+    {
+        Platform.runLater(() ->
         {
-            Platform.runLater(() ->
-            {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Layout/RESULT-ITEM.fxml"));
-                ResultItemController co = new ResultItemController();
-                loader.setController(co);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+            ResultItemController co = new ResultItemController();
+            loader.setController(co);
 
-                Node node = null;
-                try
-                { node = loader.load(); }
-                catch (IOException e)
-                { e.printStackTrace(); }
+            Node node = null;
+            try
+            { node = loader.load(); }
+            catch (IOException e)
+            { e.printStackTrace(); }
 
-                list.getChildren().add(node);
-                co.setLabel(name, exp);
-            });
+            list.getChildren().add(node);
+            co.setLabel(name, exp);
         });
     }
 
@@ -215,5 +224,33 @@ public class ResultController
         RoundSet roundSet = notification.getRoundSet();
         roundSet.previous();
         updateCanvas();
+    }
+
+    @FXML
+    void reportUser(ActionEvent event)
+    {
+        Platform.runLater(() ->
+        {
+            VBox box = new VBox();
+            JFXPopup popup = new JFXPopup();
+
+            Arrays.stream(RoomInfo.getInstance().getUserList())
+                    .forEach(ID ->
+                    {
+                        JFXButton button = new JFXButton(ID);
+                        button.setPadding(new Insets(10));
+                        button.setOnAction(actionEvent ->
+                        {
+                            ReportRequest reportRequest = new ReportRequest(ID);
+                            Client.getInstance().send(reportRequest);
+                            report.setDisable(true);
+                        });
+                        box.getChildren().add(button);
+                    });
+
+            popup.setPopupContent(box);
+            popup.show(report, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
+        });
+
     }
 }

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1095.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kid.Controller.ResultController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="1095.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.191" fx:controller="kid.Controller.ResultController">
    <children>
       <Pane layoutX="95.0" layoutY="99.0" prefHeight="436.0" prefWidth="617.0" style="-fx-border-color: BLACK; -fx-background-color: WHITE; -fx-border-radius: 3;">
          <children>
@@ -94,6 +94,15 @@
             <ImageView fitHeight="33.0" fitWidth="38.0">
                <image>
                   <Image url="@../Image/return.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="report" contentDisplay="GRAPHIC_ONLY" graphicTextGap="2.0" layoutX="654.0" layoutY="537.0" onAction="#reportUser" prefHeight="46.0" prefWidth="46.0" ripplerFill="#e42222" text="신고" textAlignment="CENTER">
+         <graphic>
+            <ImageView fitHeight="46.0" fitWidth="42.0">
+               <image>
+                  <Image url="@../Image/siren.png" />
                </image>
             </ImageView>
          </graphic>

@@ -118,7 +118,7 @@ public class WaitRoomController
                 limit.clear();
 
                 int time = Integer.parseInt(timeout.getText());
-                time = Math.max(time, 30);
+                time = Math.max(time, 15);
                 timeout.clear();
 
                 CreateRoomRequest request = new CreateRoomRequest(ID, TITLE);

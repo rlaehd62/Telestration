@@ -50,9 +50,17 @@ public class ServerDB implements DataPresenter.DataModel
                             "WORD VARCHAR(50) PRIMARY KEY NOT NULL" +
                             ")";
 
+            String REPORT =
+                    "CREATE TABLE IF NOT EXISTS REPORT" +
+                            "(" +
+                            "IP VARCHAR(20) PRIMARY KEY NOT NULL, " +
+                            "CNT INTEGER NOT NULL DEFAULT 0" +
+                            ");";
+
             state.execute(ACCOUNT);
             state.execute(USERS);
             state.execute(WORD_POOL);
+            state.execute(REPORT);
             state.close();
         }
 

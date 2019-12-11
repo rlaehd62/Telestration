@@ -132,6 +132,13 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Controller\Layout" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Audio" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\TelestrationFX\Audio" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\TelestrationFX" />
+      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\TelestrationFX\Image" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
@@ -141,13 +148,6 @@
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Controller\Layout" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\TelestrationFX\Layout" />
       <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Controller" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Audio" />
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\TelestrationFX\Audio" />
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\TelestrationFX" />
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\TelestrationFX\Image" />
-      <recent name="C:\Users\KID\Desktop\Development\TelestrationFX\src\kid\Controller\Layout" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -376,7 +376,10 @@
       <workItem from="1575560770953" duration="88000" />
       <workItem from="1575561013823" duration="4945000" />
       <workItem from="1576068171854" duration="27000" />
-      <workItem from="1576070303386" duration="5679000" />
+      <workItem from="1576070303386" duration="5924000" />
+      <workItem from="1576077118489" duration="4179000" />
+      <workItem from="1576081804536" duration="233000" />
+      <workItem from="1576082156167" duration="103000" />
     </task>
     <servers />
   </component>

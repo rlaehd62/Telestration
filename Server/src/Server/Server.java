@@ -47,6 +47,7 @@ public class Server extends Thread implements ServerPresenter.ServerModel
         eventBus.register(new SendSketchBookListener());
         eventBus.register(new StartTimerListener());
         eventBus.register(new GameStartListener());
+        eventBus.register(new ReportListener());
     }
 
     public static Server getInstance()

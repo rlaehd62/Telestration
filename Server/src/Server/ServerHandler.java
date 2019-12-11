@@ -22,10 +22,9 @@ public class ServerHandler extends SimpleChannelInboundHandler<GamePacket>
     {
         System.out.println("뭐가 끊김");
         if(ChannelManager.getChannels().size() <= 0) return;
-        for(String key : ChannelManager.getChannels().keySet())
+        ChannelManager.getChannels().forEach((key, ct) ->
         {
             GameRoomManager gm = GameRoomManager.getInstance();
-            ChannelHandlerContext ct = ChannelManager.getChannels().get(key);
             if(ct.equals(ctx))
             {
                 gm.getRoomList()
@@ -40,7 +39,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<GamePacket>
                 System.out.println(key + "가 접속을 종료했습니다.");
                 ChannelManager.getChannels().remove(key);
             }
-        }
+        });
     }
 
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception
