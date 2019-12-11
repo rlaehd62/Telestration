@@ -9,10 +9,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.media.AudioClip;
 import kid.GameData.Account;
 import kid.Network.Client;
 
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class RoomController implements Initializable
@@ -37,6 +39,10 @@ public class RoomController implements Initializable
     {
         connect.setOnAction(actionEvent ->
         {
+            String link = Paths.get("src/kid/Audio/click.ogg").toUri().toString();
+            AudioClip bgm = new AudioClip(link);
+            bgm.play();
+
             String ID = Account.getInstance().getID();
             JoinRoomRequest request = new JoinRoomRequest(ID);
             request.setOwner(owner.getText());

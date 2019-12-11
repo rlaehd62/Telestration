@@ -30,6 +30,7 @@ import javafx.scene.media.MediaPlayer;
 import kid.GameData.Account;
 import kid.GameData.RoomInfo;
 import kid.Network.Client;
+import kid.TelestrationFX.MainFX;
 import kid.TelestrationFX.ScreenManager;
 
 import java.awt.image.BufferedImage;
@@ -183,6 +184,9 @@ public class TestController
     @FXML
     void start(ActionEvent event)
     {
+        AudioClip bgm = new AudioClip(MainFX.CLICK);
+        bgm.play();
+
         String ID = Account.getInstance().getID();
         client.send(new GameStartRequest(RoomInfo.getInstance().getOwner()));
         start.setVisible(false);
@@ -194,6 +198,9 @@ public class TestController
         System.out.println("감지됨");
         Platform.runLater(() ->
         {
+            AudioClip bgm = new AudioClip(MainFX.CLICK);
+            bgm.play();
+
             RoomInfo info = RoomInfo.getInstance();
             ScreenManager sm = ScreenManager.getInstance();
             WaitRoomController wc = WaitRoomController.getInstance();
@@ -212,6 +219,8 @@ public class TestController
     {
         Platform.runLater(() ->
         {
+            AudioClip bgm = new AudioClip(MainFX.SWITCH);
+            bgm.play();
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         });
     }
@@ -288,6 +297,9 @@ public class TestController
     {
         Platform.runLater(() ->
         {
+            AudioClip bgm = new AudioClip(MainFX.SWITCH);
+            bgm.play();
+
             if(gc == null) gc = canvas.getGraphicsContext2D();
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 

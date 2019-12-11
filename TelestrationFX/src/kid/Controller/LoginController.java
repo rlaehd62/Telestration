@@ -1,6 +1,7 @@
 package kid.Controller;
 
 import DTO.Request.Account.LoginRequest;
+import javafx.scene.media.AudioClip;
 import kid.Network.Client;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -8,6 +9,9 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import kid.TelestrationFX.MainFX;
+
+import java.nio.file.Paths;
 
 public class LoginController {
 
@@ -41,6 +45,9 @@ public class LoginController {
     {
         Platform.runLater(() ->
         {
+            AudioClip bgm = new AudioClip(MainFX.CLICK);
+            bgm.play();
+
             String ID = username.getText();
             String PW = password.getText();
             if(ID.contains(" ") || PW.contains(" ") || ID.equals("") || PW.equals("")) return;
@@ -55,6 +62,9 @@ public class LoginController {
     {
         Platform.runLater(() ->
         {
+            AudioClip bgm = new AudioClip(MainFX.CLICK);
+            bgm.play();
+
             String ID = username.getText();
             String PW = password.getText();
             if(!isValid()) return;

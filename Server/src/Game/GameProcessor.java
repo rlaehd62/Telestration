@@ -10,6 +10,8 @@ import io.netty.channel.ChannelHandlerContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public interface GameProcessor
 {
@@ -30,7 +32,6 @@ public interface GameProcessor
             SketchBook book = result.get(ID);
             if(index >= 0 && NEXT.equals(book.getOwner())) return true;
         }
-
         return false;
     }
 
@@ -53,12 +54,7 @@ public interface GameProcessor
     default void rewardSketchBooks(RewardNotification notification, GameRoom room,  List<History> histories)
     {
         System.out.println("< 로그 >");
-        histories.forEach(history ->
-        {
-            System.out.println(history.getRound());
-            System.out.println(history.getSketchbooks().size() + "개의 스케치북 존재");
-            notification.setSketchBooks(history.getRound(), new ArrayList<>(history.getSketchbooks().values()));
-        });
+        histories.forEach(history -> notification.setSketchBooks(history.getRound(), new ArrayList<>(history.getSketchbooks().values())));
 
         History LAST_ONE = histories.get(histories.size()-1);
         LAST_ONE.getSketchbooks()
@@ -69,7 +65,6 @@ public interface GameProcessor
 
                     boolean IS_VALID = REAL.replaceAll(" ", "").equals(CURR.replaceAll(" ", ""));
                     notification.setWord(REAL, IS_VALID ? 100 : 0);
-                    System.out.println(IS_VALID + " << " + CURR + " | " + REAL);
 
                     if(IS_VALID)
                     {
@@ -114,6 +109,47 @@ public interface GameProcessor
     default void levelUp(String[] users)
     {
         for(String ID : users) levelUp(ID);
+    }
+    default String nextPlayer(String ID, GameRoom room)
+    {
+        List<String> users = room.getUsers();
+        int index = users.indexOf(ID);
+        return users.get(((index + 1) % users.size()));
+    }
+
+    default void check(GameRoom room, History story, HashMap<String, SketchBook> result)
+    {
+        AtomicInteger count = new AtomicInteger();
+        result
+                .forEach((key, book) ->
+                {
+                    if(!book.isPainter())
+                    {
+                        String owner = book.getOwner();
+                        String real = room.getWord(owner).replaceAll(" ", "");
+                        String temp = book.getSecretWord().replaceAll(" ", "");
+
+                        if(temp.equals(real)) story.answer(count.incrementAndGet()).setAnswerCound(key, 1);
+                        else story.setAnswerCound(key, 0);
+                    }
+                });
+        room.pushHistory(story);
+    }
+
+    default void rewardRounds(boolean isOdd, RewardNotification notification, GameRoom room, List<History> histories)
+    {
+        histories.stream()
+                .filter(history -> history.getRound() > (isOdd ? 2 : 1))
+                .forEach(history ->
+                {
+                    Map<String, Integer> list = history.getAnswerCount();
+                    list.forEach((ID, COUNT) ->
+                    {
+                        addEXP(ID, COUNT * 15);
+                        levelUp(ID);
+                        notification.setUser(ID, notification.getUser(ID) + (COUNT * 15));
+                    });
+                });
     }
 
 }

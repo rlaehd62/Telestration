@@ -1,5 +1,7 @@
 package kid.TelestrationFX;
 
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.MediaPlayer;
 import kid.Network.Client;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -11,12 +13,19 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.Properties;
 
 public class MainFX extends Application
 {
     public static String IP;
     public static String PORT;
+
+    public static String BGM;
+    public static String CLICK;
+    public static String SWITCH;
 
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -42,6 +51,19 @@ public class MainFX extends Application
 
         primaryStage.centerOnScreen();
         primaryStage.show();
+
+        Class c = this.getClass();
+        String BASE = c.getResource("/kid/Audio/").toExternalForm();
+        System.out.println(BASE);
+
+        BGM = BASE + "BGM.wav";
+        CLICK = BASE + "click.wav";
+        SWITCH = BASE + "switch.wav";
+
+        AudioClip bgm = new AudioClip(BGM);
+        bgm.setCycleCount(MediaPlayer.INDEFINITE);
+        bgm.setVolume(0.5);
+        bgm.play();
     }
 
     public void stop() throws Exception

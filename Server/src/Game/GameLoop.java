@@ -1,12 +1,10 @@
 package Game;
 
 import DTO.Notification.GameRoom.CurrentTimeNotification;
-import DTO.Notification.GameRoom.GameInfoNotification;
 import DTO.Notification.GameRoom.SendSketchBookNotification;
 import Database.GameDB;
 import Database.Manager.GameRoomManager;
 import Server.ChannelManager;
-import Util.SketchBook;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -74,8 +72,6 @@ public class GameLoop extends TimerTask
         } else if(!isWaiting)
         {
             String[] users = room.getUsers().toArray(new String[1]);
-            System.out.println("GameLoop: " + round);
-
             CurrentTimeNotification noti = new CurrentTimeNotification(round.getCurrentSeconds() / 60, round.getCurrentSeconds() % 60);
             noti.setMax(round.getMaxSeconds() / 60, round.getMaxSeconds() % 60);
             ChannelManager.sendBroadCast(users, noti);
@@ -95,7 +91,6 @@ public class GameLoop extends TimerTask
                     temp.keySet().forEach(name -> GameDB.getInstance().log("결과", "[" + name + "] " + temp.get(name) + "회 정답!"));
 
                 });
-
     }
 
     private boolean isValid()

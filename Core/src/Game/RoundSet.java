@@ -1,8 +1,6 @@
 package Game;
 
 import DTO.Response.GamePacketResponse;
-import Util.SketchBook;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,5 +33,10 @@ public class RoundSet implements GamePacketResponse
     public void previous()
     {
         pointer = Math.max(--pointer, 0);
+    }
+
+    public int round()
+    {
+        return pointer+1;
     }
 }

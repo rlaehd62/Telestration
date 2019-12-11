@@ -9,6 +9,7 @@ import Game.GameRoom;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import kid.GameData.Account;
 import kid.GameData.User;
 import kid.Network.Client;
@@ -24,7 +25,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import kid.TelestrationFX.MainFX;
 
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 
@@ -84,6 +87,9 @@ public class WaitRoomController
     {
         Platform.runLater(() ->
         {
+            AudioClip bgm = new AudioClip(MainFX.SWITCH);
+            bgm.play();
+
             username.setText(Account.getInstance().getID());
             level.setText("Lv." + User.getInstance().level());
             exp.setText(String.format("EXP (%d / %d)", User.getInstance().exp(), User.getInstance().maxExp()));
@@ -101,6 +107,9 @@ public class WaitRoomController
         {
             try
             {
+                AudioClip bgm = new AudioClip(MainFX.CLICK);
+                bgm.play();
+
                 String ID = Account.getInstance().getID();
                 String TITLE = title.getText();
                 title.clear();

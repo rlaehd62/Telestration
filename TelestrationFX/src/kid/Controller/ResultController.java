@@ -16,6 +16,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
+import kid.TelestrationFX.MainFX;
 import kid.TelestrationFX.ScreenManager;
 
 import java.io.IOException;
@@ -145,7 +147,7 @@ public class ResultController
 
             owner.setText(sketchBook.getOwner());
             word.setText(sketchBook.getSecretWord());
-            round.setText("0 ROUND");
+            round.setText(roundSet.round() + " ROUND");
 
             WritableImage snapshot = SwingFXUtils.toFXImage(sketchBook.toImage(), null);
             gc.drawImage(snapshot, 0, 0, canvas.getWidth(), canvas.getHeight());
@@ -164,12 +166,17 @@ public class ResultController
     @FXML
     void goback(ActionEvent event)
     {
+        AudioClip bgm = new AudioClip(MainFX.CLICK);
+        bgm.play();
         sm.activate("Test");
     }
 
     @FXML
     void nextOwner(ActionEvent event)
     {
+        AudioClip bgm = new AudioClip(MainFX.CLICK);
+        bgm.play();
+
         RoundSet roundSet = notification.getRoundSet();
         SketchBookSet set = roundSet.current();
         set.next();
@@ -179,6 +186,9 @@ public class ResultController
     @FXML
     void nextRound(ActionEvent event)
     {
+        AudioClip bgm = new AudioClip(MainFX.CLICK);
+        bgm.play();
+
         RoundSet roundSet = notification.getRoundSet();
         roundSet.next();
         updateCanvas();
@@ -187,6 +197,9 @@ public class ResultController
     @FXML
     void previousOwner(ActionEvent event)
     {
+        AudioClip bgm = new AudioClip(MainFX.CLICK);
+        bgm.play();
+
         RoundSet roundSet = notification.getRoundSet();
         SketchBookSet set = roundSet.current();
         set.previous();
@@ -196,6 +209,9 @@ public class ResultController
     @FXML
     void previousRound(ActionEvent event)
     {
+        AudioClip bgm = new AudioClip(MainFX.CLICK);
+        bgm.play();
+
         RoundSet roundSet = notification.getRoundSet();
         roundSet.previous();
         updateCanvas();
