@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.media.AudioClip;
 import kid.GameData.Account;
 import kid.Network.Client;
+import kid.TelestrationFX.MainFX;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -39,8 +40,7 @@ public class RoomController implements Initializable
     {
         connect.setOnAction(actionEvent ->
         {
-            String link = Paths.get("src/kid/Audio/click.ogg").toUri().toString();
-            AudioClip bgm = new AudioClip(link);
+            AudioClip bgm = new AudioClip(MainFX.CLICK);
             bgm.play();
 
             String ID = Account.getInstance().getID();
