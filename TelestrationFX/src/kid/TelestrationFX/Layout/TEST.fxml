@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kid.Controller.TestController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kid.Controller.TestController">
    <children>
       <HBox prefHeight="54.0" prefWidth="800.0" style="-fx-background-color: #B048C9;">
          <children>
@@ -52,7 +52,7 @@
          </children>
       </Pane>
       <VBox fx:id="userList" layoutX="8.0" layoutY="69.0" prefHeight="317.0" prefWidth="181.0" style="-fx-border-color: BLACK; -fx-border-radius: 3;" />
-      <JFXTextArea fx:id="chatArea" editable="false" focusColor="WHITE" layoutX="198.0" layoutY="393.0" prefHeight="165.0" prefWidth="595.0" style="-fx-border-color: BLACK; -fx-border-radius: 3;" unFocusColor="WHITE" wrapText="true" />
+      <JFXTextArea fx:id="chatArea" editable="false" focusColor="WHITE" layoutX="198.0" layoutY="392.0" prefHeight="165.0" prefWidth="595.0" style="-fx-border-color: BLACK; -fx-border-radius: 3;" unFocusColor="WHITE" wrapText="true" />
       <VBox layoutX="8.0" layoutY="393.0" prefHeight="165.0" prefWidth="181.0" style="-fx-border-color: BLACK; -fx-border-radius: 3;">
          <children>
             <Label text="색깔 선택">
@@ -96,7 +96,7 @@
          </font>
       </JFXButton>
       <JFXTextField fx:id="word" focusColor="WHITE" layoutX="652.0" layoutY="563.0" prefHeight="30.0" prefWidth="141.0" promptText="단어를 추측해보세요!" style="-fx-border-color: BLACK;" unFocusColor="WHITE" />
-      <JFXButton fx:id="start" layoutX="266.0" layoutY="451.0" onAction="#start" prefHeight="49.0" prefWidth="312.0" style="-fx-background-color: #48C9B0;" text="게임 시작" textFill="WHITE" visible="false" wrapText="true">
+      <JFXButton fx:id="start" layoutX="266.0" layoutY="330.0" onAction="#start" prefHeight="49.0" prefWidth="312.0" style="-fx-background-color: #48C9B0;" text="게임 시작" textFill="WHITE" visible="false" wrapText="true">
          <font>
             <Font name="NanumGothicBold" size="21.0" />
          </font>
