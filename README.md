@@ -13,6 +13,7 @@ JavaFX를 통해서 구현한 유명 게임 `텔레스트레이션`, Netty와 Go
 - 대기방 생성/삭제
 - 텔레스트레이션 기능 (그림 그리기, 단어 맞추기)
 - 실시간 채팅
+> 정보를 입력하고 회원가입 버튼을 누르면 계정이 추가되고 로그인이 된다.
 
 ## Stack
 > Java, JavaFX, SQLite, Netty, Google Guava
